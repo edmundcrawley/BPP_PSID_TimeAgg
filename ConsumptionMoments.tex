@@ -1,0 +1,105 @@
+% !TeX spellcheck = en_GB
+\documentclass[12pt,pdftex,letterpaper]{article}
+%            \usepackage{setspace}
+\usepackage[dvips,]{graphicx} %draft option suppresses graphics dvi display
+%            \usepackage{lscape}
+%            \usepackage{latexsym}
+%            \usepackage{endnotes}
+%            \usepackage{epsfig}
+%           \singlespace
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9in}
+\addtolength{\topmargin}{-\topmargin} 
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\addtolength{\headsep}{-\headsep}
+\addtolength{\topskip}{-\topskip}
+\addtolength{\headheight}{-\headheight}
+\setcounter{secnumdepth}{2}
+%            \renewcommand{\thesection}{\arabic{section}}
+% \renewcommand{\footnote}{\endnote}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{Assumption}
+\newcommand{\Prob}{\operatorname{Prob}}
+\clubpenalty 5000
+\widowpenalty 5000
+\renewcommand{\baselinestretch}{1.25}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bbm}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+
+\begin{document}
+
+\section{More General Consumption Processes}
+
+Edmund Crawley\\
+\today
+
+\section{Setup}
+Assume now that:
+\begin{align*}
+c_t dt = \int_{-\infty}^{t} f(t-s)dQ_s dt
+\end{align*}
+(this is a generalization of $f(t-s)=\phi$, the random walk case from BPP).
+
+We have
+\begin{align*}
+\Delta \bar{c}_T &= \int_{T-1}^{T} \int_{-\infty}^{t} f(t-s) dQ_s dt - \int_{T-2}^{T-1} \int_{-\infty}^{t} f(t-s) dQ_s dt \\
+&= \int_{T-1}^{T} \Big( \int_{-\infty}^{T-2} f(t-s)dQ_s + \int_{T-2}^{T-1} f(t-s)dQ_s + \int_{T-1}^{t} f(t-s)dQ_s \Big) dt \\
+& \qquad -  \int_{T-2}^{T-1} \Big( \int_{-\infty}^{T-2} f(t-s)dQ_s  + \int_{T-1}^{t} f(t-s)dQ_s \Big) dt \\
+&=  \int_{-\infty}^{T-2} \Big( \int_{T-1}^{T} f(t-s)dt -  \int_{T-2}^{T-1} f(t-s)dt  \Big) dQ_s \\
+& \qquad +  \int_{T-2}^{T-1} \Big(\int_{T-1}^{T}f(t-s)dt - \int_{s}^{T-1}f(t-s)dt  \Big) dQ_s \\
+& \qquad + \int_{T-1}^{T} \Big( \int_{s}^{T} f(t-s) dt \Big) dQ_s
+\end{align*}
+
+\section{Examples}
+\subsection{Example 1: Exponential Decay}
+The first example will assume exponential decay of consumption, with households eventually using up all their money
+\begin{align*}
+f(t-s) = \phi e^{-\phi(t-s)}
+\end{align*}
+This implies an annual MPC of
+\begin{align*}
+\text{MPC} &= \int_{0}^{1} \phi e^{-\phi t}dt \\
+&= \Big[ -e^{-\phi t} \Big]^1_0 \\
+&= 1-e^{-\phi} 
+\end{align*}
+Similarly quarterly MPC is $1-e^{-0.25\phi}$. We have:
+\begin{align*}
+\Delta \bar{c}_T &=   \int_{-\infty}^{T-2} \Big(e^{-\phi (T-s)}(e^{\phi}-1) -  e^{-\phi (T-1-s)}(e^{\phi}-1)  \Big) dQ_s \\
+& \qquad +  \int_{T-2}^{T-1} \Big(e^{-\phi (T-s)}(e^{\phi}-1) - 1+ e^{-\phi (T-1-s)} \Big) dQ_s \\
+& \qquad + \int_{T-1}^{T} \Big( 1-e^{-\phi (T-s)} \Big) dQ_s
+\end{align*}
+
+\begin{align*}
+\Delta \bar{c}_T &=   \int_{-\infty}^{T-2} \Big(-e^{-\phi (T-s)}(e^{\phi}-1)^2  \Big) dQ_s \\
+& \qquad +  \int_{T-2}^{T-1} \Big(e^{-\phi (T-s)}(2e^{\phi}-1) - 1 \Big) dQ_s \\
+& \qquad + \int_{T-1}^{T} \Big( 1-e^{-\phi (T-s)} \Big) dQ_s
+\end{align*}
+
+\subsection{Example 2: Splurge, then constant}
+This example has two parameters and will be identified by both $cov(\Delta \bar{c}_t,\Delta \bar{y}_{t+1})$ and $cov(\Delta \bar{c}_t,\Delta \bar{y}_{t-1})$. It is equivalent to an initial `splurge' followed by a fixed increase in consumption. It can be mapped to a model with durable expenditure where there is an initial large sum spent on durable goods. Formally:
+\begin{align*}
+f(t-s) = \psi_1 \delta_0(t-s) + \psi_2 \mathbbm{1}_{t-s>0}
+\end{align*}
+where $\delta_0$ is the dirac delta function.
+\begin{align*}
+\Delta \bar{c}_T &=  \psi_1 \Big( \int_{T-1}^{T} dQ_s- \int_{T-2}^{T-1}dQ_s \Big) \\
+& \qquad + \psi_2 \Big(\int_{T-2}^{T-1} (s-(T-2))dQ_s  + \int_{T-1}^{T} (T-s)dQ_s \Big)
+\end{align*}
+\begin{align*}
+\Delta \bar{c}_T &=   \int_{T-1}^{T} \big( \psi_1 +\psi_2 (T-s)\big) dQ_s \\
+& \qquad + \int_{T-2}^{T-1} \big(\psi_2  (s-(T-2)) -\psi_1 \big) dQ_s 
+\end{align*}
+
+\end{document}
+
+

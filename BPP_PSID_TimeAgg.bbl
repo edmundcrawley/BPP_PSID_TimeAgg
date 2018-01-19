@@ -1,0 +1,55 @@
+\providecommand{\noopsort}[1]{} \providecommand{\singleletter}[1]{#1}
+\ifx\undefined\BySame
+\newcommand{\BySame}{\leavevmode\rule[.5ex]{3em}{.5pt}\ }
+\fi
+\ifx\undefined\textsc
+\newcommand{\textsc}[1]{{\sc #1}}
+\newcommand{\emph}[1]{{\em #1\/}}
+\let\tmpsmall\small
+\renewcommand{\small}{\tmpsmall\sc}
+\fi
+\begin{thebibliography}{}
+
+\harvarditem[Altonji and Siow]{Altonji and Siow}{1987}{altonji_testing_1987}
+\textsc{Altonji, Joseph~G.,  {and} Aloysius Siow}  (1987): ``Testing the
+  {Response} of {Consumption} to {Income} {Changes} with ({Noisy}) {Panel}
+  {Data},'' \emph{The Quarterly Journal of Economics}, 102(2), 293--328.
+
+\harvarditem[Auclert]{Auclert}{2015}{auclert_monetary_2015}
+\textsc{Auclert, Adrien}  (2015): ``Monetary policy and the redistribution
+  channel,'' \emph{Unpublished manuscript}.
+
+\harvarditem[Blundell, Pistaferri, and Preston]{Blundell, Pistaferri, and
+  Preston}{2008}{blundell_consumption_2008}
+\textsc{Blundell, Richard, Luigi Pistaferri,  {and} Ian Preston}  (2008):
+  ``Consumption {Inequality} and {Partial} {Insurance},'' \emph{American
+  Economic Review}, 98(5), 1887--1921.
+
+\harvarditem[Hall and Mishkin]{Hall and Mishkin}{1982}{hall_sensitivity_1982}
+\textsc{Hall, Robert,  {and} Frederic Mishkin}  (1982): ``The {Sensitivity} of
+  {Consumption} to {Transitory} {Income}: {Estimates} from {Panel} {Data} on
+  {Households},'' \emph{Econometrica}, 50(2), 461--81.
+
+\harvarditem[Jappelli and Pistaferri]{Jappelli and
+  Pistaferri}{2010}{jappelli_consumption_2010}
+\textsc{Jappelli, Tullio,  {and} Luigi Pistaferri}  (2010): ``The {Consumption}
+  {Response} to {Income} {Changes},'' \emph{Annual Review of Economics}, 2(1),
+  479--506.
+
+\harvarditem[Kaplan and Violante]{Kaplan and Violante}{2010}{kaplan_how_2010}
+\textsc{Kaplan, Greg,  {and} Giovanni~L. Violante}  (2010): ``How {Much}
+  {Consumption} {Insurance} beyond {Self}-{Insurance}?,'' \emph{American
+  Economic Journal: Macroeconomics}, 2(4), 53--87.
+
+\harvarditem[Violante, Kaplan, and Weidner]{Violante, Kaplan, and
+  Weidner}{2014}{violante_wealthy_2014}
+\textsc{Violante, Gianluca, Greg Kaplan,  {and} Justin Weidner}  (2014): ``The
+  {Wealthy} {Hand}-to-{Mouth},'' 2014 {Meeting} {Paper} 192, Society for
+  Economic Dynamics.
+
+\harvarditem[Working]{Working}{1960}{working_note_1960}
+\textsc{Working, Holbrook}  (1960): ``Note on the {Correlation} of {First}
+  {Differences} of {Averages} in a {Random} {Chain},'' \emph{Econometrica},
+  28(4), 916--918.
+
+\end{thebibliography}
