@@ -4,7 +4,7 @@
 \begin{center}
 \newsavebox{\ReplicationTable}
 \resizebox{!}{.35\paperheight}{
-\begin{tabular}{cc|cc|cc|cc}
+\begin{tabular}{cccc|cc|cc}
 \toprule
 & &  \multicolumn{2}{c}{Whole Sample} &  \multicolumn{2}{c}{No College} &  \multicolumn{2}{c}{College}
 \\ \hline
@@ -62,7 +62,7 @@
 \\ (Variance unobs. slope heterog.) &     & (0.0041) & (0.0039) & (0.0080) & (0.0073) & (0.0040) & (0.0039)
 \\ \hline
  $\phi$ &     & 0.6427 &   0.4197 & 0.9471 &   0.6202 & 0.4159 &   0.3221
-\\ (Partial insurance perm. shock) &     & (0.0946) & 0.0686 & (0.1789) & 0.1250 & (0.0919) & 0.0800
+\\ (Partial insurance perm. shock) &     & (0.0946) & (0.0686) & (0.1789) & (0.1250) & (0.0919) & (0.0800)
 \\ $\psi$ &     & 0.0534 &   0.2160 & 0.0767 &   0.2560 & 0.0279 &   0.1415
 \\ (Partial insurance trans. shock) &     & (0.0435) & (0.0386) & (0.0601) & (0.0539) & (0.0551) & (0.0458)
 \\ \hline
@@ -70,6 +70,73 @@
  }
  \usebox{\ReplicationTable}
 \settowidth\TableWidth{\usebox{\ReplicationTable}} % Calculate width of table so notes will match
+\end{center}
+\end{table}
+\efloatseparator
+ 
+\begin{table}
+\caption{Minimum-Distance Partial Insurance and Variance Estimates}
+\label{table:ReplicationTable7}
+\begin{center}
+\newsavebox{\ReplicationTableSeven}
+\resizebox{0.7\paperwidth}{!}{
+\begin{tabular}{lcc|cc|cc}
+\toprule
+Consumption: & \multicolumn{2}{c}{Nondurable} & \multicolumn{2}{c}{Nondurable} & \multicolumn{2}{c}{Nondurable}
+\\ Income: & \multicolumn{2}{c}{net income} & \multicolumn{2}{c}{earnings only} & \multicolumn{2}{c}{male earnings}
+\\ Sample: & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{baseline}
+\\ \hline
+&  BPP & Time Agg.  & BPP & Time Agg. & BPP & Time Agg.
+\\ \hline
+ $\phi$ &      0.6427 &   0.4197 & 0.3096 &   0.1940 & 0.2240 &   0.1257
+\\ (Partial insurance perm. shock) &      (0.0946) & (0.0686) & (0.0574) & (0.0414) & (0.0493) & (0.0345)
+\\ $\psi$      &0.0534 &   0.2160 & 0.0634 &   0.1485 & 0.0502 &   0.1142
+\\ (Partial insurance trans. shock)     & (0.0435) & (0.0386) & (0.0309) & (0.0256) & (0.0294) & (0.0241)
+\\ \hline
+ \end{tabular}
+ }
+ \usebox{\ReplicationTableSeven}
+\settowidth\TableWidth{\usebox{\ReplicationTableSeven}} % Calculate width of table so notes will match
+\end{center}
+\end{table}
+\efloatseparator
+ 
+\begin{table}
+\caption{Minimum-Distance Partial Insurance and Variance Estimates}
+\label{table:ReplicationTable8}
+\begin{center}
+\newsavebox{\ReplicationTableEight}
+\resizebox{0.7\paperwidth}{!}{
+\begin{tabular}{lcc|cc|cc}
+\toprule
+Consumption: & \multicolumn{2}{c}{Nondurable} & \multicolumn{2}{c}{Nondurable} & \multicolumn{2}{c}{Nondurable}
+\\ Income: & \multicolumn{2}{c}{net income} & \multicolumn{2}{c}{excluding help} & \multicolumn{2}{c}{net income}
+\\ Sample: & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{low wealth}
+\\ \hline
+&  BPP & Time Agg.  & BPP & Time Agg. & BPP & Time Agg.
+\\ \hline
+ $\phi$ &      0.6427 &   0.4197 & 0.6217 &   0.4268 & 0.8481 &   1.0969
+\\ (Partial insurance perm. shock) &      (0.0946) & (0.0686) & (0.0896) & (0.0685) & (0.2846) & (0.3405)
+\\ $\psi$      &0.0534 &   0.2160 & 0.0500 &   0.2142 & 0.2879 &   0.4638
+\\ (Partial insurance trans. shock)     & (0.0435) & (0.0386) & (0.0434) & (0.0381) & (0.1143) & (0.0991)
+\\ \hline
+\\
+\toprule
+Consumption: & \multicolumn{2}{c}{Nondurable} & \multicolumn{2}{c}{Total} & \multicolumn{2}{c}{Nondurable}
+\\ Income: & \multicolumn{2}{c}{net income} & \multicolumn{2}{c}{net income} & \multicolumn{2}{c}{net income}
+\\ Sample: & \multicolumn{2}{c}{high wealth} & \multicolumn{2}{c}{low wealth} & \multicolumn{2}{c}{baseline+SEO}
+\\ \hline
+&  BPP & Time Agg.  & BPP & Time Agg. & BPP & Time Agg.
+\\ \hline
+ $\phi$ &      0.6261 &   0.3391 & 1.0338 &   1.3706 & 0.7658 &   0.5770
+\\ (Partial insurance perm. shock) &      (0.1002) & (0.0628) & (0.3516) & (0.4304) & (0.1031) & (0.0777)
+\\ $\psi$      &0.0109 &   0.1636 & 0.3684 &   0.5842 & 0.1211 &   0.2930
+\\ (Partial insurance trans. shock)     & (0.0414) & (0.0361) & (0.1465) & (0.1264) & (0.0354) & (0.0334)
+\\ \hline
+ \end{tabular}
+ }
+ \usebox{\ReplicationTableEight}
+\settowidth\TableWidth{\usebox{\ReplicationTableEight}} % Calculate width of table so notes will match
 \end{center}
 \end{table}
 \efloatseparator

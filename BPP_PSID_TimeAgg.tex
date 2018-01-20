@@ -211,7 +211,7 @@ Figure \ref{shockVariance} plots the implied shock variances through the 1980's 
 
 Notes on Figure \ref{shockVariance}:
 \begin{itemize}
-	\item The BPP numbers should match up with Figure 4 in their paper but don't. It would be great to understand where BPP get the numbers for their Figure 4 from. They say they are taking them from their Table 6, but that is not the case.
+	\item The BPP permanent numbers should match up with Figure 4 in their paper but don't. It would be great to understand where BPP get the numbers for their Figure 4 from. They say they are taking them from their Table 6, but that is not the case. (Similarly their Figure 6 should match the transitory shocks but doesn't)
 	\item The pattern of increasing permanent shocks is not really visible now. What has changed?
 	\item The transitory shocks look more or less the same with the two methods
 	\item The time aggregated method suffers from larger standard errors. The identification of each year's variance is less accurate, I think because each year merges with its neighbor in the time aggregated case. The years 1988 and 1989 are an extreme case of this where clearly the `truth' is closer to the average of the two. One possible solution is to limit the amount of variation in shock variance so that it can only change every two years.
@@ -223,6 +223,14 @@ Notes on Figure \ref{shockVariance}:
 	\includegraphics[width=1\textwidth]{Code/Figures/ShockVariances1980s.pdf}
 	\footnotesize Notes: BPP plots the variances from Table 6 of the original BPP paper. Time Agg. plots the equivalent variances corrected for the time aggregation problem.
 \end{figure}
+
+Figure \ref{table:ReplicationTable7} replicates Table 7 from the original BPP paper.
+
+\input Code/Tables/RepTable7.tex
+
+Figure \ref{table:ReplicationTable8} replicates Table 8 from the original BPP paper.
+
+\input Code/Tables/RepTable8.tex
 
 \processdelayedfloats
 

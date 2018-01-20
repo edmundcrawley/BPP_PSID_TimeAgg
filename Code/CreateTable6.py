@@ -6,6 +6,7 @@ import os
 sys.path.insert(0, os.path.abspath('../'))
 from create_moments import create_moment_vector
 from min_distance_replication import Parameter_estimation
+import matplotlib.pyplot as plt
 
 ###############################################################################
 #First create the empirical moments for whole sample
@@ -54,6 +55,8 @@ var_perm_TimeAgg_C, var_perm_se_TimeAgg_C, var_tran_TimeAgg_C, var_tran_se_TimeA
   = Parameter_estimation('TimeAgg', c_vector_C, omega_C, T, ma=1, taste=1, varying_ins=0) 
 ###############################################################################
  
+###############################################################################
+#Make Table6 Replication
 def mystr1(number):
     if not np.isnan(number):
         out = "{:.4f}".format(number)
@@ -116,3 +119,60 @@ output += "\end{table}  \n"
 with open('./Tables/RepTable6.tex','w') as f:
     f.write(output)
     f.close()
+###############################################################################
+#Create some graphs of Transitory and Permanent Shocks over time
+plt.figure(figsize=(12,5))
+plt.subplot(1, 2, 1)
+var_perm_BPP_graph = np.append(np.array(2*[var_perm_BPP[0]]), np.append(var_perm_BPP, np.array(2*[var_perm_BPP[-1]])))
+var_perm_se_BPP_graph = np.append(np.array(2*[var_perm_se_BPP[0]]), np.append(var_perm_se_BPP, np.array(2*[var_perm_se_BPP[-1]])))
+var_perm_TimeAgg_graph = np.append(np.array(2*[var_perm_TimeAgg[0]]), np.append(var_perm_TimeAgg, np.array(2*[var_perm_TimeAgg[-1]])))
+var_perm_se_TimeAgg_graph = np.append(np.array(2*[var_perm_se_TimeAgg[0]]), np.append(var_perm_se_TimeAgg, np.array(2*[var_perm_se_TimeAgg[-1]])))
+years = np.array(range(14))+1979
+plt.plot(years, var_perm_TimeAgg_graph, label='Time Agg.', color='r')
+plt.plot(years, var_perm_BPP_graph, label='BPP', color='c',linestyle='--')
+#plt.plot(years, var_perm_BPP_graph+1.96*var_perm_se_BPP_graph, color='r',linestyle='--')
+#plt.plot(years, var_perm_BPP_graph-1.96*var_perm_se_BPP_graph, color='r',linestyle='--')
+#plt.plot(years, var_perm_TimeAgg_graph+1.96*var_perm_se_TimeAgg_graph, color='c',linestyle='--')
+#plt.plot(years, var_perm_TimeAgg_graph-1.96*var_perm_se_TimeAgg_graph, color='c',linestyle='--')
+plt.ylim(0.0,0.06)
+plt.title("Variance of Permanent Shocks")
+plt.legend(loc='lower left',ncol=2)
+
+plt.subplot(1, 2, 2)
+var_tran_BPP_graph =  np.append(var_tran_BPP, np.array(2*[var_tran_BPP[-1]]))
+var_tran_se_BPP_graph = np.append(var_tran_se_BPP, np.array(2*[var_tran_se_BPP[-1]]))
+var_tran_TimeAgg_graph = np.append(var_tran_TimeAgg, np.array(2*[var_tran_TimeAgg[-1]]))
+var_tran_se_TimeAgg_graph = np.append(var_tran_se_TimeAgg, np.array(2*[var_tran_se_TimeAgg[-1]]))
+years = np.array(range(14))+1979
+plt.plot(years, var_tran_TimeAgg_graph, label='Time Agg.', color='r')
+plt.plot(years, var_tran_BPP_graph, label='BPP', color='c',linestyle='--')
+#plt.plot(years, var_tran_BPP_graph+1.96*var_tran_se_BPP_graph, color='r',linestyle='--')
+#plt.plot(years, var_tran_BPP_graph-1.96*var_tran_se_BPP_graph, color='r',linestyle='--')
+#plt.plot(years, var_tran_TimeAgg_graph+1.96*var_tran_se_TimeAgg_graph, color='c',linestyle='--')
+#plt.plot(years, var_tran_TimeAgg_graph-1.96*var_tran_se_TimeAgg_graph, color='c',linestyle='--')
+plt.ylim(0.0,0.06)
+plt.title("Variance of Transitory Shocks")
+#plt.legend(loc='lower left',ncol=2)
+
+plt.tight_layout()
+plt.savefig('./Figures/ShockVariances1980s.pdf')
+
+
+###############################################################################
+#Find parameter estimates for Tables 7 and 8
+input_files = ['\CohA_Table7Col2.csv','\CohA_Table7Col3.csv','\CohA_Table8Col2.csv','\CohA_Table8Col3.csv','\CohA_Table8Col4.csv','\CohA_Table8Col5.csv','\CohA_Table8Col6.csv']
+for i in range(2):
+    c_vector, omega, T = create_moment_vector(".\InputFiles"+input_files[i])
+    
+    #Next replicate BPP
+    var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
+     ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
+     var_c_error_se_BPP, teta_BPP, teta_se_BPP, varcsi_BPP, varcsi_se_BPP \
+      = Parameter_estimation('BPP', c_vector, omega, T, ma=1, taste=1, varying_ins=0) 
+     
+    #Then do time aggregated version
+    var_perm_TimeAgg, var_perm_se_TimeAgg, var_tran_TimeAgg, var_tran_se_TimeAgg, ins_perm_TimeAgg, \
+     ins_perm_se_TimeAgg, ins_tran_TimeAgg, ins_tran_se_TimeAgg, var_c_error_TimeAgg, \
+     var_c_error_se_TimeAgg, teta_TimeAgg, teta_se_TimeAgg, varcsi_TimeAgg, varcsi_se_TimeAgg \
+      = Parameter_estimation('TimeAgg', c_vector, omega, T, ma=1, taste=1, varying_ins=0) 
+###############################################################################
