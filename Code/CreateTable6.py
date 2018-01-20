@@ -73,7 +73,7 @@ output += "& &  \multicolumn{2}{c}{Whole Sample} &  \multicolumn{2}{c}{No Colleg
 output += "\\\\ \\hline  \n"
 output += "& & BPP & Time Agg.  & BPP & Time Agg. & BPP & Time Agg. \n"
 output += "\\\\ \\hline  \n"
-output += "\\\\ $\sigma^2_{P,T}$ & 1979-1981 & " +mystr1(var_perm_BPP[0])+    " &   "+mystr1(var_perm_TimeAgg[0])+ "& " +mystr1(var_perm_BPP_NC[0])+    " &   "+mystr1(var_perm_TimeAgg_NC[0])+ "& " +mystr1(var_perm_BPP_C[0])+    " &   "+mystr1(var_perm_TimeAgg_C[0])+ " \n"
+output += " $\sigma^2_{P,T}$ & 1979-1981 & " +mystr1(var_perm_BPP[0])+    " &   "+mystr1(var_perm_TimeAgg[0])+ "& " +mystr1(var_perm_BPP_NC[0])+    " &   "+mystr1(var_perm_TimeAgg_NC[0])+ "& " +mystr1(var_perm_BPP_C[0])+    " &   "+mystr1(var_perm_TimeAgg_C[0])+ " \n"
 output += "\\\\ (Variance perm. shock) &     & ("+mystr1(var_perm_se_BPP[0])+ ") & ("+mystr1(var_perm_se_TimeAgg[0])+ ") & ("+mystr1(var_perm_se_BPP_NC[0])+ ") & ("+mystr1(var_perm_se_TimeAgg_NC[0])+ ") & ("+mystr1(var_perm_se_BPP_C[0])+ ") & ("+mystr1(var_perm_se_TimeAgg_C[0])+ ") \n"
 for i in np.array(range(8))+1:
     output += "\\\\  & "+'{:d}'.format(1981+i)+" & " +mystr1(var_perm_BPP[i])+    " &   "+mystr1(var_perm_TimeAgg[i])+ " & " +mystr1(var_perm_BPP_NC[i])+    " &   "+mystr1(var_perm_TimeAgg_NC[i])+ " & " +mystr1(var_perm_BPP_C[i])+    " &   "+mystr1(var_perm_TimeAgg_C[i])+ " \n"
@@ -82,7 +82,7 @@ output += "\\\\  & 1990-92 & " +mystr1(var_perm_BPP[9])+    " &   "+mystr1(var_p
 output += "\\\\  &         & ("+mystr1(var_perm_se_BPP[9])+ ") & ("+mystr1(var_perm_se_TimeAgg[9])+ ") & ("+mystr1(var_perm_se_BPP_NC[9])+ ") & ("+mystr1(var_perm_se_TimeAgg_NC[9])+ ") & ("+mystr1(var_perm_se_BPP_C[9])+ ") & ("+mystr1(var_perm_se_TimeAgg_C[9])+ ") \n"
 
 output += "\\\\ \\hline  \n"
-output += "\\\\ $\sigma^2_{Q,T}$ & 1979      & " +mystr1(var_tran_BPP[0])+    " &   "+mystr1(var_tran_TimeAgg[0])+ " & " +mystr1(var_tran_BPP_NC[0])+    " &   "+mystr1(var_tran_TimeAgg_NC[0])+ " & " +mystr1(var_tran_BPP_C[0])+    " &   "+mystr1(var_tran_TimeAgg_C[0])+ " \n"
+output += " $\sigma^2_{Q,T}$ & 1979      & " +mystr1(var_tran_BPP[0])+    " &   "+mystr1(var_tran_TimeAgg[0])+ " & " +mystr1(var_tran_BPP_NC[0])+    " &   "+mystr1(var_tran_TimeAgg_NC[0])+ " & " +mystr1(var_tran_BPP_C[0])+    " &   "+mystr1(var_tran_TimeAgg_C[0])+ " \n"
 output += "\\\\ (Variance trans. shock) &     & ("+mystr1(var_tran_se_BPP[0])+ ") & ("+mystr1(var_tran_se_TimeAgg[0])+ ") & ("+mystr1(var_tran_se_BPP_NC[0])+ ") & ("+mystr1(var_tran_se_TimeAgg_NC[0])+ ") & ("+mystr1(var_tran_se_BPP_C[0])+ ") & ("+mystr1(var_tran_se_TimeAgg_C[0])+ ") \n"
 for i in np.array(range(10))+1:
     output += "\\\\  & "+'{:d}'.format(1979+i)+" & " +mystr1(var_tran_BPP[i])+    " &   "+mystr1(var_tran_TimeAgg[i])+ " & " +mystr1(var_tran_BPP_NC[i])+    " &   "+mystr1(var_tran_TimeAgg_NC[i])+ " & " +mystr1(var_tran_BPP_C[i])+    " &   "+mystr1(var_tran_TimeAgg_C[i])+ "\n"
@@ -91,18 +91,17 @@ output += "\\\\  & 1990-92 & " +mystr1(var_tran_BPP[11])+    " &   "+mystr1(var_
 output += "\\\\  &         & ("+mystr1(var_tran_se_BPP[11])+ ") & ("+mystr1(var_tran_se_TimeAgg[11])+ ") & ("+mystr1(var_tran_se_BPP_NC[11])+ ") & ("+mystr1(var_tran_se_TimeAgg_NC[11])+ ") & ("+mystr1(var_tran_se_BPP_C[11])+ ") & ("+mystr1(var_tran_se_TimeAgg_C[11])+ ") \n"
 output += "\\\\ \\hline  \n"
 
-output += "\\\\ $\\theta$ &     & " +mystr1(teta_BPP)+    " &   "+"N/A"+ " \n"
-output += "\\\\ (Serial correl. trans. shock) &     & ("+mystr1(teta_se_BPP)+ ") &  \n"
-output += "\\\\ $\sigma^2_{\\xi}$ &     & " +mystr1(varcsi_BPP)+    " &   "+mystr1(varcsi_TimeAgg)+ " \n"
-output += "\\\\ (Variance unobs. slope heterog.) &     & ("+mystr1(varcsi_se_BPP)+ ") & ("+mystr1(varcsi_se_TimeAgg)+ ") \n"
+output += " $\\theta$ &     & " +mystr1(teta_BPP)+    " &   "+"N/A"+ " & " +mystr1(teta_BPP_NC)+    " &   "+"N/A"+ " & " +mystr1(teta_BPP_C)+    " &   "+"N/A"+ " \n"
+output += "\\\\ (Serial correl. trans. shock) &     & ("+mystr1(teta_se_BPP)+ ") &  & ("+mystr1(teta_se_BPP_NC)+ ") &  & ("+mystr1(teta_se_BPP_C)+ ") &  \n"
+output += "\\\\ $\sigma^2_{\\xi}$ &     & " +mystr1(varcsi_BPP)+    " &   "+mystr1(varcsi_TimeAgg)+ " & " +mystr1(varcsi_BPP_NC)+    " &   "+mystr1(varcsi_TimeAgg_NC)+ " & " +mystr1(varcsi_BPP_C)+    " &   "+mystr1(varcsi_TimeAgg_C)+ " \n"
+output += "\\\\ (Variance unobs. slope heterog.) &     & ("+mystr1(varcsi_se_BPP)+ ") & ("+mystr1(varcsi_se_TimeAgg)+ ") & ("+mystr1(varcsi_se_BPP_NC)+ ") & ("+mystr1(varcsi_se_TimeAgg_NC)+ ") & ("+mystr1(varcsi_se_BPP_C)+ ") & ("+mystr1(varcsi_se_TimeAgg_C)+ ") \n"
 output += "\\\\ \\hline  \n"
 
-output += "\\\\ $\\phi$ &     & " +mystr1(ins_perm_BPP[0])+    " &   "+mystr1(ins_perm_TimeAgg[0])+ " \n"
-output += "\\\\ (Partial insurance perm. shock) &     & ("+mystr1(ins_perm_se_BPP[0])+ ") & "+mystr1(ins_perm_se_TimeAgg[0])+ " \n"
-output += "\\\\ $\\psi$ &     & " +mystr1(ins_tran_BPP[0])+    " &   "+mystr1(ins_tran_TimeAgg[0])+ " \n"
-output += "\\\\ (Partial insurance trans. shock) &     & ("+mystr1(ins_tran_se_BPP[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg[0])+ ") \n"
+output += " $\\phi$ &     & " +mystr1(ins_perm_BPP[0])+    " &   "+mystr1(ins_perm_TimeAgg[0])+ " & " +mystr1(ins_perm_BPP_NC[0])+    " &   "+mystr1(ins_perm_TimeAgg_NC[0])+ " & " +mystr1(ins_perm_BPP_C[0])+    " &   "+mystr1(ins_perm_TimeAgg_C[0])+ " \n"
+output += "\\\\ (Partial insurance perm. shock) &     & ("+mystr1(ins_perm_se_BPP[0])+ ") & "+mystr1(ins_perm_se_TimeAgg[0])+ " & ("+mystr1(ins_perm_se_BPP_NC[0])+ ") & "+mystr1(ins_perm_se_TimeAgg_NC[0])+ " & ("+mystr1(ins_perm_se_BPP_C[0])+ ") & "+mystr1(ins_perm_se_TimeAgg_C[0])+ " \n"
+output += "\\\\ $\\psi$ &     & " +mystr1(ins_tran_BPP[0])+    " &   "+mystr1(ins_tran_TimeAgg[0])+ " & " +mystr1(ins_tran_BPP_NC[0])+    " &   "+mystr1(ins_tran_TimeAgg_NC[0])+ " & " +mystr1(ins_tran_BPP_C[0])+    " &   "+mystr1(ins_tran_TimeAgg_C[0])+ " \n"
+output += "\\\\ (Partial insurance trans. shock) &     & ("+mystr1(ins_tran_se_BPP[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg[0])+ ") & ("+mystr1(ins_tran_se_BPP_NC[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg_NC[0])+ ") & ("+mystr1(ins_tran_se_BPP_C[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg_C[0])+ ") \n"
 output += "\\\\ \\hline  \n"
-
 
 output += " \end{tabular}   \n"
 output += " } \n "

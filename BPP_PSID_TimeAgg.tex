@@ -56,7 +56,7 @@ A Correction for Time Aggregation}
 %\maketitleWithForcedDate{July 1, 2010}
 
 \begin{abstract}
-  \opt{JournalFormatting}{\doublespacing} The extent to which households are able to insure themselves against shocks to their income plays a key role in business cycle dynamics. In an influential paper making use of the covariance structure in PSID data \cite{blundell_consumption_2008} (BPP) find almost full insurance against transitory shocks to income. This result diverges from the majority of the literature aimed at measuring the marginal propensity to consume that finds consumption responds sharply to transitory income shocks. In this paper I show that the discretization of time in the BPP model is far from a benign assumption. Allowing shocks to arrive in continuous time throughout each year changes the covariance structure of the model. I repeat the minimum distance estimation exercise matching moments from the equivalent continuous time model and find the pass through from income to consumption for transitory shocks increases from around 5\% to 25\%.
+  \opt{JournalFormatting}{\doublespacing} The extent to which households are able to insure themselves against shocks to their income plays a key role in business cycle dynamics. In an influential paper making use of the covariance structure in PSID data \cite{blundell_consumption_2008} (BPP) find almost full insurance against transitory shocks to income. This result diverges from the majority of the literature aimed at measuring the marginal propensity to consume that finds consumption responds sharply to transitory income shocks. In this paper I show that the discretization of time in the BPP model is far from a benign assumption. Allowing shocks to arrive in continuous time throughout each year changes the covariance structure of the model. I repeat the minimum distance estimation exercise matching moments from the equivalent continuous time model and find the pass through from income to consumption for transitory shocks increases from around 5\% to 22\%.
 \end{abstract}
 
 \begin{authorsinfo}
@@ -194,7 +194,35 @@ cov(\Delta c_T^*, \Delta \bar{y}_{S}) &= 0 \qquad \forall S,T \text{ such that }
 \end{align}
 For the baseline model I relax the assumption of stationarity and also add measurement error in consumption making exactly analogous assumptions to those in the original BPP paper. The full set of moments are calculated in appendix *********.
 \section{The Evidence}
+Table \ref{table:ReplicationTable} replicates the first 3 columns from Table 6 in the original BPP paper, comparing the BPP numbers with those I calculated using the time aggregated model covariance moments.
+
 \input Code/Tables/RepTable6.tex
+
+Notes on Table \ref{table:ReplicationTable}:
+\begin{itemize}
+	\item $\psi$ takes on much higher values in the time aggregated case
+	\item $\phi$ takes much lower values. Why is this? The theory says that time aggregation shouldn't make a difference for the permanent insurance estimate. Note that when I restrict to the stationary model the BPP estimate is much smaller (how could this be?)
+	\item College educated have significantly lower $\psi$ and $phi$ suggesting much more insurance
+	\item Note - the BPP estimates for the $\sigma^2_{Q,T}$ for the whole sample are transcribed wrong in the BPP paper (at least that is the only thing I can think to explain why my numbers don't match, everything else matches perfectly apart from $\sigma^2_{\xi}$ which is also off, but I match the standard errors...)
+	\item The fit of my model is significantly better than BPP - the objective function returns a number about 20\% lower using my model
+\end{itemize}
+
+Figure \ref{shockVariance} plots the implied shock variances through the 1980's using the original BPP method and the time aggregated model.
+
+Notes on Figure \ref{shockVariance}:
+\begin{itemize}
+	\item The BPP numbers should match up with Figure 4 in their paper but don't. It would be great to understand where BPP get the numbers for their Figure 4 from. They say they are taking them from their Table 6, but that is not the case.
+	\item The pattern of increasing permanent shocks is not really visible now. What has changed?
+	\item The transitory shocks look more or less the same with the two methods
+	\item The time aggregated method suffers from larger standard errors. The identification of each year's variance is less accurate, I think because each year merges with its neighbor in the time aggregated case. The years 1988 and 1989 are an extreme case of this where clearly the `truth' is closer to the average of the two. One possible solution is to limit the amount of variation in shock variance so that it can only change every two years.
+\end{itemize}
+
+\begin{figure}
+	\caption{Shock Variances in the 1980's}
+	\label{shockVariance}
+	\includegraphics[width=1\textwidth]{Code/Figures/ShockVariances1980s.pdf}
+	\footnotesize Notes: BPP plots the variances from Table 6 of the original BPP paper. Time Agg. plots the equivalent variances corrected for the time aggregation problem.
+\end{figure}
 
 \processdelayedfloats
 

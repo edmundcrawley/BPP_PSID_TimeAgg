@@ -352,7 +352,7 @@ def Parameter_estimation(model, c_vector, omega, T, ma=1, taste=1, varying_ins=0
     if ma==1:
         init_params[0] = 0.1   #teta, ma component of income process
     if taste:
-        init_params[ma] = 0.01  #varinace of taste shocks
+        init_params[ma] = 0.01  #variance of taste shocks
     init_params[ma+taste:ma+taste+perm_shk_params] = 0.03*np.ones(perm_shk_params)
     init_params[ma+taste+perm_shk_params:ma+taste+perm_shk_params+tran_shk_params] = 0.03*np.ones(tran_shk_params)
     init_params[ma+taste+perm_shk_params+tran_shk_params:ma+taste+perm_shk_params+tran_shk_params+perm_ins_params] = 1.0*np.ones(perm_ins_params)
