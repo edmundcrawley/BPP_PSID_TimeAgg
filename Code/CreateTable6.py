@@ -8,6 +8,9 @@ from create_moments import create_moment_vector
 from min_distance_replication import Parameter_estimation
 import matplotlib.pyplot as plt
 
+time_agg_taste = 1
+time_agg_ma = 1
+
 ###############################################################################
 #First create the empirical moments for whole sample
 c_vector, omega, T = create_moment_vector(".\InputFiles\CohA.csv")
@@ -22,7 +25,7 @@ var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
 var_perm_TimeAgg, var_perm_se_TimeAgg, var_tran_TimeAgg, var_tran_se_TimeAgg, ins_perm_TimeAgg, \
  ins_perm_se_TimeAgg, ins_tran_TimeAgg, ins_tran_se_TimeAgg, var_c_error_TimeAgg, \
  var_c_error_se_TimeAgg, teta_TimeAgg, teta_se_TimeAgg, varcsi_TimeAgg, varcsi_se_TimeAgg \
-  = Parameter_estimation('TimeAgg', c_vector, omega, T, ma=1, taste=1, varying_ins=0) 
+  = Parameter_estimation('TimeAgg', c_vector, omega, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0) 
 ###############################################################################
 #Empirical moments for non-college
 c_vector_NC, omega_NC, T = create_moment_vector(".\InputFiles\CohA_nocollege.csv")
@@ -37,7 +40,7 @@ var_perm_BPP_NC, var_perm_se_BPP_NC, var_tran_BPP_NC, var_tran_se_BPP_NC, ins_pe
 var_perm_TimeAgg_NC, var_perm_se_TimeAgg_NC, var_tran_TimeAgg_NC, var_tran_se_TimeAgg_NC, ins_perm_TimeAgg_NC, \
  ins_perm_se_TimeAgg_NC, ins_tran_TimeAgg_NC, ins_tran_se_TimeAgg_NC, var_c_error_TimeAgg_NC, \
  var_c_error_se_TimeAgg_NC, teta_TimeAgg_NC, teta_se_TimeAgg_NC, varcsi_TimeAgg_NC, varcsi_se_TimeAgg_NC \
-  = Parameter_estimation('TimeAgg', c_vector_NC, omega_NC, T, ma=1, taste=1, varying_ins=0) 
+  = Parameter_estimation('TimeAgg', c_vector_NC, omega_NC, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0) 
 ###############################################################################
 #Empirical moments for college graduates
 c_vector_C, omega_C, T = create_moment_vector(".\InputFiles\CohA_college.csv")
@@ -52,7 +55,7 @@ var_perm_BPP_C, var_perm_se_BPP_C, var_tran_BPP_C, var_tran_se_BPP_C, ins_perm_B
 var_perm_TimeAgg_C, var_perm_se_TimeAgg_C, var_tran_TimeAgg_C, var_tran_se_TimeAgg_C, ins_perm_TimeAgg_C, \
  ins_perm_se_TimeAgg_C, ins_tran_TimeAgg_C, ins_tran_se_TimeAgg_C, var_c_error_TimeAgg_C, \
  var_c_error_se_TimeAgg_C, teta_TimeAgg_C, teta_se_TimeAgg_C, varcsi_TimeAgg_C, varcsi_se_TimeAgg_C \
-  = Parameter_estimation('TimeAgg', c_vector_C, omega_C, T, ma=1, taste=1, varying_ins=0) 
+  = Parameter_estimation('TimeAgg', c_vector_C, omega_C, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0) 
 ###############################################################################
  
 ###############################################################################
@@ -70,7 +73,7 @@ output += "\label{table:ReplicationTable}  \n"
 output += "\\begin{center}  \n"
 output += "\\newsavebox{\ReplicationTable}  \n"
 output += "\\resizebox{!}{.35\paperheight}{  \n"
-output += "\\begin{tabular}{cc|cc|cc|cc}  \n"
+output += "\\begin{tabular}{cccc|cc|cc}  \n"
 output += "\\toprule  \n"
 output += "& &  \multicolumn{2}{c}{Whole Sample} &  \multicolumn{2}{c}{No College} &  \multicolumn{2}{c}{College}  \n"
 output += "\\\\ \\hline  \n"
@@ -101,7 +104,7 @@ output += "\\\\ (Variance unobs. slope heterog.) &     & ("+mystr1(varcsi_se_BPP
 output += "\\\\ \\hline  \n"
 
 output += " $\\phi$ &     & " +mystr1(ins_perm_BPP[0])+    " &   "+mystr1(ins_perm_TimeAgg[0])+ " & " +mystr1(ins_perm_BPP_NC[0])+    " &   "+mystr1(ins_perm_TimeAgg_NC[0])+ " & " +mystr1(ins_perm_BPP_C[0])+    " &   "+mystr1(ins_perm_TimeAgg_C[0])+ " \n"
-output += "\\\\ (Partial insurance perm. shock) &     & ("+mystr1(ins_perm_se_BPP[0])+ ") & "+mystr1(ins_perm_se_TimeAgg[0])+ " & ("+mystr1(ins_perm_se_BPP_NC[0])+ ") & "+mystr1(ins_perm_se_TimeAgg_NC[0])+ " & ("+mystr1(ins_perm_se_BPP_C[0])+ ") & "+mystr1(ins_perm_se_TimeAgg_C[0])+ " \n"
+output += "\\\\ (Partial insurance perm. shock) &     & ("+mystr1(ins_perm_se_BPP[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg[0])+ ") & ("+mystr1(ins_perm_se_BPP_NC[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg_NC[0])+ ") & ("+mystr1(ins_perm_se_BPP_C[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg_C[0])+ ") \n"
 output += "\\\\ $\\psi$ &     & " +mystr1(ins_tran_BPP[0])+    " &   "+mystr1(ins_tran_TimeAgg[0])+ " & " +mystr1(ins_tran_BPP_NC[0])+    " &   "+mystr1(ins_tran_TimeAgg_NC[0])+ " & " +mystr1(ins_tran_BPP_C[0])+    " &   "+mystr1(ins_tran_TimeAgg_C[0])+ " \n"
 output += "\\\\ (Partial insurance trans. shock) &     & ("+mystr1(ins_tran_se_BPP[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg[0])+ ") & ("+mystr1(ins_tran_se_BPP_NC[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg_NC[0])+ ") & ("+mystr1(ins_tran_se_BPP_C[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg_C[0])+ ") \n"
 output += "\\\\ \\hline  \n"
@@ -161,18 +164,110 @@ plt.savefig('./Figures/ShockVariances1980s.pdf')
 ###############################################################################
 #Find parameter estimates for Tables 7 and 8
 input_files = ['\CohA_Table7Col2.csv','\CohA_Table7Col3.csv','\CohA_Table8Col2.csv','\CohA_Table8Col3.csv','\CohA_Table8Col4.csv','\CohA_Table8Col5.csv','\CohA_Table8Col6.csv']
-for i in range(2):
+ins_perm_BPP_othertables = np.zeros((2,7))+np.nan
+ins_tran_BPP_othertables = np.zeros((2,7))+np.nan
+ins_perm_TimeAgg_othertables = np.zeros((2,7))+np.nan
+ins_tran_TimeAgg_othertables = np.zeros((2,7))+np.nan
+for i in range(7):
     c_vector, omega, T = create_moment_vector(".\InputFiles"+input_files[i])
     
     #Next replicate BPP
-    var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
-     ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
-     var_c_error_se_BPP, teta_BPP, teta_se_BPP, varcsi_BPP, varcsi_se_BPP \
+    a, b, c, d, ins_perm_BPP_othertables[0,i], \
+      ins_perm_BPP_othertables[1,i],  ins_tran_BPP_othertables[0,i],  ins_tran_BPP_othertables[1,i], e, \
+     f, g, h, ii, jj \
       = Parameter_estimation('BPP', c_vector, omega, T, ma=1, taste=1, varying_ins=0) 
      
     #Then do time aggregated version
-    var_perm_TimeAgg, var_perm_se_TimeAgg, var_tran_TimeAgg, var_tran_se_TimeAgg, ins_perm_TimeAgg, \
-     ins_perm_se_TimeAgg, ins_tran_TimeAgg, ins_tran_se_TimeAgg, var_c_error_TimeAgg, \
-     var_c_error_se_TimeAgg, teta_TimeAgg, teta_se_TimeAgg, varcsi_TimeAgg, varcsi_se_TimeAgg \
-      = Parameter_estimation('TimeAgg', c_vector, omega, T, ma=1, taste=1, varying_ins=0) 
+    a, b, c, d, ins_perm_TimeAgg_othertables[0,i], \
+     ins_perm_TimeAgg_othertables[1,i], ins_tran_TimeAgg_othertables[0,i], ins_tran_TimeAgg_othertables[1,i], e, \
+     f, g, h, ii, jj \
+      = Parameter_estimation('TimeAgg', c_vector, omega, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0) 
 ###############################################################################
+#Replicate table 7 
+output = "\\begin{table}  \n"
+output += "\caption{Minimum-Distance Partial Insurance and Variance Estimates}  \n"
+output += "\label{table:ReplicationTable7}  \n"
+output += "\\begin{center}  \n"
+output += "\\newsavebox{\ReplicationTableSeven}  \n"
+output += "\\resizebox{0.7\paperwidth}{!}{  \n"
+output += "\\begin{tabular}{lcc|cc|cc}  \n"
+output += "\\toprule  \n"
+output += "Consumption: & \multicolumn{2}{c}{Nondurable} & \multicolumn{2}{c}{Nondurable} & \multicolumn{2}{c}{Nondurable} \n"
+output += "\\\\ Income: & \multicolumn{2}{c}{net income} & \multicolumn{2}{c}{earnings only} & \multicolumn{2}{c}{male earnings} \n"
+output += "\\\\ Sample: & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{baseline} \n"
+output += "\\\\ \\hline  \n"
+output += "&  BPP & Time Agg.  & BPP & Time Agg. & BPP & Time Agg. \n"
+output += "\\\\ \\hline  \n"
+
+output += " $\\phi$ &      " +mystr1(ins_perm_BPP[0])+    " &   "+mystr1(ins_perm_TimeAgg[0])+ " & " +mystr1(ins_perm_BPP_othertables[0,0])+    " &   "+mystr1(ins_perm_TimeAgg_othertables[0,0])+ " & " +mystr1(ins_perm_BPP_othertables[0,1])+    " &   "+mystr1(ins_perm_TimeAgg_othertables[0,1])+ " \n"
+output += "\\\\ (Partial insurance perm. shock) &      ("+mystr1(ins_perm_se_BPP[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg[0])+ ") & ("+mystr1(ins_perm_BPP_othertables[1,0])+ ") & ("+mystr1(ins_perm_TimeAgg_othertables[1,0])+ ") & ("+mystr1(ins_perm_BPP_othertables[1,1])+ ") & ("+mystr1(ins_perm_TimeAgg_othertables[1,1])+ ") \n"
+output += "\\\\ $\\psi$      &" +mystr1(ins_tran_BPP[0])+    " &   "+mystr1(ins_tran_TimeAgg[0])+ " & " +mystr1(ins_tran_BPP_othertables[0,0])+    " &   "+mystr1(ins_tran_TimeAgg_othertables[0,0])+ " & " +mystr1(ins_tran_BPP_othertables[0,1])+    " &   "+mystr1(ins_tran_TimeAgg_othertables[0,1])+ " \n"
+output += "\\\\ (Partial insurance trans. shock)     & ("+mystr1(ins_tran_se_BPP[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg[0])+ ") & ("+mystr1(ins_tran_BPP_othertables[1,0])+ ") & ("+mystr1(ins_tran_TimeAgg_othertables[1,0])+ ") & ("+mystr1(ins_tran_BPP_othertables[1,1])+ ") & ("+mystr1(ins_tran_TimeAgg_othertables[1,1])+ ") \n"
+output += "\\\\ \\hline  \n"
+
+output += " \end{tabular}   \n"
+output += " } \n "
+output += "\usebox{\ReplicationTableSeven}  \n"
+output += "\settowidth\TableWidth{\usebox{\ReplicationTableSeven}} % Calculate width of table so notes will match  \n"
+#output += "\medskip\medskip \\vspace{0.0cm} \parbox{\TableWidth}{\small  \n"
+#output += "\\textbf{Notes}: The table reports the DWMD results of the parameters of interest. I also calculate time-varying measurement error in consumption (results not reported for brevity). Standard errors in parentheses.  \n"
+#output += "}  \n"
+output += "\end{center}  \n"
+output += "\end{table}  \n"
+
+with open('./Tables/RepTable7.tex','w') as f:
+    f.write(output)
+    f.close()
+    
+###############################################################################
+#Replicate table 8 
+output = "\\begin{table}  \n"
+output += "\caption{Minimum-Distance Partial Insurance and Variance Estimates}  \n"
+output += "\label{table:ReplicationTable8}  \n"
+output += "\\begin{center}  \n"
+output += "\\newsavebox{\ReplicationTableEight}  \n"
+output += "\\resizebox{0.7\paperwidth}{!}{  \n"
+output += "\\begin{tabular}{lcc|cc|cc}  \n"
+output += "\\toprule  \n"
+output += "Consumption: & \multicolumn{2}{c}{Nondurable} & \multicolumn{2}{c}{Nondurable} & \multicolumn{2}{c}{Nondurable} \n"
+output += "\\\\ Income: & \multicolumn{2}{c}{net income} & \multicolumn{2}{c}{excluding help} & \multicolumn{2}{c}{net income} \n"
+output += "\\\\ Sample: & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{low wealth} \n"
+output += "\\\\ \\hline  \n"
+output += "&  BPP & Time Agg.  & BPP & Time Agg. & BPP & Time Agg. \n"
+output += "\\\\ \\hline  \n"
+output += " $\\phi$ &      " +mystr1(ins_perm_BPP[0])+    " &   "+mystr1(ins_perm_TimeAgg[0])+ " & " +mystr1(ins_perm_BPP_othertables[0,2])+    " &   "+mystr1(ins_perm_TimeAgg_othertables[0,2])+ " & " +mystr1(ins_perm_BPP_othertables[0,3])+    " &   "+mystr1(ins_perm_TimeAgg_othertables[0,3])+ " \n"
+output += "\\\\ (Partial insurance perm. shock) &      ("+mystr1(ins_perm_se_BPP[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg[0])+ ") & ("+mystr1(ins_perm_BPP_othertables[1,2])+ ") & ("+mystr1(ins_perm_TimeAgg_othertables[1,2])+ ") & ("+mystr1(ins_perm_BPP_othertables[1,3])+ ") & ("+mystr1(ins_perm_TimeAgg_othertables[1,3])+ ") \n"
+output += "\\\\ $\\psi$      &" +mystr1(ins_tran_BPP[0])+    " &   "+mystr1(ins_tran_TimeAgg[0])+ " & " +mystr1(ins_tran_BPP_othertables[0,2])+    " &   "+mystr1(ins_tran_TimeAgg_othertables[0,2])+ " & " +mystr1(ins_tran_BPP_othertables[0,3])+    " &   "+mystr1(ins_tran_TimeAgg_othertables[0,3])+ " \n"
+output += "\\\\ (Partial insurance trans. shock)     & ("+mystr1(ins_tran_se_BPP[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg[0])+ ") & ("+mystr1(ins_tran_BPP_othertables[1,2])+ ") & ("+mystr1(ins_tran_TimeAgg_othertables[1,2])+ ") & ("+mystr1(ins_tran_BPP_othertables[1,3])+ ") & ("+mystr1(ins_tran_TimeAgg_othertables[1,3])+ ") \n"
+
+output += "\\\\ \\hline  \n"
+output += "\\\\  \n"
+
+output += "\\toprule  \n"
+output += "Consumption: & \multicolumn{2}{c}{Nondurable} & \multicolumn{2}{c}{Total} & \multicolumn{2}{c}{Nondurable} \n"
+output += "\\\\ Income: & \multicolumn{2}{c}{net income} & \multicolumn{2}{c}{net income} & \multicolumn{2}{c}{net income} \n"
+output += "\\\\ Sample: & \multicolumn{2}{c}{high wealth} & \multicolumn{2}{c}{low wealth} & \multicolumn{2}{c}{baseline+SEO} \n"
+output += "\\\\ \\hline  \n"
+output += "&  BPP & Time Agg.  & BPP & Time Agg. & BPP & Time Agg. \n"
+output += "\\\\ \\hline  \n"
+
+output += " $\\phi$ &      " +mystr1(ins_perm_BPP_othertables[0,4])+    " &   "+mystr1(ins_perm_TimeAgg_othertables[0,4])+ " & " +mystr1(ins_perm_BPP_othertables[0,5])+    " &   "+mystr1(ins_perm_TimeAgg_othertables[0,5])+ " & " +mystr1(ins_perm_BPP_othertables[0,6])+    " &   "+mystr1(ins_perm_TimeAgg_othertables[0,6])+ " \n"
+output += "\\\\ (Partial insurance perm. shock) &      ("+mystr1(ins_perm_BPP_othertables[1,4])+ ") & ("+mystr1(ins_perm_TimeAgg_othertables[1,4])+") & ("+mystr1(ins_perm_BPP_othertables[1,5])+ ") & ("+mystr1(ins_perm_TimeAgg_othertables[1,5])+ ") & ("+mystr1(ins_perm_BPP_othertables[1,6])+ ") & ("+mystr1(ins_perm_TimeAgg_othertables[1,6])+ ") \n"
+output += "\\\\ $\\psi$      &"  +mystr1(ins_tran_BPP_othertables[0,4])+    " &   "+mystr1(ins_tran_TimeAgg_othertables[0,4])+ " & " +mystr1(ins_tran_BPP_othertables[0,5])+    " &   "+mystr1(ins_tran_TimeAgg_othertables[0,5])+ " & " +mystr1(ins_tran_BPP_othertables[0,6])+    " &   "+mystr1(ins_tran_TimeAgg_othertables[0,6])+ " \n"
+output += "\\\\ (Partial insurance trans. shock)     & ("+mystr1(ins_tran_BPP_othertables[1,4])+ ") & ("+mystr1(ins_tran_TimeAgg_othertables[1,4])+ ") & ("+mystr1(ins_tran_BPP_othertables[1,5])+ ") & ("+mystr1(ins_tran_TimeAgg_othertables[1,5])+ ") & ("+mystr1(ins_tran_BPP_othertables[1,6])+ ") & ("+mystr1(ins_tran_TimeAgg_othertables[1,6])+ ") \n"
+output += "\\\\ \\hline  \n"
+
+output += " \end{tabular}   \n"
+
+output += " } \n "
+output += "\usebox{\ReplicationTableEight}  \n"
+output += "\settowidth\TableWidth{\usebox{\ReplicationTableEight}} % Calculate width of table so notes will match  \n"
+#output += "\medskip\medskip \\vspace{0.0cm} \parbox{\TableWidth}{\small  \n"
+#output += "\\textbf{Notes}: The table reports the DWMD results of the parameters of interest. I also calculate time-varying measurement error in consumption (results not reported for brevity). Standard errors in parentheses.  \n"
+#output += "}  \n"
+output += "\end{center}  \n"
+output += "\end{table}  \n"
+
+with open('./Tables/RepTable8.tex','w') as f:
+    f.write(output)
+    f.close()

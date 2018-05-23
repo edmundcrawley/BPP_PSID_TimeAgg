@@ -1,0 +1,59 @@
+\section{Persistence in Transitory Shock}
+To introduce persistence in the transitory shock
+ \begin{align*}
+ y_t dt &= \Big(\int_{0}^{t} dP_s \Big) dt +\Big(\int_{t-\tau}^{t} \frac{1}{\tau} dQ_s \Big)dt
+ \end{align*}
+So that the observable change in income is given by:
+\begin{align}
+\Delta \bar{y}_T &= \int_{T-1}^{T} y_t dt - \int_{T-2}^{T-1} y_t dt \nonumber \\ 
+&= \int_{T-1}^{T} \int_{0}^{t}dP_s dt -\int_{T-2}^{T-1} \int_{0}^{t}dP_s dt \nonumber \\
+& \qquad +  \int_{T-1}^{T} \int_{t-\tau}^{t} \frac{1}{\tau} dQ_s dt -\int_{T-2}^{T-1}\int_{t-\tau}^{t} \frac{1}{\tau} dQ_s dt \nonumber \\
+&= \Big(\int_{T-2}^{T-1} (s-(T-2))dP_s  + \int_{T-1}^{T} (T-s)dP_s \Big) \nonumber \\
+& \qquad +\frac{1}{\tau} \Big(\int_{T-\tau}^{T} (T-s)dQ_s \qquad +\int_{T-1}^{T-\tau} \tau dQ_s \qquad +\int_{T-1-\tau}^{T-1} (s-(T-1-\tau)) dQ_s \Big) \\
+& \qquad -\frac{1}{\tau} \Big(\int_{T-1-\tau}^{T-1} (T-1-s)dQ_s +\int_{T-2}^{T-1-\tau} \tau dQ_s +\int_{T-2-\tau}^{T-2} (s-(T-2-\tau)) dQ_s \Big) \nonumber \\
+&= \Big(\int_{T-2}^{T-1} (s-(T-2))dP_s  + \int_{T-1}^{T} (T-s)dP_s \Big) \nonumber \\
+& \qquad +\frac{1}{\tau} \Big(\int_{T-\tau}^{T} (T-s)dQ_s +\int_{T-1}^{T-\tau} \tau dQ_s\Big) \nonumber\\
+& \qquad \qquad +\frac{1}{\tau}\int_{T-1-\tau}^{T-1} (\tau - 2(s-(T-1-\tau)) dQ_s  \nonumber\\
+& \qquad -\frac{1}{\tau} \Big(\int_{T-2}^{T-1-\tau} \tau dQ_s +\int_{T-2-\tau}^{T-2} (s-(T-2-\tau)) dQ_s \Big)
+\end{align}
+The full set of moments for this model are:
+\begin{align}
+var(\Delta \bar{y}_T) &= \mathbb{E} \Big(\int_{T-2}^{T-1} (s-(T-2))^2 dP_s dP_s  + \int_{T-1}^{T} (T-s)^2 dP_s dP_s \Big) \nonumber \\
+& \qquad +\frac{1}{\tau^2} \mathbb{E}\Big(\int_{T-\tau}^{T} (T-s)^2dQ_sdQ_s +\int_{T-1}^{T-\tau} \tau^2 dQ_sdQ_s \Big) \nonumber \\
+& \qquad \qquad +\frac{1}{\tau^2}\int_{T-1-\tau}^{T-1} (\tau - 2(s-(T-1-\tau))^2 dQ_s dQ_s  \nonumber\\
+& \qquad +\frac{1}{\tau^2} \mathbb{E} \Big(\int_{T-2}^{T-1-\tau} \tau^2 dQ_sdQ_s +\int_{T-2-\tau}^{T-2} (s-(T-2-\tau))^2 dQ_sdQ_s \Big) \nonumber \\
+&= \frac{1}{3} \sigma^2_{P,T} + \frac{1}{3} \sigma^2_{P,T-1} \nonumber \\
+& \qquad +\frac{1}{3}\tau \sigma^2_{Q,T} + (1-\tau) \sigma^2_{Q,T} \nonumber \\
+& \qquad \qquad +\frac{1}{3}\tau \sigma^2_{Q,T-1} \nonumber \\
+& \qquad +(1-\tau) \sigma^2_{Q,T-1} + \frac{1}{3}\tau \sigma^2_{Q,T-2}
+\end{align}
+\begin{align}
+cov(\Delta \bar{y}_T, \Delta \bar{y}_{T+1}) &=  \mathbb{E} \Big(\int_{T-1}^{T} (T-s)(s-(T-1)) dP_s dP_s  \Big) \nonumber \\
+&  \qquad +\mathbb{E} \Big(\frac{1}{\tau^2}\int_{T-\tau}^{T} (\tau - 2(s-(T-\tau))(T-s)  dQ_s dQ_s  \Big)\nonumber\\
+& \qquad -\mathbb{E} \Big(\frac{1}{\tau^2}\int_{T-2}^{T-1-\tau} \tau^2 dQ_s dQ_s \Big)\nonumber \\
+& \qquad -\mathbb{E} \Big(\frac{1}{\tau^2} \int_{T-1-\tau}^{T-1} (\tau - 2(s-(T-1-\tau))) (s-(T-1-\tau))dQ_sdQ_s \Big) \nonumber \\
+&= \frac{1}{6}\sigma^2_{P,T} +\frac{1}{6}\tau\sigma^2_{Q,T} - (1-\tau)\sigma^2_{Q,T-1} -\frac{1}{6}\tau\sigma^2_{Q,T-1}
+\end{align}
+\begin{align}
+cov(\Delta \bar{y}_T, \Delta \bar{y}_{T+2}) &=  -\mathbb{E} \Big(\frac{1}{\tau^2}\int_{T-\tau}^{T} (T-s)(s-(T-\tau)) dQ_s dQ_s  \Big) \nonumber \\
+&= -\frac{1}{6}\tau \sigma^2_{Q,T}
+\end{align}
+The above equations also work for $cov(\Delta \bar{y}_T, \Delta \bar{y}_{T-1})$ and $cov(\Delta \bar{y}_T, \Delta \bar{y}_{T-2})$ due to symmetry.
+\begin{align}
+cov(\Delta \bar{y}_T, \Delta \bar{y}_{S}) &= 0 \qquad \forall S,T \text{ such that }|S-T| >2 
+\end{align}
+The covariance matrix $cov(\Delta c^*_T, \Delta c^*_{S})$ is the same as before.
+\begin{align}
+cov(\Delta c_T^*, \Delta \bar{y}_T) &= \phi_T \mathbb{E} \Big(  \int_{T-1}^{T} (T-s) dP_s dP_s \Big) \nonumber \\
+& \qquad + \psi_T \mathbb{E}\Big(\frac{1}{\tau}\int_{T-\tau}^{T} (T-s)dQ_s dQ_s +\frac{1}{\tau}\int_{T-1}^{T-\tau} \tau dQ_s dQ_s \Big) \nonumber \\
+&= \frac{1}{2} \phi_T \sigma^2_{P,T} + \psi_T \sigma^2_{Q,T} (1-\frac{1}{2}\tau )
+\end{align}
+\begin{align}
+cov(\Delta c_T^*, \Delta \bar{y}_{T+1}) &=  \phi_T \mathbb{E} \Big(  \int_{T-1}^{T} (s-(T-1)) dP_s dP_s \Big) \nonumber \\
+&  \psi_T \mathbb{E} \Big(  \frac{1}{\tau} \int_{T-\tau}^{T} (\tau - 2(s-(T-\tau)))dQ_s dQ_s -\frac{1}{\tau} \int_{T-1}^{T-\tau} \tau dQ_s dQ_s \Big) \nonumber \\
+&= \frac{1}{2} \phi_T \sigma^2_{P,T} - (1-\tau) \psi_T \sigma^2_{Q,T}
+\end{align}
+\begin{align}
+cov(\Delta c_T^*, \Delta \bar{y}_{T+2}) &=  -\psi_T \mathbb{E} \Big(  \frac{1}{\tau} \int_{T-\tau}^{T} (s-(T-\tau)) dQ_s dQ_s\Big) \nonumber \\
+&= -\psi_T  \frac{1}{2}\tau \sigma^2_{Q,T}
+\end{align}

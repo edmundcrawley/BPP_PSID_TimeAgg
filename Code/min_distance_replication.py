@@ -284,6 +284,147 @@ def implied_cov_TimeAgg(params, ma, taste, varying_ins, T, perm_shk_params, tran
     return fm
 
 
+def implied_cov_TimeAgg2(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params):
+    if ma==1:
+        tau = params[0] 
+    else:
+        tau = 0
+    if taste ==1:
+        var_taste = params[ma] 
+    else:
+        var_taste = 0.0
+    var_perm = params[ma+taste:ma+taste+perm_shk_params] 
+    var_tran = params[ma+taste+perm_shk_params:ma+taste+perm_shk_params+tran_shk_params] 
+    ins_perm = params[ma+taste+perm_shk_params+tran_shk_params:ma+taste+perm_shk_params+tran_shk_params+1] 
+    ins_tran = params[ma+taste+perm_shk_params+tran_shk_params+1:ma+taste+perm_shk_params+tran_shk_params+2] 
+    var_c_error = params[ma+taste+perm_shk_params+tran_shk_params+2:ma+taste+perm_shk_params+tran_shk_params+2+meas_error_params] 
+
+    dify  =np.zeros((T,T)) #/* Income */
+    difcd =np.zeros((T,T)) #/* Consumption */
+    difc  =np.zeros((T,T)) #/* Consumption */
+    difcme=np.zeros((T,T)) #/* Measurement error of consumption */
+    difyc =np.zeros((T,T)) #/* Cov Income Consumption */
+    dif   =np.zeros((2*T,2*T))
+    
+    ##########################################
+    #/* This is the variance of Income */
+    dify[0,0]=2.0/3.0*var_perm[0]+  (1.0/3.0*tau +1.0-tau)*var_tran[0] + (1.0/3.0*tau +1.0-tau)*var_tran[0]  +(1.0/3.0*tau)*var_tran[0]   
+    dify[1,1]=2.0/3.0*var_perm[0]+  (1.0/3.0*tau +1.0-tau)*var_tran[1] + (1.0/3.0*tau +1.0-tau)*var_tran[0]  +(1.0/3.0*tau)*var_tran[0]  
+    dify[2,2]=2.0/3.0*var_perm[0]+  (1.0/3.0*tau +1.0-tau)*var_tran[2] + (1.0/3.0*tau +1.0-tau)*var_tran[1]  +(1.0/3.0*tau)*var_tran[0]  
+    for j in np.array(range(T-6))+3:
+        dify[j,j]=1.0/3.0*var_perm[j-2]+1.0/3.0*var_perm[j-3]+  (1.0/3.0*tau +1.0-tau)*var_tran[j]   + (1.0/3.0*tau +1.0-tau)*var_tran[j-1]  +(1.0/3.0*tau)*var_tran[j-2]   
+    dify[T-3,T-3]=1.0/3.0*var_perm[T-5]+1.0/3.0*var_perm[T-6]+  (1.0/3.0*tau +1.0-tau)*var_tran[T-3] + (1.0/3.0*tau +1.0-tau)*var_tran[T-4]  +(1.0/3.0*tau)*var_tran[T-5]  
+    dify[T-2,T-2]=2.0/3.0*var_perm[T-5]+                        (1.0/3.0*tau +1.0-tau)*var_tran[T-3] + (1.0/3.0*tau +1.0-tau)*var_tran[T-3]  +(1.0/3.0*tau)*var_tran[T-4]  
+    dify[T-1,T-1]=2.0/3.0*var_perm[T-5]+                        (1.0/3.0*tau +1.0-tau)*var_tran[T-3] + (1.0/3.0*tau +1.0-tau)*var_tran[T-3]  +(1.0/3.0*tau)*var_tran[T-3]  
+    
+    dify[0,1]=1.0/6.0*var_perm[0] +(1.0/6.0*tau - (1-tau))*var_tran[0] - 1.0/6.0*tau*var_tran[0]
+    dify[1,2]=1.0/6.0*var_perm[0] +(1.0/6.0*tau - (1-tau))*var_tran[1] - 1.0/6.0*tau*var_tran[0]
+    dify[2,3]=1.0/6.0*var_perm[0] +(1.0/6.0*tau - (1-tau))*var_tran[2] - 1.0/6.0*tau*var_tran[1]
+    for j in np.array(range(T-5))+3:
+        dify[j-1,j]=1.0/6.0*var_perm[j-3]   +(1.0/6.0*tau - (1-tau))*var_tran[j-1] - 1.0/6.0*tau*var_tran[j-1]
+    dify[T-3,T-2]=1.0/6.0*var_perm[T-5]     +(1.0/6.0*tau - (1-tau))*var_tran[T-3] - 1.0/6.0*tau*var_tran[T-4]
+    dify[T-2,T-1]=1.0/6.0*var_perm[T-5]     +(1.0/6.0*tau - (1-tau))*var_tran[T-3] - 1.0/6.0*tau*var_tran[T-3]
+    
+    for j in np.array(range(T-2))+2:
+        dify[j-2,j]=-1.0/6.0*tau*var_tran[j-2]
+    
+    for i in np.array(range(T-1))+1:
+        for j in np.array(range(T-i)+i):
+            dify[j,i-1]=dify[i-1,j]
+            
+    ##########################################
+    #/* This is the variance of Consumption */
+    difcd[0,0]=ins_perm[0]**2*var_perm[0]+ins_tran[0]**2*var_tran[0]+var_taste
+    difcd[1,1]=ins_perm[0]**2*var_perm[0]+ins_tran[0]**2*var_tran[1]+var_taste
+    difcd[2,2]=ins_perm[0]**2*var_perm[0]+ins_tran[0]**2*var_tran[2]+var_taste
+    for j in [3,4,5]:
+        difcd[j,j]=ins_perm[0]**2*var_perm[j-2]+ins_tran[0]**2*var_tran[j]+var_taste
+
+    for j in np.array(range(T-9))+6:
+        difcd[j,j]=ins_perm[varying_ins]**2*var_perm[j-2]+ins_tran[varying_ins]**2*var_tran[j]+var_taste
+
+    difcd[T-3,T-3]=ins_perm[varying_ins]**2*var_perm[T-5]+ins_tran[varying_ins]**2*var_tran[T-3]+var_taste
+    difcd[T-2,T-2]=ins_perm[varying_ins]**2*var_perm[T-5]+ins_tran[varying_ins]**2*var_tran[T-3]+var_taste
+    difcd[T-1,T-1]=ins_perm[varying_ins]**2*var_perm[T-5]+ins_tran[varying_ins]**2*var_tran[T-3]+var_taste
+
+    missing_v=(var_c_error[0]+var_c_error[1]+var_c_error[1]+var_c_error[2]+var_c_error[3]+var_c_error[4]+var_c_error[5]+var_c_error[6]+var_c_error[7]+var_c_error[8])/9.0
+    difcme[0,0]=2*var_c_error[0]
+    for j in np.array(range(6))+1:
+        difcme[j,j]=var_c_error[j]+var_c_error[j-1]
+
+    difcme[7,7]=var_c_error[6]+missing_v
+    for j in np.array(range(3))+8:
+        difcme[j,j]=2*missing_v
+
+    difcme[11,11]=var_c_error[7]+missing_v
+    difcme[12,12]=var_c_error[8]+var_c_error[7]
+    difcme[13,13]=2*var_c_error[8]
+    
+    
+    for j in np.array(range(7)):
+        difcme[j,j+1]=-var_c_error[j]
+    for j in np.array(range(3))+8:
+        difcme[j,j+1]=-missing_v
+
+    for j in [11,12]:
+        difcme[j,j+1]=-var_c_error[j-4]
+ 
+    difc=difcme+difcd
+    
+    for i in np.array(range(T-1))+1:
+        for j in np.array(range(T-i))+i:
+            difc[j,i-1]=difc[i-1,j]
+            
+    ##########################################
+    #/* This is the Covariance of Income and Consumption */
+    difyc[0,0]=1.0/2.0*ins_perm[0]*var_perm[0]+ins_tran[0]*var_tran[0]*(1.0-0.5*tau)
+    difyc[1,1]=1.0/2.0*ins_perm[0]*var_perm[0]+ins_tran[0]*var_tran[1]*(1.0-0.5*tau)
+    difyc[2,2]=1.0/2.0*ins_perm[0]*var_perm[0]+ins_tran[0]*var_tran[2]*(1.0-0.5*tau)
+
+    for j in [3,4,5]:
+        difyc[j,j]=1.0/2.0*ins_perm[0]*var_perm[j-2]+ins_tran[0]*var_tran[j]*(1.0-0.5*tau)
+
+    for j in np.array(range(T-9))+6:
+        difyc[j,j]=1.0/2.0*ins_perm[varying_ins]*var_perm[j-2]+ins_tran[varying_ins]*var_tran[j]*(1.0-0.5*tau)
+
+    difyc[T-3,T-3]=1.0/2.0*ins_perm[varying_ins]*var_perm[T-5]+ins_tran[varying_ins]*var_tran[T-3]*(1.0-0.5*tau)
+    difyc[T-2,T-2]=1.0/2.0*ins_perm[varying_ins]*var_perm[T-5]+ins_tran[varying_ins]*var_tran[T-3]*(1.0-0.5*tau)
+    difyc[T-1,T-1]=1.0/2.0*ins_perm[varying_ins]*var_perm[T-5]+ins_tran[varying_ins]*var_tran[T-3]*(1.0-0.5*tau)
+
+    difyc[0,1]=1.0/2.0*ins_perm[0]*var_perm[0] - (1-tau)*ins_tran[0]*var_tran[0]
+    difyc[1,2]=1.0/2.0*ins_perm[0]*var_perm[0] - (1-tau)*ins_tran[0]*var_tran[1]
+    difyc[2,3]=1.0/2.0*ins_perm[0]*var_perm[0] - (1-tau)*ins_tran[0]*var_tran[2]
+    for j in [4,5,6]:
+        difyc[j-1,j]=1.0/2.0*ins_perm[0]*var_perm[j-3] - (1-tau)*ins_tran[0]*var_tran[j-1]
+    
+    for j in np.array(range(T-8))+7:
+        difyc[j-1,j]=1.0/2.0*ins_perm[varying_ins]*var_perm[j-3] - (1-tau)*ins_tran[varying_ins]*var_tran[j-1]
+
+    difyc[T-2,T-1]=1.0/2.0*ins_perm[varying_ins]*var_perm[T-5] - (1-tau)*ins_tran[varying_ins]*var_tran[T-3]
+    
+    for j in [2,3,4,5,6,7]:
+        difyc[j-2,j]=-0.5*tau*ins_tran[0]*var_tran[j-2]
+    
+    for j in np.array(range(T-9))+8:
+        difyc[j-2,j]=-0.5*tau*ins_tran[varying_ins]*var_tran[j-2]
+        
+    ##########################################
+            
+    #/* Final matrix */
+    dif[0:T,0:T]            =difc
+    dif[T:2*(T),0:T]        =difyc
+    dif[0:T,T:2*(T)]        =np.transpose(difyc)
+    dif[T:2*(T),T:2*(T)]    =dify
+    
+    difa1 = np.concatenate((dif[0:8,:],dif[11:2*T,:]),0)
+    difa2 = np.concatenate((difa1[:,0:8],difa1[:,11:2*T]),1)
+    
+    vech_indicies = np.tril_indices(np.shape(difa2)[0])
+    fm=difa2[vech_indicies]
+
+    return fm
+
+
 def Parameter_estimation(model, c_vector, omega, T, ma=1, taste=1, varying_ins=0):
     '''
     Replicates table 6 from BPP
@@ -335,7 +476,7 @@ def Parameter_estimation(model, c_vector, omega, T, ma=1, taste=1, varying_ins=0
     if model=='TimeAgg':
         implied_cov = lambda params, ma, taste, varying_ins, T, perm_shk_params, \
                             tran_shk_params, perm_ins_params,tran_ins_params,\
-                            meas_error_params : implied_cov_TimeAgg(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+                            meas_error_params : implied_cov_TimeAgg2(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
         
     
     # get number of parameters of each type
@@ -362,6 +503,7 @@ def Parameter_estimation(model, c_vector, omega, T, ma=1, taste=1, varying_ins=0
     def objectiveFun(params, ma, taste, varying_ins, T, empirical_cov, weight_matrix):
         model_cov = implied_cov(params, ma, taste, varying_ins,T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
         distance = np.dot(np.dot((model_cov-empirical_cov), weight_matrix),(model_cov-empirical_cov))
+        distance = distance #+ 10000*np.std(params[ma+taste:ma+taste+perm_shk_params]) #add in this to keep same variance for permanent shocks over the whole time period
         return distance
     
     # Define the weight matrix as Equal Weight Minimum Distance
