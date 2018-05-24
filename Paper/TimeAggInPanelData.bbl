@@ -1,0 +1,29 @@
+\ifx\undefined\BySame
+\newcommand{\BySame}{\leavevmode\rule[.5ex]{3em}{.5pt}\ }
+\fi
+\ifx\undefined\textsc
+\newcommand{\textsc}[1]{{\sc #1}}
+\newcommand{\emph}[1]{{\em #1\/}}
+\let\tmpsmall\small
+\renewcommand{\small}{\tmpsmall\sc}
+\fi
+\begin{thebibliography}{}
+
+\harvarditem[Blundell, Pistaferri, and Preston]{Blundell, Pistaferri, and
+  Preston}{2008}{blundell_consumption_2008}
+\textsc{Blundell, Richard, Luigi Pistaferri,  {and} Ian Preston}  (2008):
+  ``Consumption {Inequality} and {Partial} {Insurance},'' \emph{American
+  Economic Review}, 98(5), 1887--1921.
+
+\harvarditem[Campbell and Mankiw]{Campbell and
+  Mankiw}{1989}{campbell_consumption_1989}
+\textsc{Campbell, John~Y.,  {and} N.~Gregory Mankiw}  (1989): ``Consumption,
+  {Income} and {Interest} {Rates}: {Reinterpreting} the {Time} {Series}
+  {Evidence},'' {NBER} {Chapters}, National Bureau of Economic Research, Inc.
+
+\harvarditem[Working]{Working}{1960}{working_note_1960}
+\textsc{Working, Holbrook}  (1960): ``Note on the {Correlation} of {First}
+  {Differences} of {Averages} in a {Random} {Chain},'' \emph{Econometrica},
+  28(4), 916--918.
+
+\end{thebibliography}
