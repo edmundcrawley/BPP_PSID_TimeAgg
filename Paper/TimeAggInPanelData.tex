@@ -189,6 +189,84 @@ Which is unsurprisingly the same as the limit of the autocorrelation in the N su
 Figure \ref{fig:InducedAutocorrelation} shows how fast the N sub-period case converges towards the continuous time case. When $N=1$ the time aggregated process is the same as the underlying random walk so the autocorrelation is zero. When income is quarterly ($N=4$) the autocorrelation is 0.23 and is closely approximated by the continuous time model. With monthly ($N=12$) or higher frequency for income shocks the discrete and continuous models are almost indistinguishable. 
 
 \section{Time Aggregation in \cite{blundell_consumption_2008}} \label{BPP}
+I will focus on the methodology for estimating partial ``insurance'' coefficients to transitory and permanent shocks introduced by \cite{blundell_consumption_2008}. I choose this paper both because it provides a clear example where time aggregation biases the results quantitatively, and also because the methodology has become common place in the literature and could now be considered a workhorse model. Indeed \cite{kaplan_how_2010} state in their paper that applies the method to simulated data that ``we argue that the BPP insurance coeffcients should become central in quantitative
+macroeconomics"
+
+\subsection{The Model in Discrete Time Without Time Aggregation}
+Here I briefly describe the method followed by \cite{blundell_consumption_2008}. For a more detail please refer to their original paper. The core of the model are their assumptions on the income and consumption processes. The model described here is a simplified version of the original in order to highlight the role played by time aggregation.\footnote{In this simplified model I assume insurance parameters are constant accross both time and households, that the transitory component of income has no persistence, and that there are no taste shocks. These elements are reintroduced in section \ref{********} in which I show the quantitative effect of time aggregation.} 
+
+Unexplained log income growth for household $i$ follows the process:
+\begin{align*}
+\Delta y_{i,t} = \zeta_{i,t} + \Delta \nu_{i,t}
+\end{align*}
+where $\zeta_{i,t}$ (the change in permanent income) and $\nu_{i,t}$ (transitory income) are each i.i.d. and independent of each other. The variance of permanent shocks ($\sigma^2_{\zeta}=\mathrm{Var}(\zeta_{i,t})$) and transitory shocks ($\sigma^2_{\nu}=\mathrm{Var}(\nu_{i,t})$) will be of interest. These variances can be identified from observable data by noting the following identities (where the household identifier $i$ has been removed for clarity):
+\begin{align}
+\sigma^2_{\zeta}&=\mathrm{Var}(\zeta_{t}) \nonumber \\
+&= \mathrm{Cov}(\Delta y_{t}, \Delta y_{t-1}+\Delta y_{t}+\Delta y_{t+1}) \label{perm_var}\\
+\sigma^2_{\nu}&=\mathrm{Var}(\nu_{t}) \nonumber \\
+&= -\mathrm{Cov}(\Delta y_{t},\Delta y_{t+1}) \label{tran_var}
+\end{align}
+The unexplained change in log consumption is modeled as a random walk that moves in response to changes in both permanent income and transitory income:
+\begin{align*}
+\Delta c_{i,t} = \phi \zeta_{i,t} + \psi \nu_{i,t} 
+\end{align*}
+where $\phi$ and $\psi$ are the \textit{partial insurance} parameters for permanent and transitory shocks respectively. A value of zero implies full insurance (consumption does not respond at all to the income shock), while a value of one implies no insurance. These insurance parameters can be identified in the data from these identities:
+\begin{align}
+\phi&= \frac{\mathrm{Cov}(\Delta c_{t}, \Delta y_{t-1}+\Delta y_{t}+\Delta y_{t+1})}{\mathrm{Cov}(\Delta y_{t}, \Delta y_{t-1}+\Delta y_{t}+\Delta y_{t+1})} \label{phi}\\
+\psi&= \frac{\mathrm{Cov}(\Delta c_{t},\Delta y_{t+1})}{\mathrm{Cov}(\Delta y_{t},\Delta y_{t+1})} \label{psi}
+\end{align}
+It is useful to think of equations \ref{phi} and \ref{psi} as IV regressions of consumption growth on income growth where (\ref{phi}) uses income growth over 3 periods as an instrument to identify permanent shocks, while (\ref{psi}) uses income growth in the following period to identify transitory shocks (a transitory shock to income today predicts that income will go down by the same amount in the following period).
+
+The four equations \ref{perm_var}, \ref{tran_var}, \ref{phi} and \ref{psi} are the core of the BPP identification methodology. In the following section I will show how this identification fails when time aggregation is accounted for.
+
+\subsection{The Model in Continuous Time with Time Aggregation}
+The model in this section will be the exact analog of the discrete time BPP model just described, but embedded in continuous time where shocks are spread uniformly throughout the year.\footnote{There is little formal evidence on the distribution of shocks throughout the year. While this assumption is unlikely to be strictly true, it is more reasonable that the implicit assumption of BPP that shocks all occur 1st January each year.} For the income process we will assume two underlying martingale processes (possibly with jumps), $P_t$ and $Q_t$ such that for all $s_1>s_2>s_3>s_4>0$:
+\begin{align*}
+var(P_{s_1}-P_{s_2})=(s_1-s_2)\sigma_P^2 \\
+cov(P_{s_1}-P_{s_2},P_{s_3}-P_{s_4}) = 0 \\
+P_s = 0 \qquad \text{if } s<0
+\end{align*}
+and similarly for $Q_t$.  Instantaneous income\footnote{A more formal treatment of how to relate this to the log income process is given in appendix ******} in a period $dt$ is given by:
+\begin{align}
+dy_t = \Big( \int_{0}^{t}dP_s \Big) dt  +dQ_t \label{income_process}
+\end{align}
+that is they receive their permanent income ($P_t =\int_{0}^{t}dP_s $) flow multiplied by time $dt$ in addition to a one-off transitory income $dQ_t$.
+
+Keeping with the assumption that consumption is a random walk with insurance parameters $\phi$ and $\psi$, instantaneous consumption is given by
+\begin{align}
+dc_t = \phi \Big( \int_{0}^{t} dP_s  \Big) dt +\psi\Big( \int_{0}^{t}dQ_s\Big) dt  \label{consumption_process}
+\end{align}
+that is they consume a proportion $\phi$ of their permanent income and a proportion $\psi$ of the cumulation of all the transitory income they have received in their lifetime.
+
+The Panel Study of Income Dynamics (PSID) data, we observe the total income received over the previous calendar year:
+\begin{align*}
+y^{obs}_T = \int_{T-1}^{T} dy_t
+\end{align*}
+BPP use data on food consumption to impute total annual consumption. The questionnaire asks about food consumption in a typical week, but unfortunately the timing of this `typical week' is not clear. The questionnaire is usually given at the end of March in the following year. See \cite{altonji_testing_1987} and \cite{hall_sensitivity_1982} for differing views. Here I will assume the `typical week' occurs exactly at the end of the calendar year, so it measures a snapshot of consumption at time $T$
+\begin{align*}
+c^{obs}_T = \phi \Big( \int_{0}^{t} dP_s  \Big)  +\psi\Big( \int_{0}^{t}dQ_s\Big)
+\end{align*}
+In appendix ****** I show that the timing of the `typical' week can have a big effect on the results. This is a big drawback to using this method with the PSID data. In a forthcoming paper (\cite{crawley_income_2018}) we use expenditure data imputed from Danish administrative records in which the timing of expenditure is very clearly defined.
+
+The BPP method makes use of the changes in observable income and consumption:
+\begin{align}
+\Delta y^{obs}_T &=  \Big(\int_{T-2}^{T-1} (s-(T-2))dP_s  + \int_{T-1}^{T} (T-s)dP_s \Big) \nonumber \\
+& \qquad + \Big(\int_{T-1}^{T} dQ_t -\int_{T-2}^{T-1} dQ_t \Big) \label{deltay} \\
+\Delta c^{obs}_T &= \phi  \int_{T-1}^{T} dP_s  +\psi \int_{T-1}^{T}dQ_s  \label{deltac}
+\end{align}
+If we use the identification of permanent and transitory variances in equations \ref{perm_var} and \ref{tran_var} from the discrete time model we get:
+\begin{align*}
+\mathrm{Cov}(\Delta y^{obs}_{T}, \Delta y^{obs}_{T-1}+\Delta y^{obs}_{T}+\Delta y^{obs}_{T+1}) &= \sigma^2_P\\
+ -\mathrm{Cov}(\Delta y^{obs}_{T},\Delta y^{obs}_{T+1}) &= -\frac{1}{6}\sigma^2_P + \sigma^2_Q \neq \sigma^2_Q
+\end{align*}
+This shows that identification of the variance of permanent shocks, $\sigma^2_P$, is unbiased, while that of transitory shocks is biased down by $\frac{1}{6}\sigma^2_P$. Turning to the identification of $\phi$ and $\psi$ in equations \ref{phi} and \ref{psi} we have:
+\begin{align}
+\frac{\mathrm{Cov}(\Delta c^{obs}_{T}, \Delta y^{obs}_{T-1}+\Delta y^{obs}_{T}+\Delta y^{obs}_{T+1})}{\mathrm{Cov}(\Delta y^{obs}_{T}, \Delta y^{obs}_{T-1}+\Delta y^{obs}_{T}+\Delta y^{obs}_{T+1})}&= \phi\\
+\frac{\mathrm{Cov}(\Delta c^{obs}_{T},\Delta y^{obs}_{T+1})}{\mathrm{Cov}(\Delta y^{obs}_{T},\Delta y^{obs}_{T+1})} &= \frac{-\phi\frac{1}{2}\sigma^2_P + \psi\sigma^2_Q}{-\frac{1}{6}\sigma^2_P + \sigma^2_Q} \neq \psi \label{not_psi}
+\end{align}
+Again identification of the permanent insurance coefficient, $\phi$, is unbiased, but the transitory insurance coefficient bears little relation to the true value of $\psi$. For example, if the household follows the permanent income hypothesis with values $\phi=1$ and $\psi=0$, and permanent and transitory income variances are close to equal, the BPP method would estimate $\psi$ to be -0.6. The fact that BPP estimate $\psi$ to be close to zero suggests the numerator in equation \ref{not_psi} is close to zero, that is in fact $\psi \approx \frac{1}{2}\phi \frac{\sigma^2_P}{\sigma^2_Q}$. With approximately equal permanent and transitory variances this suggest the transitory insurance coefficient, far from being close to zero, is in fact about half the value of the permanent insurance coefficient. In section \ref{evidence} I repeat the GMM exercise of BPP, using the same empirical moments, but with identification coming from the continuous time model with time aggregated income. The full set of identification equations, with the model extended to include time varying coefficients and taste shocks, can be found in appendix *******.
+
+\section{The Evidence} \label{evidence}
 
 
 \processdelayedfloats
@@ -201,7 +279,7 @@ Figure \ref{fig:InducedAutocorrelation} shows how fast the N sub-period case con
 \appendix
 
 \section*{Appendix}
-
+\input AppendixTransitoryPersistence.tex
 
 \end{document}
 

@@ -1,0 +1,61 @@
+\section{Persistence in Transitory Shock}
+To introduce persistence in the transitory shock I assume that the transitory shock decays linearly over a time period $\tau$ until it reaches zero. A shock of size 1 will arrive with a flow intensity of $\frac{2}{\tau}$ and over the subsequent time $\tau$ a the total flow of transitory income will sum to 1. Instantaneous income can be written as:
+ \begin{align*}
+dy_t &= \Big(\int_{0}^{t} dP_s \Big) dt +\Big(\int_{t-\tau}^{t} \frac{2}{\tau}(s-(t-\tau)) dQ_s \Big)dt
+ \end{align*}
+So that the observable change in income is given by:
+\begin{align}
+\Delta y^{obs}_T &= \int_{T-1}^{T} y_t dt - \int_{T-2}^{T-1} y_t dt \nonumber \\ 
+&= \int_{T-1}^{T} \int_{0}^{t}dP_s dt -\int_{T-2}^{T-1} \int_{0}^{t}dP_s dt \nonumber \\
+& \qquad +  \int_{T-1}^{T} \int_{t-\tau}^{t} \frac{2}{\tau}(s-(t-\tau)) dQ_s dt -\int_{T-2}^{T-1}\int_{t-\tau}^{t} \frac{2}{\tau}(s-(t-\tau)) dQ_s dt \nonumber \\
+&= \Big(\int_{T-2}^{T-1} (s-(T-2))dP_s  + \int_{T-1}^{T} (T-s)dP_s \Big) \nonumber \\
+&  \qquad +\frac{2}{\tau} \Big(\int_{T-\tau}^{T} \frac{1}{2}\Big(\tau - \frac{(s-(T-\tau))^2}{\tau} \Big)dQ_s  +\int_{T-1}^{T-\tau} \frac{1}{2}\tau dQ_s  +\int_{T-1-\tau}^{T-1} \frac{1}{2}\frac{(s-(T-1-\tau))^2}{\tau} dQ_s \Big) \nonumber \\
+& \qquad -\frac{2}{\tau}  \Big(\int_{T-1-\tau}^{T-1} \frac{1}{2}\Big(\tau - \frac{(s-(T-1-\tau))^2}{\tau} \Big)dQ_s  +\int_{T-2}^{T-1-\tau} \frac{1}{2}\tau dQ_s \nonumber \\
+& \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad  +\int_{T-2-\tau}^{T-2} \frac{1}{2}\frac{(s-(T-2-\tau))^2}{\tau} dQ_s \Big) \nonumber \\
+&= \int_{T-2}^{T-1} (s-(T-2))dP_s  + \int_{T-1}^{T} (T-s)dP_s  \nonumber \\
+&  \qquad +\int_{T-\tau}^{T} 1 - \Big(\frac{s-(T-\tau)}{\tau}\Big)^2 dQ_s  +\int_{T-1}^{T-\tau}  dQ_s   \nonumber \\
+& \qquad - \int_{T-1-\tau}^{T-1} 1 - 2\Big(\frac{s-(T-1-\tau)}{\tau}\Big)^2 dQ_s \nonumber \\
+& \qquad-  \int_{T-2}^{T-1-\tau}  dQ_s  -\int_{T-2-\tau}^{T-2} \Big(\frac{s-(T-2-\tau)}{\tau}\Big)^2 dQ_s 
+\end{align}
+The full set of identification equations used in this model are:
+\begin{align}
+\mathrm{Var}(\Delta y^{obs}_T) &= \mathbb{E} \Big(\int_{T-2}^{T-1} (s-(T-2))^2 dP_s dP_s  + \int_{T-1}^{T} (T-s)^2 dP_s dP_s \Big) \nonumber \\
+& \qquad + \mathbb{E} \Big(\int_{T-\tau}^{T}\Big( 1 - \Big(\frac{s-(T-\tau)}{\tau}\Big)^2\Big)^2 dQ_s dQ_s +\int_{T-1}^{T-\tau}  dQ_s Q_s\Big) \nonumber \\
+& \qquad + \mathbb{E} \Big(  \int_{T-1-\tau}^{T-1} \Big(1 - 2\Big(\frac{s-(T-1-\tau)}{\tau}\Big)^2 \Big)^2 dQ_s dQ_s \Big) \nonumber \\
+& \qquad + \mathbb{E} \Big( \int_{T-2}^{T-1-\tau}  dQ_s dQ_s  +\int_{T-2-\tau}^{T-2} \Big(\frac{s-(T-2-\tau)}{\tau}\Big)^4 dQ_s dQ_s  \Big) \nonumber \\
+&= \frac{1}{3}\sigma^2_{P,T} + \frac{1}{3}\sigma^2_{P,T-1} \nonumber \\
+& \qquad + \frac{8}{15} \tau \sigma^2_{Q,T} + (1-\tau) \sigma^2_{Q,T} \nonumber \\
+& \qquad + \frac{7}{15} \tau\sigma^2_{Q,T-1} \nonumber \\
+& \qquad +(1-\tau) \sigma^2_{Q,T-1} + \frac{1}{5} \tau\sigma^2_{Q,T-2} \nonumber \\
+&= \frac{1}{3}\sigma^2_{P,T} + \frac{1}{3}\sigma^2_{P,T-1} + \big(1-\frac{7}{15}\tau\big) \sigma^2_{Q,T}   +(1-\frac{8}{15}\tau) \sigma^2_{Q,T-1} + \frac{1}{5} \tau\sigma^2_{Q,T-2}
+\end{align}
+\begin{align}
+\mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_{T+1}) &=  \mathbb{E} \Big(\int_{T-1}^{T} (T-s)(s-(T-1)) dP_s dP_s  \Big) \nonumber \\
+&  \qquad -\mathbb{E} \Big(\int_{T-\tau}^{T}\Big( 1 - \Big(\frac{s-(T-\tau)}{\tau}\Big)^2\Big) \Big( 1 - 2\Big(\frac{s-(T-\tau)}{\tau}\Big)^2\Big)  dQ_s dQ_s\Big) \nonumber\\
+& \qquad -\mathbb{E} \Big( \int_{T-1}^{T-\tau}  dQ_s Q_s\Big) \nonumber \\
+& \qquad +\mathbb{E} \Big( \int_{T-1-\tau}^{T-1}\Big( 1 - 2\Big(\frac{s-(T-1-\tau)}{\tau}\Big)^2\Big)  \Big(\frac{s-(T-1-\tau)}{\tau}\Big)^2 dQ_s dQ_s\Big) \nonumber \\
+&= \frac{1}{6}\sigma^2_{P,T}  -\frac{2}{5}\tau \sigma^2_{Q,T}  -(1-\tau) \sigma^2_{Q,T}  -\frac{1}{15} \sigma^2_{Q,T-1} \nonumber 
+\end{align}
+\begin{align}
+\mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_{T+2}) &=  -\mathbb{E} \Big(\int_{T-\tau}^{T} \Big( 1 - \Big(\frac{s-(T-\tau)}{\tau}\Big)^2\Big) \Big(\frac{s-(T-\tau)}{\tau}\Big)^2 dQ_s dQ_s  \Big) \nonumber \\
+&= -\frac{2}{15}\tau \sigma^2_{Q,T}
+\end{align}
+The above equations also work for $\mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_{T-1})$ and $\mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_{T-2})$ due to symmetry.
+\begin{align}
+\mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_{S}) &= 0 \qquad \forall S,T \text{ such that }|S-T| >2 
+\end{align}
+The covariance matrix $\mathrm{Cov}(\Delta c^{obs}_T, \Delta c^{obs}_{S})$ is the same as before.
+\begin{align}
+\mathrm{Cov}(\Delta c^{obs}_T, \Delta y^{obs}_T) &= \phi_T \mathbb{E} \Big(  \int_{T-1}^{T} (T-s) dP_s dP_s \Big) \nonumber \\
+& \qquad +  \psi_T \mathbb{E} \Big(\int_{T-\tau}^{T} \Big( 1 - \Big(\frac{s-(T-\tau)}{\tau}\Big)^2\Big) dQ_s dQ_s  + \int_{T-1}^{T-\tau} dQ_s dQ_s\Big) \nonumber \\
+&= \frac{1}{2} \phi_T \sigma^2_{P,T} + \psi_T  (1-\frac{1}{3}\tau )\sigma^2_{Q,T} 
+\end{align}
+\begin{align}
+\mathrm{Cov}(\Delta c^{obs}_T, \Delta y^{obs}_{T+1}) &=  \phi_T \mathbb{E} \Big(  \int_{T-1}^{T} (s-(T-1)) dP_s dP_s \Big) \nonumber \\
+&  -\psi_T \mathbb{E} \Big(  \int_{T-\tau}^{T}\Big( 1 - 2\Big(\frac{s-(T-\tau)}{\tau}\Big)^2\Big)  dQ_s dQ_s + \int_{T-1}^{T-\tau}  dQ_s dQ_s \Big) \nonumber \\
+&= \frac{1}{2} \phi_T \sigma^2_{P,T} - (1-\frac{2}{3}\tau) \psi_T \sigma^2_{Q,T} 
+\end{align}
+\begin{align}
+\mathrm{Cov}(\Delta c^{obs}_T, \Delta y^{obs}_{T+2}) &=  -\psi_T \mathbb{E} \Big(  \int_{T-\tau}^{T} \Big(\frac{s-(T-\tau)}{\tau}\Big)^2 dQ_s dQ_s\Big) \nonumber \\
+&= -\frac{1}{5}\psi_T  \tau \sigma^2_{Q,T}
+\end{align}

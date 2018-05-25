@@ -9,6 +9,11 @@
 \fi
 \begin{thebibliography}{}
 
+\harvarditem[Altonji and Siow]{Altonji and Siow}{1987}{altonji_testing_1987}
+\textsc{Altonji, Joseph~G.,  {and} Aloysius Siow}  (1987): ``Testing the
+  {Response} of {Consumption} to {Income} {Changes} with ({Noisy}) {Panel}
+  {Data},'' \emph{The Quarterly Journal of Economics}, 102(2), 293--328.
+
 \harvarditem[Blundell, Pistaferri, and Preston]{Blundell, Pistaferri, and
   Preston}{2008}{blundell_consumption_2008}
 \textsc{Blundell, Richard, Luigi Pistaferri,  {and} Ian Preston}  (2008):
@@ -20,6 +25,22 @@
 \textsc{Campbell, John~Y.,  {and} N.~Gregory Mankiw}  (1989): ``Consumption,
   {Income} and {Interest} {Rates}: {Reinterpreting} the {Time} {Series}
   {Evidence},'' {NBER} {Chapters}, National Bureau of Economic Research, Inc.
+
+\harvarditem[Crawley and Kuchler]{Crawley and
+  Kuchler}{2018}{crawley_income_2018}
+\textsc{Crawley, Edmund,  {and} Andreas Kuchler}  (2018): ``Income Uncertainty
+  and Consumption Dynamics,'' Mimeo, Department of Economics, Johns Hopkins
+  University.
+
+\harvarditem[Hall and Mishkin]{Hall and Mishkin}{1982}{hall_sensitivity_1982}
+\textsc{Hall, Robert,  {and} Frederic Mishkin}  (1982): ``The {Sensitivity} of
+  {Consumption} to {Transitory} {Income}: {Estimates} from {Panel} {Data} on
+  {Households},'' \emph{Econometrica}, 50(2), 461--81.
+
+\harvarditem[Kaplan and Violante]{Kaplan and Violante}{2010}{kaplan_how_2010}
+\textsc{Kaplan, Greg,  {and} Giovanni~L. Violante}  (2010): ``How {Much}
+  {Consumption} {Insurance} beyond {Self}-{Insurance}?,'' \emph{American
+  Economic Journal: Macroeconomics}, 2(4), 53--87.
 
 \harvarditem[Working]{Working}{1960}{working_note_1960}
 \textsc{Working, Holbrook}  (1960): ``Note on the {Correlation} of {First}

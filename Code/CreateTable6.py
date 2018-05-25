@@ -7,9 +7,10 @@ sys.path.insert(0, os.path.abspath('../'))
 from create_moments import create_moment_vector
 from min_distance_replication import Parameter_estimation
 import matplotlib.pyplot as plt
+import numpy as np
 
 time_agg_taste = 1
-time_agg_ma = 1
+time_agg_ma = 0
 
 ###############################################################################
 #First create the empirical moments for whole sample

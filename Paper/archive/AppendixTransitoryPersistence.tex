@@ -13,7 +13,7 @@ So that the observable change in income is given by:
 & \qquad -\frac{1}{\tau} \Big(\int_{T-1-\tau}^{T-1} (T-1-s)dQ_s +\int_{T-2}^{T-1-\tau} \tau dQ_s +\int_{T-2-\tau}^{T-2} (s-(T-2-\tau)) dQ_s \Big) \nonumber \\
 &= \Big(\int_{T-2}^{T-1} (s-(T-2))dP_s  + \int_{T-1}^{T} (T-s)dP_s \Big) \nonumber \\
 & \qquad +\frac{1}{\tau} \Big(\int_{T-\tau}^{T} (T-s)dQ_s +\int_{T-1}^{T-\tau} \tau dQ_s\Big) \nonumber\\
-& \qquad \qquad +\frac{1}{\tau}\int_{T-1-\tau}^{T-1} (\tau - 2(s-(T-1-\tau)) dQ_s  \nonumber\\
+& \qquad \qquad -\frac{1}{\tau}\int_{T-1-\tau}^{T-1} (\tau - 2(s-(T-1-\tau)) dQ_s  \nonumber\\
 & \qquad -\frac{1}{\tau} \Big(\int_{T-2}^{T-1-\tau} \tau dQ_s +\int_{T-2-\tau}^{T-2} (s-(T-2-\tau)) dQ_s \Big)
 \end{align}
 The full set of moments for this model are:
@@ -29,10 +29,10 @@ var(\Delta \bar{y}_T) &= \mathbb{E} \Big(\int_{T-2}^{T-1} (s-(T-2))^2 dP_s dP_s 
 \end{align}
 \begin{align}
 cov(\Delta \bar{y}_T, \Delta \bar{y}_{T+1}) &=  \mathbb{E} \Big(\int_{T-1}^{T} (T-s)(s-(T-1)) dP_s dP_s  \Big) \nonumber \\
-&  \qquad +\mathbb{E} \Big(\frac{1}{\tau^2}\int_{T-\tau}^{T} (\tau - 2(s-(T-\tau))(T-s)  dQ_s dQ_s  \Big)\nonumber\\
+&  \qquad -\mathbb{E} \Big(\frac{1}{\tau^2}\int_{T-\tau}^{T} (\tau - 2(s-(T-\tau))(T-s)  dQ_s dQ_s  \Big)\nonumber\\
 & \qquad -\mathbb{E} \Big(\frac{1}{\tau^2}\int_{T-2}^{T-1-\tau} \tau^2 dQ_s dQ_s \Big)\nonumber \\
 & \qquad -\mathbb{E} \Big(\frac{1}{\tau^2} \int_{T-1-\tau}^{T-1} (\tau - 2(s-(T-1-\tau))) (s-(T-1-\tau))dQ_sdQ_s \Big) \nonumber \\
-&= \frac{1}{6}\sigma^2_{P,T} +\frac{1}{6}\tau\sigma^2_{Q,T} - (1-\tau)\sigma^2_{Q,T-1} -\frac{1}{6}\tau\sigma^2_{Q,T-1}
+&= \frac{1}{6}\sigma^2_{P,T} -\frac{1}{6}\tau\sigma^2_{Q,T} - (1-\tau)\sigma^2_{Q,T-1} -\frac{1}{6}\tau\sigma^2_{Q,T-1}
 \end{align}
 \begin{align}
 cov(\Delta \bar{y}_T, \Delta \bar{y}_{T+2}) &=  -\mathbb{E} \Big(\frac{1}{\tau^2}\int_{T-\tau}^{T} (T-s)(s-(T-\tau)) dQ_s dQ_s  \Big) \nonumber \\
