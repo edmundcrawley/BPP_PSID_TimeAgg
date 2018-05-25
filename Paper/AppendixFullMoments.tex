@@ -1,0 +1,41 @@
+\section{Identification in the Full Model} \label{identification}
+In this appendix I calculate the full set of identifying equations for the non-stationary model with measurement error in consumption and taste shocks. Appendix \ref{persistence_appendix} extends these to add persistence in the transitory shock. With classical measurement error on consumption the observables are now $y^{obs}_T$ and $c^{obs}_T$ where
+\begin{align*}
+y^{obs}_T = \int_{T-1}^{T} dy_t \\
+c^{obs}_T = \int_{T-1}^{T} dc_t + u_T
+\end{align*}
+I am interested in the full set of observable covariances:
+\begin{align*}
+\mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_S) \\
+\mathrm{Cov}(\Delta c^{obs}_T, \Delta c^{obs}_S) \\
+\mathrm{Cov}(\Delta c^{obs}_T,  \Delta y^{obs}_S)
+\end{align*}
+for all $T$ and $S$ in $\{1,2,...\}$. I further make the assumption that while the variance of the permanent and transitory shocks and insurance coefficients can change from year to year, within each year these are constant. The variance the permanent shock in year $T$ is $\sigma^2_{P,T}$ and the transitory shock $\sigma^2_{Q,T}$. I use equation \ref{deltay} for the change in observable log income, and extend equation \ref{deltac} for the change is observable log consumption to include taste shocks ($\xi_t$) and measurement error:
+\begin{align}
+\Delta c^{obs}_T &= \phi  \int_{T-1}^{T} dP_s  +\psi \int_{T-1}^{T}dQ_s +\int_{T-1}^{T}d\xi_s  + u_T - u_{T-1} \nonumber
+\end{align}
+These two equations allow for the calculation of all the required identification equations:
+\begin{align}
+\mathrm{Var}(\Delta y^{obs}_T) &= \mathbb{E} \Big(\int_{T-2}^{T-1} (s-(T-2))^2 dP_s dP_s  + \int_{T-1}^{T} (T-s)^2 dP_s dP_s \Big) \nonumber \\
+& \qquad + \mathbb{E} \Big(\int_{T-1}^{T} dQ_t dQ_t +\int_{T-2}^{T-1} dQ_t dQ_t \Big) \nonumber \\
+&= \frac{1}{3} \sigma^2_{P,T} + \frac{1}{3} \sigma^2_{P,T-1} +  \sigma^2_{Q,T} +  \sigma^2_{Q,T-1} \label{inc_var_indentification}\\
+\mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_{T+1}) &=  \mathbb{E} \Big(\int_{T-1}^{T} (T-s)(s-(T-1)) dP_s dP_s  \Big) - \mathbb{E} \Big(\int_{T-1}^{T} dQ_t dQ_t \Big) \nonumber \\
+&= \frac{1}{6}\sigma^2_{P,T} - \sigma^2_{Q,T} \\
+\mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_{T-1}) &= \frac{1}{6}\sigma^2_{P,T-1} - \sigma^2_{Q,T-1} \\
+\mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_{S}) &= 0 \qquad \forall S,T \text{ such that }|S-T| >1 
+\end{align}
+\begin{align}
+\mathrm{Var}{\Delta c^{obs}_T} &= \phi^2 \mathbb{E}\Big( \int_{T-1}^{T} dP_s dP_s \Big) + \psi^2 \mathbb{E}\Big( \int_{T-1}^{T} dQ_s dQ_s \Big) + \mathbb{E} \Big( \int_{T-1}^{T} d\xi_s d\xi_s \Big) +  \sigma^2_{u,T} +  \sigma^2_{u,T-1} \nonumber \\
+&= \phi^2 \sigma^2_{P,T} + \psi^2 \sigma^2_{Q,T} + \sigma^2_{\xi,T}+\sigma^2_{u,T}+   \sigma^2_{u,T-1}  \\
+\mathrm{Cov}(\Delta c^{obs}_T, \Delta c_{T+1}^{obs}) &= -\sigma^2_{u,T} \\
+\mathrm{Cov}(\Delta c^{obs}_T, \Delta c_{T-1}^{obs}) &= -\sigma^2_{u,T-1} \\
+\mathrm{Cov}(\Delta c^{obs}_T, \Delta c_S^{obs}) &= 0 \qquad \forall S,T \text{ such that }|S-T| >1 
+\end{align}
+\begin{align}
+\mathrm{Cov}(\Delta c^{obs}_T, \Delta y^{obs}_T) &=  \mathbb{E} \Big( \phi_T \int_{T-1}^{T} (T-s) dP_s dP_s + \psi_T \int_{T-1}^{T} dQ_s dQ_s \Big) \nonumber \\
+&= \frac{1}{2} \phi_T \sigma^2_{P,T} + \psi_T \sigma^2_{Q,T} \\
+\mathrm{Cov}(\Delta c^{obs}_T, \Delta y^{obs}_{T+1}) &=  \mathbb{E} \Big( \phi_T \int_{T-1}^{T} (s-(T-1)) dP_s dP_s - \psi_T \int_{T-1}^{T} dQ_s dQ_s \Big) \nonumber \\
+&= \frac{1}{2} \phi_T \sigma^2_{P,T} - \psi_T \sigma^2_{Q,T} \\
+\mathrm{Cov}(\Delta c^{obs}_T, \Delta y^{obs}_{T-1}) &= 0 \\
+\mathrm{Cov}(\Delta c^{obs}_T, \Delta y^{obs}_{S}) &= 0 \qquad \forall S,T \text{ such that }|S-T| >1 
+\end{align}

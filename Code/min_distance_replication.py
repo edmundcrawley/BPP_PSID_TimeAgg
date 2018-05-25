@@ -619,8 +619,23 @@ def Parameter_estimation(model, c_vector, omega, T, ma=1, taste=1, varying_ins=0
     if model=='TimeAgg':
         implied_cov = lambda params, ma, taste, varying_ins, T, perm_shk_params, \
                             tran_shk_params, perm_ins_params,tran_ins_params,\
-                            meas_error_params : implied_cov_TimeAgg2(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+                            meas_error_params : implied_cov_TimeAgg3(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
         
+    if model=='TimeAgg_twoshot':
+        implied_cov = lambda params, ma, taste, varying_ins, T, perm_shk_params, \
+                            tran_shk_params, perm_ins_params,tran_ins_params,\
+                            meas_error_params : implied_cov_TimeAgg(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+
+    if model=='TimeAgg_uniform':
+        implied_cov = lambda params, ma, taste, varying_ins, T, perm_shk_params, \
+                            tran_shk_params, perm_ins_params,tran_ins_params,\
+                            meas_error_params : implied_cov_TimeAgg2(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+
+    if model=='TimeAgg_lineardecay':
+        implied_cov = lambda params, ma, taste, varying_ins, T, perm_shk_params, \
+                            tran_shk_params, perm_ins_params,tran_ins_params,\
+                            meas_error_params : implied_cov_TimeAgg3(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+
     
     # get number of parameters of each type
     perm_shk_params = T-4  # time varying permanent shock variance

@@ -27,6 +27,30 @@ var_perm_TimeAgg, var_perm_se_TimeAgg, var_tran_TimeAgg, var_tran_se_TimeAgg, in
  ins_perm_se_TimeAgg, ins_tran_TimeAgg, ins_tran_se_TimeAgg, var_c_error_TimeAgg, \
  var_c_error_se_TimeAgg, teta_TimeAgg, teta_se_TimeAgg, varcsi_TimeAgg, varcsi_se_TimeAgg \
   = Parameter_estimation('TimeAgg', c_vector, omega, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0) 
+  
+#Replicate BPP with no transitory persistence
+var_perm_BPP_nopers, var_perm_se_BPP_nopers, var_tran_BPP_nopers, var_tran_se_BPP_nopers, ins_perm_BPP_nopers, \
+ ins_perm_se_BPP_nopers, ins_tran_BPP_nopers, ins_tran_se_BPP_nopers, var_c_error_BPP_nopers, \
+ var_c_error_se_BPP_nopers, teta_BPP_nopers, teta_se_BPP_nopers, varcsi_BPP_nopers, varcsi_se_BPP_nopers \
+  = Parameter_estimation('BPP', c_vector, omega, T, ma=0, taste=1, varying_ins=0) 
+ 
+#Then do time aggregated version with uniformly distributed transitory persistence
+var_perm_TimeAgg_unif, var_perm_se_TimeAgg_unif, var_tran_TimeAgg_unif, var_tran_se_TimeAgg_unif, ins_perm_TimeAgg_unif, \
+ ins_perm_se_TimeAgg_unif, ins_tran_TimeAgg_unif, ins_tran_se_TimeAgg_unif, var_c_error_TimeAgg_unif, \
+ var_c_error_se_TimeAgg_unif, teta_TimeAgg_unif, teta_se_TimeAgg_unif, varcsi_TimeAgg_unif, varcsi_se_TimeAgg_unif \
+  = Parameter_estimation('TimeAgg_uniform', c_vector, omega, T, ma=1, taste=time_agg_taste, varying_ins=0) 
+  
+#Then do time aggregated version with linearly decaying  transitory persistence
+var_perm_TimeAgg_lineardecay, var_perm_se_TimeAgg_lineardecay, var_tran_TimeAgg_lineardecay, var_tran_se_TimeAgg_lineardecay, ins_perm_TimeAgg_lineardecay, \
+ ins_perm_se_TimeAgg_lineardecay, ins_tran_TimeAgg_lineardecay, ins_tran_se_TimeAgg_lineardecay, var_c_error_TimeAgg_lineardecay, \
+ var_c_error_se_TimeAgg_lineardecay, teta_TimeAgg_lineardecay, teta_se_TimeAgg_lineardecay, varcsi_TimeAgg_lineardecay, varcsi_se_TimeAgg_lineardecay \
+  = Parameter_estimation('TimeAgg_lineardecay', c_vector, omega, T, ma=1, taste=time_agg_taste, varying_ins=0) 
+  
+var_perm_TimeAgg_twoshot, var_perm_se_TimeAgg_twoshot, var_tran_TimeAgg_twoshot, var_tran_se_TimeAgg_twoshot, ins_perm_TimeAgg_twoshot, \
+ ins_perm_se_TimeAgg_twoshot, ins_tran_TimeAgg_twoshot, ins_tran_se_TimeAgg_twoshot, var_c_error_TimeAgg_twoshot, \
+ var_c_error_se_TimeAgg_twoshot, teta_TimeAgg_twoshot, teta_se_TimeAgg_twoshot, varcsi_TimeAgg_twoshot, varcsi_se_TimeAgg_twoshot \
+  = Parameter_estimation('TimeAgg_twoshot', c_vector, omega, T, ma=1, taste=time_agg_taste, varying_ins=0) 
+###############################################################################   
 ###############################################################################
 #Empirical moments for non-college
 c_vector_NC, omega_NC, T = create_moment_vector(".\InputFiles\CohA_nocollege.csv")
@@ -183,7 +207,7 @@ for i in range(7):
      ins_perm_TimeAgg_othertables[1,i], ins_tran_TimeAgg_othertables[0,i], ins_tran_TimeAgg_othertables[1,i], e, \
      f, g, h, ii, jj \
       = Parameter_estimation('TimeAgg', c_vector, omega, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0) 
-###############################################################################
+###############################################################################   
 #Replicate table 7 
 output = "\\begin{table}  \n"
 output += "\caption{Minimum-Distance Partial Insurance and Variance Estimates}  \n"
@@ -270,5 +294,46 @@ output += "\end{center}  \n"
 output += "\end{table}  \n"
 
 with open('./Tables/RepTable8.tex','w') as f:
+    f.write(output)
+    f.close()
+    
+###############################################################################   
+#Table to show effect of transitory persistence
+output = "\\begin{table}  \n"
+output += "\caption{Minimum-Distance Partial Insurance and Variance Estimates}  \n"
+output += "\label{table:Persistence}  \n"
+output += "\\begin{center}  \n"
+output += "\\newsavebox{\Persistence}  \n"
+output += "\\resizebox{0.7\paperwidth}{!}{  \n"
+output += "\\begin{tabular}{lcc|cccc}  \n"
+output += "\\toprule  \n"
+output += " & \multicolumn{2}{c}{BPP} & \multicolumn{4}{c}{Time Agg.}  \n"
+output += "\\\\ \\hline  \n"
+output += "\\\\ Persistence Type:  & None & MA(1) & None & Two-shot & Uniform & Linear Decay \n"
+output += "\\\\ \\hline  \n"
+
+output += " $\\phi$ &                               " +mystr1(ins_perm_BPP_nopers[0])+    " &   "+mystr1(ins_perm_BPP[0])+ " & " +mystr1(ins_perm_TimeAgg[0])+   " &   "+mystr1(ins_perm_TimeAgg_twoshot[0])+  " &   "+mystr1(ins_perm_TimeAgg_unif[0])+ " & " +mystr1(ins_perm_TimeAgg_lineardecay[0])+    "  \n"
+output += "\\\\ (Partial insurance perm. shock) &      ("+mystr1(ins_perm_se_BPP_nopers[0])+ ") & ("+mystr1(ins_perm_se_BPP[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg_twoshot[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg_unif[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg_lineardecay[0])+ ") \n"
+
+output += "\\\\ $\\psi$ &                               " +mystr1(ins_tran_BPP_nopers[0])+    " &   "+mystr1(ins_tran_BPP[0])+ " & " +mystr1(ins_tran_TimeAgg[0])+   " &   "+mystr1(ins_tran_TimeAgg_twoshot[0])+  " &   "+mystr1(ins_tran_TimeAgg_unif[0])+ " & " +mystr1(ins_tran_TimeAgg_lineardecay[0])+    "  \n"
+output += "\\\\ (Partial insurance tran. shock) &      ("+mystr1(ins_tran_se_BPP_nopers[0])+ ") & ("+mystr1(ins_tran_se_BPP[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg_twoshot[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg_unif[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg_lineardecay[0])+ ") \n"
+
+output += "\\\\ $\\theta$ or $\\tau$ &            " +"N/A"+    " &   "+mystr1(teta_BPP)+ " & " +"N/A"+   " &   "+mystr1(teta_TimeAgg_twoshot)+  " &   "+mystr1(teta_TimeAgg_unif)+ " & " +mystr1(teta_TimeAgg_lineardecay)+    "  \n"
+output += "\\\\ (Degree of Persistence) &      ("+mystr1(teta_se_BPP_nopers)+ ") & ("+mystr1(teta_se_BPP)+ ") & ("+mystr1(teta_se_TimeAgg)+ ") & ("+mystr1(teta_se_TimeAgg_twoshot)+ ") & ("+mystr1(teta_se_TimeAgg_unif)+ ") & ("+mystr1(teta_se_TimeAgg_lineardecay)+ ") \n"
+
+
+output += "\\\\ \\hline  \n"
+
+output += " \end{tabular}   \n"
+output += " } \n "
+output += "\usebox{\Persistence}  \n"
+output += "\settowidth\TableWidth{\usebox{\Persistence}} % Calculate width of table so notes will match  \n"
+#output += "\medskip\medskip \\vspace{0.0cm} \parbox{\TableWidth}{\small  \n"
+#output += "\\textbf{Notes}: The table reports the DWMD results of the parameters of interest. I also calculate time-varying measurement error in consumption (results not reported for brevity). Standard errors in parentheses.  \n"
+#output += "}  \n"
+output += "\end{center}  \n"
+output += "\end{table}  \n"
+
+with open('./Tables/Persistence.tex','w') as f:
     f.write(output)
     f.close()

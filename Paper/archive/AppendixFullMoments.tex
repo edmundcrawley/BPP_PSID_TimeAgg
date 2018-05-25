@@ -1,4 +1,4 @@
-\section{Full Model Implied Moments}
+\section{Identification in the Full Model} \label{identification}
 In this appendix I calculate the full set of moments for the non-stationary model with measurement error in consumption. With classical measurement error on consumption the observables are now $\bar{y}_T$ and $c_T^*$ where
 \begin{align*}
 \bar{y}_T = \int_{T-1}^{T} y_t dt \\
@@ -14,7 +14,7 @@ for all $T$ and $S$ in $\{1,2,...\}$. I further make the assumption that while t
 \begin{align}
 var(\Delta \bar{y}_T) &= \mathbb{E} \Big(\int_{T-2}^{T-1} (s-(T-2))^2 dP_s dP_s  + \int_{T-1}^{T} (T-s)^2 dP_s dP_s \Big) \nonumber \\
 & \qquad + \mathbb{E} \Big(\int_{T-1}^{T} dQ_t dQ_t +\int_{T-2}^{T-1} dQ_t dQ_t \Big) \nonumber \\
-&= \frac{1}{3} \sigma^2_{P,T} + \frac{1}{3} \sigma^2_{P,T-1} +  \sigma^2_{Q,T} +  \sigma^2_{Q,T-1}\\
+&= \frac{1}{3} \sigma^2_{P,T} + \frac{1}{3} \sigma^2_{P,T-1} +  \sigma^2_{Q,T} +  \sigma^2_{Q,T-1} \label{inc_var_indentification}\\
 cov(\Delta \bar{y}_T, \Delta \bar{y}_{T+1}) &=  \mathbb{E} \Big(\int_{T-1}^{T} (T-s)(s-(T-1)) dP_s dP_s  \Big) - \mathbb{E} \Big(\int_{T-1}^{T} dQ_t dQ_t \Big) \nonumber \\
 &= \frac{1}{6}\sigma^2_{P,T} - \sigma^2_{Q,T} \\
 cov(\Delta \bar{y}_T, \Delta \bar{y}_{T-1}) &= \frac{1}{6}\sigma^2_{P,T-1} - \sigma^2_{Q,T-1} \\

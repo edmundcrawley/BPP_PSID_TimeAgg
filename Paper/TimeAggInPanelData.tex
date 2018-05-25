@@ -152,7 +152,7 @@ We can now calculate the autocorrelation:
 &= \frac{N(2N^2+1)}{3}\sigma^2 \\
 \mathrm{Corr}(\Delta^N y_T^{obs},\Delta^N y_{T-N}^{obs}) &= \frac{N^2-1}{2(2N^2+1)} \rightarrow \frac{1}{4} \text{ as } N \rightarrow \infty
 \end{align*}
-\subsection{The Continuous Time Case}
+\subsection{The Continuous Time Case} \label{cont_time_case}
 It will turn out to be significantly simpler to work with a model in which shocks can occur at any point in continuous time. Here I introduce some notation for such a model, and show that it gives a good approximation even if the actual underlying process is discrete (say quarterly or monthly).
 
 The underlying income process will be modeled as a martingale process in continuous time, $y_t$, where for all  $s_1>s_2>s_3>s_4>0$:
@@ -161,7 +161,7 @@ The underlying income process will be modeled as a martingale process in continu
 \mathrm{Cov}(y_{s_1}-y_{s_2},y_{s_3}-y_{s_4}) = 0 \\
 y_s = 0 \qquad \text{if } s<0
 \end{align*}
-The process has independent increment increments. A Brownian motion would satisfy these criteria, but although in continuous time there is no restriction that it is a continuous process (it may have jumps).\footnote{Note that such a process will take both positive and negative values, and therefore may not be a good choice for an income process. In appendix ******* I show that under certain assumptions the same results approximately hold when shocks are multiplicative rather than additive.} The observed income process is the sum of income over a year:
+The process has independent increment increments. A Brownian motion would satisfy these criteria, but although in continuous time there is no restriction that it is a continuous process (it may have jumps).\footnote{Note that such a process will take both positive and negative values, and therefore may not be a good choice for an income process. In appendix \ref{log_tranformation}, by looking at the limit of discrete time models with m sub-periods, I show that under certain assumptions the same results approximately hold when shocks are multiplicative rather than additive.} The observed income process is the sum of income over a year:
 \begin{align*}
 \bar{y}_T &= \int_{T-1}^{T} y_t dt \\
 &= \int_{T-1}^{T} \int_{0}^{t} dy_s dt 
@@ -193,7 +193,7 @@ I will focus on the methodology for estimating partial ``insurance'' coefficient
 macroeconomics"
 
 \subsection{The Model in Discrete Time Without Time Aggregation}
-Here I briefly describe the method followed by \cite{blundell_consumption_2008}. For a more detail please refer to their original paper. The core of the model are their assumptions on the income and consumption processes. The model described here is a simplified version of the original in order to highlight the role played by time aggregation.\footnote{In this simplified model I assume insurance parameters are constant accross both time and households, that the transitory component of income has no persistence, and that there are no taste shocks. These elements are reintroduced in section \ref{********} in which I show the quantitative effect of time aggregation.} 
+Here I briefly describe the method followed by \cite{blundell_consumption_2008}. For a more detail please refer to their original paper. The core of the model are their assumptions on the income and consumption processes. The model described here is a simplified version of the original in order to highlight the role played by time aggregation.\footnote{In this simplified model I assume insurance parameters are constant accross both time and households, that the transitory component of income has no persistence, and that there are no taste shocks. These elements are reintroduced in section \ref{evidence} in which I show the quantitative effect of time aggregation.} 
 
 Unexplained log income growth for household $i$ follows the process:
 \begin{align*}
@@ -226,7 +226,7 @@ var(P_{s_1}-P_{s_2})=(s_1-s_2)\sigma_P^2 \\
 cov(P_{s_1}-P_{s_2},P_{s_3}-P_{s_4}) = 0 \\
 P_s = 0 \qquad \text{if } s<0
 \end{align*}
-and similarly for $Q_t$.  Instantaneous income\footnote{A more formal treatment of how to relate this to the log income process is given in appendix ******} in a period $dt$ is given by:
+and similarly for $Q_t$.  Instantaneous income\footnote{A more formal treatment of how to relate this to the log income process is given in appendix \ref{log_tranformation}} in a period $dt$ is given by:
 \begin{align}
 dy_t = \Big( \int_{0}^{t}dP_s \Big) dt  +dQ_t \label{income_process}
 \end{align}
@@ -246,7 +246,7 @@ BPP use data on food consumption to impute total annual consumption. The questio
 \begin{align*}
 c^{obs}_T = \phi \Big( \int_{0}^{t} dP_s  \Big)  +\psi\Big( \int_{0}^{t}dQ_s\Big)
 \end{align*}
-In appendix ****** I show that the timing of the `typical' week can have a big effect on the results. This is a big drawback to using this method with the PSID data. In a forthcoming paper (\cite{crawley_income_2018}) we use expenditure data imputed from Danish administrative records in which the timing of expenditure is very clearly defined.
+In appendix \ref{typical_week} I show that the timing of the `typical' week can have a big effect on the results. This is a big drawback to using this method with the PSID data. In a forthcoming paper (\cite{crawley_income_2018}) we use expenditure data imputed from Danish administrative records in which the timing of expenditure is very clearly defined.
 
 The BPP method makes use of the changes in observable income and consumption:
 \begin{align}
@@ -264,10 +264,30 @@ This shows that identification of the variance of permanent shocks, $\sigma^2_P$
 \frac{\mathrm{Cov}(\Delta c^{obs}_{T}, \Delta y^{obs}_{T-1}+\Delta y^{obs}_{T}+\Delta y^{obs}_{T+1})}{\mathrm{Cov}(\Delta y^{obs}_{T}, \Delta y^{obs}_{T-1}+\Delta y^{obs}_{T}+\Delta y^{obs}_{T+1})}&= \phi\\
 \frac{\mathrm{Cov}(\Delta c^{obs}_{T},\Delta y^{obs}_{T+1})}{\mathrm{Cov}(\Delta y^{obs}_{T},\Delta y^{obs}_{T+1})} &= \frac{-\phi\frac{1}{2}\sigma^2_P + \psi\sigma^2_Q}{-\frac{1}{6}\sigma^2_P + \sigma^2_Q} \neq \psi \label{not_psi}
 \end{align}
-Again identification of the permanent insurance coefficient, $\phi$, is unbiased, but the transitory insurance coefficient bears little relation to the true value of $\psi$. For example, if the household follows the permanent income hypothesis with values $\phi=1$ and $\psi=0$, and permanent and transitory income variances are close to equal, the BPP method would estimate $\psi$ to be -0.6. The fact that BPP estimate $\psi$ to be close to zero suggests the numerator in equation \ref{not_psi} is close to zero, that is in fact $\psi \approx \frac{1}{2}\phi \frac{\sigma^2_P}{\sigma^2_Q}$. With approximately equal permanent and transitory variances this suggest the transitory insurance coefficient, far from being close to zero, is in fact about half the value of the permanent insurance coefficient. In section \ref{evidence} I repeat the GMM exercise of BPP, using the same empirical moments, but with identification coming from the continuous time model with time aggregated income. The full set of identification equations, with the model extended to include time varying coefficients and taste shocks, can be found in appendix *******.
+Again identification of the permanent insurance coefficient, $\phi$, is unbiased, but the transitory insurance coefficient bears little relation to the true value of $\psi$. For example, if the household follows the permanent income hypothesis with values $\phi=1$ and $\psi=0$, and permanent and transitory income variances are close to equal, the BPP method would estimate $\psi$ to be -0.6. The fact that BPP estimate $\psi$ to be close to zero suggests the numerator in equation \ref{not_psi} is close to zero, that is in fact $\psi \approx \frac{1}{2}\phi \frac{\sigma^2_P}{\sigma^2_Q}$. With approximately equal permanent and transitory variances this suggest the transitory insurance coefficient, far from being close to zero, is in fact about half the value of the permanent insurance coefficient. In section \ref{evidence} I repeat the GMM exercise of BPP, using the same empirical moments, but with identification coming from the continuous time model with time aggregated income. The full set of identification equations, with the model extended to include time varying coefficients, transitory persistence and taste shocks, can be found in appendices \ref{identification} and \ref{persistence_appendix}.
 
-\section{The Evidence} \label{evidence}
+\subsection{The Evidence} \label{evidence}
+The columns labeled `BPP' in table \ref{table:ReplicationTable} replicate the columns table 6 from the original BPP paper. Next to each of these columns I have reported the equivalent estimate from the continuous time model with time aggregation (and no persistence in the transitory shock). The most notable changes are to the partial insurance parameters $\phi$ and $\psi$. Given the results from section \ref{cont_time_case}, it should not be surprising that the coefficient for transitory shocks has changed significantly, from $5\%$ to $24\%$ in the whole sample. The fact that the coefficient for permanent shock insurance has also changed, from $65\%$ to $34\%$, is somewhat surprising given the theory suggested it should not change when transitory shocks are not persistent. When there is persistence in transitory shocks, the identification of $\phi$ in the two models in no longer the same. In section \ref{persistence} I show how the estimate for $\phi$ is very sensitive to the degree of persistence in the discrete time model, which can explain why we observe a change in the estimate of $\phi$. The estimates for the no college and college sub-samples also move in similar ways, but the qualitative result that college educated households have significantly more insurance against income shocks holds.
 
+The whole sample permanent and transitory variances from table 6 are plotted in figure \ref{figure:shockVariance}. The transitory shock variances are of similar magnitude and follow the same pattern of increasing in the mid-80's as the original estimates of BPP. The permanent shock variances are now slightly larger (although again this is sensitive to the degree of persistence in transitory shocks). The sharp decrease in 1988, followed by increase in 1989, seems strange. However, the standard errors at these points are relatively large (approx 0.013) such that this pattern may be a result of statistical noise. Note that the standard errors for the permanent variances are approximately twice as large in the time aggregated model compared to the original BPP method.
+
+In appendix \ref{table_appendix} I have reproduced all the estimation tables from the BPP paper, along with the time aggregated estimates. As with the college/no college cohort results, the insurance coefficient accross cohorts move in the same direction as they do in BPP's estimates, but they are quantitatively very different.
+
+\input ../Code/Tables/RepTable6.tex
+
+\subsection{Persistence in the Transitory Shock} \label{persistence}
+The baseline results for the time aggregated model reported in table \ref{table:ReplicationTable} had no persistence in the transitory shock. In table \ref{table:Persistence} I report the insurance coefficients for three different ways of introducing persistence into the continuous time model, along with the estimates for the discrete time model with no persistence. The first method, called `two-shot', models transitory income as a mass of income arriving at time $t$, followed by another mass of income, smaller than the first by a factor $\theta$, arriving exactly one year later. This most closely mirrors the MA(1) model of transitory income used in the discrete time model. The second, called `uniform', models transitory income as a constant flow of income starting at time $t$ and ending at time $t+\tau$ where $\tau$ is a measure of persistence. This can be thought of as a member of the household becoming unemployed for a length of time $\tau$. The third, called `linear decay', models transitory income as a flow of income starting at time $t$, the size of which decreases linearly until it reaches zero at time $t+\tau$. This tries to capture the fact that some transitory shocks have little persistence, while others are longer lived, so that on average income from a transitory shock will be decreasing over time. The identifying equations for each model can be found in appendix \ref{persistence_appendix}. The bottom two rows of table \ref{table:Persistence} report the estimated values of $\theta$ and $\tau$ in each model. The values of $\theta$ in the MA(1) model and the two-shot model are similar, with about 10\% of the first year's transitory income arriving in the following year. The uniform model estimates transitive periods of high or low income to last for somewhat less than half a year (0.43), while the linear decay model estimates them to last more than half a year (0.61). This makes sense as the `persistence' associated with a uniform flow of income for a period $\tau$ is greater than that of a linearly decaying flow of income over a period $\tau$.
+
+The first two columns of table \ref{table:Persistence} show that the degree of persistence in the original BPP model makes a big difference to the estimate of $\phi$, while all of the time aggregation models show similar estimates for $\psi$. This suggests the difference we see in the estimates of $\phi$ between BPP original model and the time aggregated model may be driven, at least in part, by misspecification in the model of transitive income shocks. It is reassuring that, in contrast to the BPP model, the values of both $\phi$ and $\psi$ are relatively robust to the exact specification of transitive persistence in the time aggregated model.
+
+\input ../Code/Tables/Persistence.tex
+
+\begin{figure}
+	\caption{Shock Variances in the 1980's}
+	\label{figure:shockVariance}
+	\includegraphics[width=1\textwidth]{../Code/Figures/ShockVariances1980s.pdf}
+	\footnotesize Notes: BPP plots the variances from Table 6 of the original BPP paper. Time Agg. plots the equivalent variances corrected for the time aggregation problem.
+\end{figure}
 
 \processdelayedfloats
 
@@ -279,7 +299,17 @@ Again identification of the permanent insurance coefficient, $\phi$, is unbiased
 \appendix
 
 \section*{Appendix}
+\input AppendixLevelvsLogs.tex
+\input AppendixFullMoments.tex
 \input AppendixTransitoryPersistence.tex
+\input AppendixTypicalWeek.tex
+
+\section{Other Tables from the BPP paper} \label{table_appendix}
+Table \ref{table:ReplicationTable7} replicates Table 7 from the original BPP paper.
+
+\input ../Code/Tables/RepTable7.tex 
+
+Table \ref{table:ReplicationTable8} replicates Table 8 from the original BPP paper.\input ../Code/Tables/RepTable8.tex
 
 \end{document}
 
