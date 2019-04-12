@@ -1,3 +1,5 @@
+\efloatseparator
+ 
 \begin{table}
 \caption{Minimum-Distance Partial Insurance and Variance Estimates}
 \label{table:ReplicationTable7}
@@ -63,5 +65,3 @@ Consumption: & \multicolumn{2}{c}{Nondurable} & \multicolumn{2}{c}{Total} & \mul
 \settowidth\TableWidth{\usebox{\ReplicationTableEight}} % Calculate width of table so notes will match
 \end{center}
 \end{table}
-\efloatseparator
- 
