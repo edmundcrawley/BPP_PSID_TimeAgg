@@ -53,7 +53,7 @@ def create_moment_vector(empirical_input_file, only_income=False):
     d_dif  =np.zeros([T,T])
     y      =np.shape(all_data)[0] 
     
-    for k in range(y/T):
+    for k in range(int(y/T)):
         i=k*T
         dif_j = np.outer(all_data[i:i+T,coly_dif],all_data[i:i+T,coly_dif])
         d_dif_j=np.outer(all_data[i:i+T,coldy_dif],all_data[i:i+T,coldy_dif])
@@ -67,13 +67,13 @@ def create_moment_vector(empirical_input_file, only_income=False):
     c_matrix=dif
     vech_indicies = np.tril_indices(np.shape(c_matrix)[0])
     c_vector=c_matrix[vech_indicies]
-    dim = (np.shape(c_matrix)[0]*(np.shape(c_matrix)[0]+1))/2
+    dim = int((np.shape(c_matrix)[0]*(np.shape(c_matrix)[0]+1))/2)
     
     # create variance matrix for all these moments
     omega  =np.zeros([dim,dim])
     d_matrix=d_dif
     d_vector=d_matrix[vech_indicies]
-    for k in range(y/T):
+    for k in range(int(y/T)):
             i=k*T
             dif_j  =np.outer(all_data[i:i+T,coly_dif],all_data[i:i+T,coly_dif])
             d_dif_j=np.outer(all_data[i:i+T,coldy_dif],all_data[i:i+T,coldy_dif])
@@ -107,7 +107,7 @@ def create_moment_vector(empirical_input_file, only_income=False):
     d_dif  =np.zeros([T1,T1])
     y      =np.shape(c_y_rows)[0]   
     
-    for k in range(y/T1):
+    for k in range(int(y/T1)):
         i=k*T1
         dif_j = np.outer(c_y_rows[i:i+T1,0],c_y_rows[i:i+T1,0])
         d_dif_j = np.outer(c_y_rows[i:i+T1,1],c_y_rows[i:i+T1,1])
@@ -118,13 +118,13 @@ def create_moment_vector(empirical_input_file, only_income=False):
     c_matrix=dif
     vech_indicies = np.tril_indices(np.shape(c_matrix)[0])
     c_vector=c_matrix[vech_indicies]
-    dim = (np.shape(c_matrix)[0]*(np.shape(c_matrix)[0]+1))/2
+    dim = int((np.shape(c_matrix)[0]*(np.shape(c_matrix)[0]+1))/2)
     # create variance matrix for all these moments
     omega  =np.zeros([dim,dim])
     d_matrix=d_dif
     d_vector=d_matrix[vech_indicies]
     
-    for k in range(y/T1):
+    for k in range(int(y/T1)):
             i=k*T1
             dif_j  =np.outer(c_y_rows[i:i+T1,0],c_y_rows[i:i+T1,0])
             d_dif_j=np.outer(c_y_rows[i:i+T1,1],c_y_rows[i:i+T1,1])

@@ -14,38 +14,45 @@ time_agg_ma = 0
 
 ###############################################################################
 #First create the empirical moments for whole sample
+print('Create Moment Vector from Inputs for All')
 c_vector, omega, T = create_moment_vector(".\InputFiles\CohA.csv")
 
 #Next replicate BPP
+print('Replicate BPP')
 var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
  ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
  var_c_error_se_BPP, teta_BPP, teta_se_BPP, varcsi_BPP, varcsi_se_BPP \
   = Parameter_estimation('BPP', c_vector, omega, T, ma=1, taste=1, varying_ins=0) 
  
 #Then do time aggregated version
+print('Do Time Aggregated Version')
 var_perm_TimeAgg, var_perm_se_TimeAgg, var_tran_TimeAgg, var_tran_se_TimeAgg, ins_perm_TimeAgg, \
  ins_perm_se_TimeAgg, ins_tran_TimeAgg, ins_tran_se_TimeAgg, var_c_error_TimeAgg, \
  var_c_error_se_TimeAgg, teta_TimeAgg, teta_se_TimeAgg, varcsi_TimeAgg, varcsi_se_TimeAgg \
   = Parameter_estimation('TimeAgg', c_vector, omega, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0) 
   
 #Replicate BPP with no transitory persistence
+print('Replicate BPP with no transitory persistence')
 var_perm_BPP_nopers, var_perm_se_BPP_nopers, var_tran_BPP_nopers, var_tran_se_BPP_nopers, ins_perm_BPP_nopers, \
  ins_perm_se_BPP_nopers, ins_tran_BPP_nopers, ins_tran_se_BPP_nopers, var_c_error_BPP_nopers, \
  var_c_error_se_BPP_nopers, teta_BPP_nopers, teta_se_BPP_nopers, varcsi_BPP_nopers, varcsi_se_BPP_nopers \
   = Parameter_estimation('BPP', c_vector, omega, T, ma=0, taste=1, varying_ins=0) 
  
 #Then do time aggregated version with uniformly distributed transitory persistence
+print('Do Time Aggregated Version with Uniform Transitory Persistence')
 var_perm_TimeAgg_unif, var_perm_se_TimeAgg_unif, var_tran_TimeAgg_unif, var_tran_se_TimeAgg_unif, ins_perm_TimeAgg_unif, \
  ins_perm_se_TimeAgg_unif, ins_tran_TimeAgg_unif, ins_tran_se_TimeAgg_unif, var_c_error_TimeAgg_unif, \
  var_c_error_se_TimeAgg_unif, teta_TimeAgg_unif, teta_se_TimeAgg_unif, varcsi_TimeAgg_unif, varcsi_se_TimeAgg_unif \
   = Parameter_estimation('TimeAgg_uniform', c_vector, omega, T, ma=1, taste=time_agg_taste, varying_ins=0) 
   
 #Then do time aggregated version with linearly decaying  transitory persistence
+print('Do Time Aggregated Version with Linear Decay Transitory Persistence')
 var_perm_TimeAgg_lineardecay, var_perm_se_TimeAgg_lineardecay, var_tran_TimeAgg_lineardecay, var_tran_se_TimeAgg_lineardecay, ins_perm_TimeAgg_lineardecay, \
  ins_perm_se_TimeAgg_lineardecay, ins_tran_TimeAgg_lineardecay, ins_tran_se_TimeAgg_lineardecay, var_c_error_TimeAgg_lineardecay, \
  var_c_error_se_TimeAgg_lineardecay, teta_TimeAgg_lineardecay, teta_se_TimeAgg_lineardecay, varcsi_TimeAgg_lineardecay, varcsi_se_TimeAgg_lineardecay \
   = Parameter_estimation('TimeAgg_lineardecay', c_vector, omega, T, ma=1, taste=time_agg_taste, varying_ins=0) 
   
+print('Do Time Aggregated Version with discrete two-shot persistence')
 var_perm_TimeAgg_twoshot, var_perm_se_TimeAgg_twoshot, var_tran_TimeAgg_twoshot, var_tran_se_TimeAgg_twoshot, ins_perm_TimeAgg_twoshot, \
  ins_perm_se_TimeAgg_twoshot, ins_tran_TimeAgg_twoshot, ins_tran_se_TimeAgg_twoshot, var_c_error_TimeAgg_twoshot, \
  var_c_error_se_TimeAgg_twoshot, teta_TimeAgg_twoshot, teta_se_TimeAgg_twoshot, varcsi_TimeAgg_twoshot, varcsi_se_TimeAgg_twoshot \
@@ -53,6 +60,7 @@ var_perm_TimeAgg_twoshot, var_perm_se_TimeAgg_twoshot, var_tran_TimeAgg_twoshot,
 ###############################################################################   
 ###############################################################################
 #Empirical moments for non-college
+print('Replicate BPP for Non-College')
 c_vector_NC, omega_NC, T = create_moment_vector(".\InputFiles\CohA_nocollege.csv")
 
 #Next replicate BPP
@@ -62,12 +70,14 @@ var_perm_BPP_NC, var_perm_se_BPP_NC, var_tran_BPP_NC, var_tran_se_BPP_NC, ins_pe
   = Parameter_estimation('BPP', c_vector_NC, omega_NC, T, ma=1, taste=1, varying_ins=0) 
  
 #Then do time aggregated version
+print('Do Time Aggregated for Non-College')
 var_perm_TimeAgg_NC, var_perm_se_TimeAgg_NC, var_tran_TimeAgg_NC, var_tran_se_TimeAgg_NC, ins_perm_TimeAgg_NC, \
  ins_perm_se_TimeAgg_NC, ins_tran_TimeAgg_NC, ins_tran_se_TimeAgg_NC, var_c_error_TimeAgg_NC, \
  var_c_error_se_TimeAgg_NC, teta_TimeAgg_NC, teta_se_TimeAgg_NC, varcsi_TimeAgg_NC, varcsi_se_TimeAgg_NC \
   = Parameter_estimation('TimeAgg', c_vector_NC, omega_NC, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0) 
 ###############################################################################
 #Empirical moments for college graduates
+print('Replicate BPP for College Graduates')
 c_vector_C, omega_C, T = create_moment_vector(".\InputFiles\CohA_college.csv")
 
 #Next replicate BPP
@@ -77,6 +87,7 @@ var_perm_BPP_C, var_perm_se_BPP_C, var_tran_BPP_C, var_tran_se_BPP_C, ins_perm_B
   = Parameter_estimation('BPP', c_vector_C, omega_C, T, ma=1, taste=1, varying_ins=0) 
  
 #Then do time aggregated version
+print('Do Time Aggregated for College Graduates')
 var_perm_TimeAgg_C, var_perm_se_TimeAgg_C, var_tran_TimeAgg_C, var_tran_se_TimeAgg_C, ins_perm_TimeAgg_C, \
  ins_perm_se_TimeAgg_C, ins_tran_TimeAgg_C, ins_tran_se_TimeAgg_C, var_c_error_TimeAgg_C, \
  var_c_error_se_TimeAgg_C, teta_TimeAgg_C, teta_se_TimeAgg_C, varcsi_TimeAgg_C, varcsi_se_TimeAgg_C \
@@ -85,6 +96,7 @@ var_perm_TimeAgg_C, var_perm_se_TimeAgg_C, var_tran_TimeAgg_C, var_tran_se_TimeA
  
 ###############################################################################
 #Make Table6 Replication
+print('Replicate Table 6 from BPP')
 def mystr1(number):
     if not np.isnan(number):
         out = "{:.4f}".format(number)
@@ -136,8 +148,8 @@ output += "\\\\ \\hline  \n"
 
 output += " \end{tabular}   \n"
 output += " } \n "
-output += "\usebox{\ReplicationTable}  \n"
-output += "\settowidth\TableWidth{\usebox{\ReplicationTable}} % Calculate width of table so notes will match  \n"
+output += "\\usebox{\ReplicationTable}  \n"
+output += "\settowidth\TableWidth{\\usebox{\ReplicationTable}} % Calculate width of table so notes will match  \n"
 #output += "\medskip\medskip \\vspace{0.0cm} \parbox{\TableWidth}{\small  \n"
 #output += "\\textbf{Notes}: The table reports the DWMD results of the parameters of interest. I also calculate time-varying measurement error in consumption (results not reported for brevity). Standard errors in parentheses.  \n"
 #output += "}  \n"
@@ -148,6 +160,7 @@ with open('./Tables/RepTable6.tex','w') as f:
     f.write(output)
     f.close()
 ###############################################################################
+print('Replicate Shock Variance Graph from BPP')
 #Create some graphs of Transitory and Permanent Shocks over time
 plt.figure(figsize=(12,5))
 plt.subplot(1, 2, 1)
@@ -188,6 +201,7 @@ plt.savefig('./Figures/ShockVariances1980s.pdf')
 
 ###############################################################################
 #Find parameter estimates for Tables 7 and 8
+print('Calculate Parameters to replicate tables 7 and 8')
 input_files = ['\CohA_Table7Col2.csv','\CohA_Table7Col3.csv','\CohA_Table8Col2.csv','\CohA_Table8Col3.csv','\CohA_Table8Col4.csv','\CohA_Table8Col5.csv','\CohA_Table8Col6.csv']
 ins_perm_BPP_othertables = np.zeros((2,7))+np.nan
 ins_tran_BPP_othertables = np.zeros((2,7))+np.nan
@@ -209,6 +223,7 @@ for i in range(7):
       = Parameter_estimation('TimeAgg', c_vector, omega, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0) 
 ###############################################################################   
 #Replicate table 7 
+print('Replicate table 7')
 output = "\\begin{table}  \n"
 output += "\caption{Minimum-Distance Partial Insurance and Variance Estimates}  \n"
 output += "\label{table:ReplicationTable7}  \n"
@@ -232,8 +247,8 @@ output += "\\\\ \\hline  \n"
 
 output += " \end{tabular}   \n"
 output += " } \n "
-output += "\usebox{\ReplicationTableSeven}  \n"
-output += "\settowidth\TableWidth{\usebox{\ReplicationTableSeven}} % Calculate width of table so notes will match  \n"
+output += "\\usebox{\ReplicationTableSeven}  \n"
+output += "\settowidth\TableWidth{\\usebox{\ReplicationTableSeven}} % Calculate width of table so notes will match  \n"
 #output += "\medskip\medskip \\vspace{0.0cm} \parbox{\TableWidth}{\small  \n"
 #output += "\\textbf{Notes}: The table reports the DWMD results of the parameters of interest. I also calculate time-varying measurement error in consumption (results not reported for brevity). Standard errors in parentheses.  \n"
 #output += "}  \n"
@@ -246,6 +261,7 @@ with open('./Tables/RepTable7.tex','w') as f:
     
 ###############################################################################
 #Replicate table 8 
+print('Replicate table 8')
 output = "\\begin{table}  \n"
 output += "\caption{Minimum-Distance Partial Insurance and Variance Estimates}  \n"
 output += "\label{table:ReplicationTable8}  \n"
@@ -285,8 +301,8 @@ output += "\\\\ \\hline  \n"
 output += " \end{tabular}   \n"
 
 output += " } \n "
-output += "\usebox{\ReplicationTableEight}  \n"
-output += "\settowidth\TableWidth{\usebox{\ReplicationTableEight}} % Calculate width of table so notes will match  \n"
+output += "\\usebox{\ReplicationTableEight}  \n"
+output += "\settowidth\TableWidth{\\usebox{\ReplicationTableEight}} % Calculate width of table so notes will match  \n"
 #output += "\medskip\medskip \\vspace{0.0cm} \parbox{\TableWidth}{\small  \n"
 #output += "\\textbf{Notes}: The table reports the DWMD results of the parameters of interest. I also calculate time-varying measurement error in consumption (results not reported for brevity). Standard errors in parentheses.  \n"
 #output += "}  \n"
@@ -299,6 +315,7 @@ with open('./Tables/RepTable8.tex','w') as f:
     
 ###############################################################################   
 #Table to show effect of transitory persistence
+print('Table to show effect of transitory persistence')
 output = "\\begin{table}  \n"
 output += "\caption{Minimum-Distance Partial Insurance and Variance Estimates}  \n"
 output += "\label{table:Persistence}  \n"
@@ -326,8 +343,8 @@ output += "\\\\ \\hline  \n"
 
 output += " \end{tabular}   \n"
 output += " } \n "
-output += "\usebox{\Persistence}  \n"
-output += "\settowidth\TableWidth{\usebox{\Persistence}} % Calculate width of table so notes will match  \n"
+output += "\\usebox{\Persistence}  \n"
+output += "\settowidth\TableWidth{\\usebox{\Persistence}} % Calculate width of table so notes will match  \n"
 #output += "\medskip\medskip \\vspace{0.0cm} \parbox{\TableWidth}{\small  \n"
 #output += "\\textbf{Notes}: The table reports the DWMD results of the parameters of interest. I also calculate time-varying measurement error in consumption (results not reported for brevity). Standard errors in parentheses.  \n"
 #output += "}  \n"
