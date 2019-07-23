@@ -1,0 +1,116 @@
+
+
+% Bibstyle aea.bst version 2009.05.20
+
+\begin{thebibliography}{xx}
+
+\harvarditem[Agarwal \harvardand\ Qian]{Sumit Agarwal \harvardand\ Wenlan
+  Qian}{2014}{agarwal_consumption_2014}
+{\bf Agarwal, Sumit, and Wenlan Qian.} 2014. ``Consumption and {Debt}
+  {Response} to {Unanticipated} {Income} {Shocks}: {Evidence} from a {Natural}
+  {Experiment} in {Singapore}.'' {\em American Economic Review},
+  104(12):~4205--4230.
+
+\harvarditem[Altonji \harvardand\ Siow]{Joseph~G. Altonji \harvardand\ Aloysius
+  Siow}{1987}{altonji_testing_1987}
+{\bf Altonji, Joseph~G., and Aloysius Siow.} 1987. ``Testing the {Response} of
+  {Consumption} to {Income} {Changes} with ({Noisy}) {Panel} {Data}.'' {\em The
+  Quarterly Journal of Economics}, 102(2):~293--328.
+
+\harvarditem[Amemiya \harvardand\ Wu]{Takeshi Amemiya \harvardand\ Roland~Y.
+  Wu}{1972}{amemiya_effect_1972}
+{\bf Amemiya, Takeshi, and Roland~Y. Wu.} 1972. ``The {Effect} of {Aggregation}
+  on {Prediction} in the {Autoregressive} {Model}.'' {\em Journal of the
+  American Statistical Association}, 67(339):~628--632.
+
+\harvarditem[Arellano, Blundell \harvardand\ Bonhomme]{Manuel Arellano, Richard
+  Blundell \harvardand\ St\'ephane Bonhomme}{2017}{arellano_earnings_2017}
+{\bf Arellano, Manuel, Richard Blundell, and St\'ephane Bonhomme.} 2017.
+  ``Earnings and {Consumption} {Dynamics}: {A} {Nonlinear} {Panel} {Data}
+  {Framework}.'' {\em Econometrica}, 85(3):~693--734.
+
+\harvarditem[Blundell, Pistaferri \harvardand\ Preston]{Richard Blundell, Luigi
+  Pistaferri \harvardand\ Ian Preston}{2008}{blundell_consumption_2008}
+{\bf Blundell, Richard, Luigi Pistaferri, and Ian Preston.} 2008. ``Consumption
+  {Inequality} and {Partial} {Insurance}.'' {\em American Economic Review},
+  98(5):~1887--1921.
+
+\harvarditem[Campbell \harvardand\ Mankiw]{John~Y. Campbell \harvardand\
+  N.~Gregory Mankiw}{1989}{campbell_consumption_1989}
+{\bf Campbell, John~Y., and N.~Gregory Mankiw.} 1989. ``Consumption, {Income}
+  and {Interest} {Rates}: {Reinterpreting} the {Time} {Series} {Evidence}.''
+  National Bureau of Economic Research, Inc {NBER} {Chapters}.
+
+\harvarditem[Carroll \harvardand\ Samwick]{Christopher Carroll \harvardand\
+  Andrew Samwick}{1997}{carroll_nature_1997}
+{\bf Carroll, Christopher, and Andrew Samwick.} 1997. ``The nature of
+  precautionary wealth.'' {\em Journal of Monetary Economics}, 40(1):~41--71.
+
+\harvarditem[Commault]{Jeanne Commault}{2017}{commault_how_2017}
+{\bf Commault, Jeanne.} 2017. ``How {Does} {Consumption} {Respond} to a
+  {Transitory} {Income} {Shock}? {Reconciling} {Natural} {Experiments} and
+  {Structural} {Estimations}.''
+
+\harvarditem[Crawley \harvardand\ Kuchler]{Edmund Crawley \harvardand\ Andreas
+  Kuchler}{2018}{crawley_consumption_2018}
+{\bf Crawley, Edmund, and Andreas Kuchler.} 2018. ``Consumption Heterogeneity:
+  Micro Drivers and Macro Implications.'' {\em Mimeo, Department of Economics,
+  Johns Hopkins University}.
+
+\harvarditem[Drost \harvardand\ Nijman]{Feike~C. Drost \harvardand\ Theo~E.
+  Nijman}{1993}{drost_temporal_1993}
+{\bf Drost, Feike~C., and Theo~E. Nijman.} 1993. ``Temporal {Aggregation} of
+  {Garch} {Processes}.'' {\em Econometrica}, 61(4):~909--927.
+
+\harvarditem[Fuster, Kaplan \harvardand\ Zafar]{Andreas Fuster, Greg Kaplan
+  \harvardand\ Basit Zafar}{2018}{fuster_what_2018}
+{\bf Fuster, Andreas, Greg Kaplan, and Basit Zafar.} 2018. ``What {Would} {You}
+  {Do} {With} \$500? {Spending} {Responses} to {Gains}, {Losses}, {News} and
+  {Loans}.'' National Bureau of Economic Research Working {Paper} 24386.
+
+\harvarditem[Hall \harvardand\ Mishkin]{Robert Hall \harvardand\ Frederic
+  Mishkin}{1982}{hall_sensitivity_1982}
+{\bf Hall, Robert, and Frederic Mishkin.} 1982. ``The {Sensitivity} of
+  {Consumption} to {Transitory} {Income}: {Estimates} from {Panel} {Data} on
+  {Households}.'' {\em Econometrica}, 50(2):~461--81.
+
+\harvarditem[Jappelli \harvardand\ Pistaferri]{Tullio Jappelli \harvardand\
+  Luigi Pistaferri}{2010}{jappelli_consumption_2010}
+{\bf Jappelli, Tullio, and Luigi Pistaferri.} 2010. ``The {Consumption}
+  {Response} to {Income} {Changes}.'' {\em Annual Review of Economics},
+  2(1):~479--506.
+
+\harvarditem[Jappelli \harvardand\ Pistaferri]{Tullio Jappelli \harvardand\
+  Luigi Pistaferri}{2014}{jappelli_fiscal_2014}
+{\bf Jappelli, Tullio, and Luigi Pistaferri.} 2014. ``Fiscal {Policy} and {MPC}
+  {Heterogeneity}.'' {\em American Economic Journal: Macroeconomics},
+  6(4):~107--136.
+
+\harvarditem[Kaplan \harvardand\ Violante]{Greg Kaplan \harvardand\ Giovanni~L.
+  Violante}{2010}{kaplan_how_2010}
+{\bf Kaplan, Greg, and Giovanni~L. Violante.} 2010. ``How {Much} {Consumption}
+  {Insurance} beyond {Self}-{Insurance}?'' {\em American Economic Journal:
+  Macroeconomics}, 2(4):~53--87.
+
+\harvarditem[Parker et~al.]{Jonathan~A Parker, Nicholas~S Souleles, David~S
+  Johnson \harvardand\ Robert McClelland}{2013}{parker_consumer_2013}
+{\bf Parker, Jonathan~A, Nicholas~S Souleles, David~S Johnson, and Robert
+  McClelland.} 2013. ``Consumer spending and the economic stimulus payments of
+  2008.'' {\em The American Economic Review}, 103(6):~2530--2553.
+
+\harvarditem[Sahm, Shapiro \harvardand\ Slemrod]{Claudia~R. Sahm, Matthew~D.
+  Shapiro \harvardand\ Joel~B. Slemrod}{2010}{Sahmetal:2008TaxRebates}
+{\bf Sahm, Claudia~R., Matthew~D. Shapiro, and Joel~B. Slemrod.} 2010.
+  ``Household Response to the 2008 Tax Rebate: Survey Evidence and Aggregate
+  Implications.'' {\em Tax Policy and the Economy}, 24:~69--110.
+
+\harvarditem[Weiss]{Andrew~A. Weiss}{1984}{weiss_systematic_1984}
+{\bf Weiss, Andrew~A.} 1984. ``Systematic sampling and temporal aggregation in
+  time series models.'' {\em Journal of Econometrics}, 26(3):~271--281.
+
+\harvarditem[Working]{Holbrook Working}{1960}{working_note_1960}
+{\bf Working, Holbrook.} 1960. ``Note on the {Correlation} of {First}
+  {Differences} of {Averages} in a {Random} {Chain}.'' {\em Econometrica},
+  28(4):~916--918.
+
+\end{thebibliography}

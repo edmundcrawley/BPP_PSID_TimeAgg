@@ -1,0 +1,285 @@
+% AER-Article.tex for AEA last revised 22 June 2011
+\documentclass[AER]{AEA}
+
+% The mathtime package uses a Times font instead of Computer Modern.
+% Uncomment the line below if you wish to use the mathtime package:
+%\usepackage[cmbold]{mathtime}
+% Note that miktex, by default, configures the mathtime package to use commercial fonts
+% which you may not have. If you would like to use mathtime but you are seeing error
+% messages about missing fonts (mtex.pfb, mtsy.pfb, or rmtmi.pfb) then please see
+% the technical support document at http://www.aeaweb.org/templates/technical_support.pdf
+% for instructions on fixing this problem.
+
+% Note: you may use either harvard or natbib (but not both) to provide a wider
+% variety of citation commands than latex supports natively. See below.
+
+% Uncomment the next line to use the natbib package with bibtex 
+\usepackage{natbib}
+
+%%%%%% Added packages and declarations
+\RequirePackage{amsfonts,amsmath,graphicx,booktabs}
+
+% Uncomment the next line to use the harvard package with bibtex
+%\usepackage[abbr]{harvard}
+
+% This command determines the leading (vertical space between lines) in draft mode
+% with 1.5 corresponding to "double" spacing.
+\draftSpacing{1.5}
+\newlength\TableWidth
+
+\begin{document}
+
+\title{Consumption Inequality and Partial Insurance: Comment}
+\shortTitle{Consumption Inequality and Partial Insurance: Comment}
+\author{Edmund Crawley\thanks{Crawley: Federal Reserve Board, 20th Street and Constitution Avenue N.W., Washington, DC 20551, edmundcrawley@gmail.com. Many thanks to Chris Carroll.}}
+\date{\today}
+\pubMonth{June}
+\pubYear{2019}
+\pubVolume{109}
+\pubIssue{6}
+\JEL{D12, D31, D91, E21}
+\Keywords{Income, Consumption, Saving}
+
+\begin{abstract}
+I revisit \cite{blundell_consumption_2008} paying particular attention to the time aggregated nature of income and consumption data. In 1960 Working noted that time aggregation of a random walk induces serial correlation in the first differences that is not present in the original series. Correcting for this correlation, I find the estimate for partial insurance to transitory shocks, originally estimated to be 0.05, is close to 0.24. This new estimate resolves the dissonance between \cite{blundell_consumption_2008} and the large literature that uses natural experiments to estimate the marginal propensity to consume out of transitory shocks.
+\end{abstract}
+
+
+\maketitle
+
+The extent to which households insure their consumption against permanent and transitory shocks to their income lies at the heart of many micro and macro economic questions. The methodology and estimates of \cite{blundell_consumption_2008} (henceforth BPP) have had significant influence in this literature. Indeed, the argument in \cite{kaplan_how_2010} that ``the BPP insurance coeffcients should become central in quantitative macroeconomics'' has become widely accepted. However, their finding that households are fully insured against transitory income shocks conflicts with a parallel literature that, using natural experiments, finds large consumption responses to transitory income shocks.\footnote{A small sample of this literature includes \cite{parker_consumer_2013}, \cite{agarwal_consumption_2014}, \cite{Sahmetal:2008TaxRebates}. Consumers also answer that they have a high marginal propensity to consume when asked, see \cite{fuster_what_2018} and \cite{jappelli_fiscal_2014}. For an overview of the entire literature on consumption responses to income shocks, see \cite{jappelli_consumption_2010}. Note the dissonance between BPP and the natural experiment literature is also addressed by \cite{commault_how_2017}, however this requires structural changes to the underlying model.} This comment resolves the dissonance, showing that the time aggregated nature of income data leads to a large negative bias in the BPP methodology. Correction for this bias, I find the estimate for partial insurance to transitory shocks, originally estimated in BPP to be 0.05, is close to 0.24.
+
+\section{What is Time Aggregation?}
+\begin{figure}
+	\includegraphics[width=0.7\textwidth]{../Code/Figures/TimeAggAER_simple.pdf}
+	\caption{Income Flow and Observed Income}
+	\label{fig:TimeAggExample}
+\end{figure}
+In a short note in Econometrica, \cite{working_note_1960} made the simple but important point that time aggregation can induce serial correlation that is not present in the original series. This fact was readily absorbed by the macroeconomic literature, where such time aggregated series are common\footnote{For an example see \cite{campbell_consumption_1989}} and a small literature has grown around how to account for time aggregation in various settings.\footnote{A sample of this literature includes \cite{amemiya_effect_1972}, \cite{weiss_systematic_1984} and \cite{drost_temporal_1993}.} Recently, by studying the covariance structure of panel data, much progress has been made in understanding household income and consumption dynamics. However, this literature has not accounted for the serial correlation induced by the time aggregated nature of observed income and consumption data. This oversight can result in significant bias. This paper will focus on the implications of time aggregation for the methodology in \cite{blundell_consumption_2008}, but it applies to a broad swath of the literature.\footnote{Modern approaches that build on BPP, such as \cite{arellano_earnings_2017}, are likely to show a similar size bias. Other methods, such as \cite{carroll_nature_1997}, also have bias albeit of smaller size. See section \ref{intuition} for intuition on why the methodology in BPP is particularly affected by time aggregation.}
+
+Time aggregation occurs when a time series is observed at a lower frequency than the underlying data that it is generated by. For example, income is often observed at an annual frequency when it may in fact consist of paychecks arriving at a monthly, biweekly or irregular timetable. To transform income into an annual frequency we sum up all the income that was received by a household during the year. The key insight of \cite{working_note_1960} is that even if there is no correlation between changes in income at the underlying frequency, the resulting time aggregated series will show positive autocorrelation. The intuition behind this can be seen in figure \ref{fig:TimeAggExample} showing the income process of a household that begins with an annual salary of \$50,000 and receives a permanent pay rise to \$100,000 mid-way through the second year. The solid line shows this jump in income flow occurring just once. The dotted line shows the income we actually observe in annual data. During the second year the household receives an annual \$50,000 salary for six months, followed by \$100,000 in the second six month, resulting in a reported income of \$75,000 for the entire year. The single shock to income therefore appears in the time aggregated data as two increases. In this way, an income change in one year is positively correlated with an income change in the following year, even if the underlying income process follows a random walk. Section \ref{TimeAggRandomWalk} lays this out formally and shows that this autocorrelation tends to $\frac{1}{4}$ as the number of time subdivisions increases to infinity.
+
+\section{Time Aggregated Random Walk} \label{TimeAggRandomWalk}
+I this section I formally prove that a time aggregated random walk is autocorrelated and show that this autocorrelation tends to $\frac{1}{4}$ as the number of time subdivisions increases to infinity. I will also introduce continuous time notation that will be used for the underlying model in section \ref{BPP}.
+
+\subsection{The two sub-division case}
+I begin with the two-subdivision case. The underlying income process follows a random walk at discrete time periods $t\in \{0,1,2,3,...\}$:
+\begin{align*}
+y_t = \begin{cases}
+0 \qquad & \text{if } t=0\\
+y_{t-1} + \varepsilon_t & \text{otherwise}
+\end{cases}
+\end{align*}
+where $\varepsilon_t$ is i.i.d. and has variance $\sigma^2$. The  time aggregated process is observed every two periods at $T\in\{2,4,6,...\}$ and is equal to the sum of income over the two periods leading up to it:
+\begin{align*}
+y_T^{obs} = y_T + y_{T-1}
+\end{align*}
+The observed income change is given by:
+\begin{align*}
+\Delta^2 y_T^{obs} &= y_T^{obs} - y_{T-2}^{obs} \\
+&= \varepsilon_T + 2\varepsilon_{T-1} + \varepsilon_{T-2}
+\end{align*}
+This allows for easy calculation of the serial correlation:
+\begin{align*}
+\mathrm{Cov}(\Delta^2 y_T^{obs},\Delta^2 y_{T-2}^{obs}) &= \sigma^2 \\
+\mathrm{Var}(\Delta^2 y_T^{obs}) &= \sigma^2 + 4\sigma^2 + \sigma^2 \\
+&= 6\sigma^2 \\
+\mathrm{Corr}(\Delta^2 y_T^{obs},\Delta^2 y_{T-2}^{obs}) &= \frac{1}{6}
+\end{align*}
+\begin{figure}
+	\includegraphics[width=0.7\textwidth]{../Code/Figures/InducedAutocorrelation.pdf}
+	\caption{Induced Autocorrelation for different N}
+	\label{fig:InducedAutocorrelation}
+\end{figure}
+
+\subsection{The N sub-division case}
+The two sub-division case easily extends to N sub-divisions. Using the same underlying income process, the observable income process is now aggregated over N periods:
+\begin{align*}
+y_T^{obs} = \sum_{t=T-N+1}^{T} y_t
+\end{align*}
+So that the observed change in income is:
+\begin{align*}
+\Delta^N y_T^{obs} &= \sum_{t=T-N+1}^{T} y_t - y_{t-N} \\
+&= \varepsilon_T + \varepsilon_{T-1} +  \qquad...  \qquad+ \varepsilon_{T-N+2} + \varepsilon_{T-N+1} \\
+& \qquad \   +  \varepsilon_{T-1} + \varepsilon_{T-2}  + \qquad...  \qquad \quad \ + \varepsilon_{T-N+1} + \varepsilon_{T-N} \\
+& \qquad \qquad  \quad \ \, +  \varepsilon_{T-2} + \varepsilon_{T-3} + \qquad ... \\
+& \qquad \qquad \qquad \qquad \qquad \qquad ...\\
+& \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \ +  \varepsilon_{T-N+1} +\qquad ...  \qquad + \varepsilon_{T-2N+2} \\
+&= N \varepsilon_{T-N+1} + \sum_{i=1}^{N-1} i\Big(\varepsilon_{T-i+1} + \varepsilon_{T-2N+i+1} \Big)
+\end{align*}
+We can now calculate the autocorrelation:
+\begin{align*}
+\mathrm{Cov}(\Delta^N y_T^{obs},\Delta^N y_{T-N}^{obs}) &=\sum_{i=1}^{N-1} i(N-i) \sigma^2 \\
+&=  \frac{N(N^2-1)}{6} \sigma^2 \\
+\mathrm{Var}(\Delta^N y_T^{obs}) &= N^2\sigma^2 + 2\sum_{i=1}^{N-1} i^2 \sigma^2 \\
+&= \frac{N(2N^2+1)}{3}\sigma^2 \\
+\mathrm{Corr}(\Delta^N y_T^{obs},\Delta^N y_{T-N}^{obs}) &= \frac{N^2-1}{2(2N^2+1)} \rightarrow \frac{1}{4} \text{ as } N \rightarrow \infty
+\end{align*}
+
+\subsection{The Continuous Time Case} \label{cont_time_case}
+It will turn out to be significantly simpler to work with a model in which shocks can occur at any point in continuous time. Here I introduce some notation for such a model, and show that it gives a good approximation even if the actual underlying process is discrete (say quarterly or monthly).
+
+The underlying income process will be modeled as a martingale process in continuous time, $y_t$, where for all  $s_1>s_2>s_3>s_4>0$:
+\begin{align*}
+\mathrm{Var}(y_{s_1}-y_{s_2})=(s_1-s_2)\sigma^2 \\
+\mathrm{Cov}(y_{s_1}-y_{s_2},y_{s_3}-y_{s_4}) = 0 \\
+y_s = 0 \qquad \text{if } s<0
+\end{align*}
+The process has independent increment increments. A Brownian motion would satisfy these criteria, but there is no restriction that it is a continuous process (it may have jumps).\footnote{Note that such a process will take both positive and negative values, and therefore may not be a good choice for an income process. In appendix \ref{log_tranformation}, by looking at the limit of discrete time models with m sub-periods, I show that under certain assumptions the same results approximately hold when shocks are multiplicative rather than additive.} The observed income process is the sum of income over a year:
+\begin{align*}
+\bar{y}_T &= \int_{T-1}^{T} y_t dt \\
+&= \int_{T-1}^{T} \int_{0}^{t} dy_s dt 
+\end{align*}
+So that:
+\begin{align*}
+\Delta \bar{y}_T &= \int_{T-1}^{T} \int_{0}^{t} dy_s dt - \int_{T-2}^{T-1} \int_{0}^{t} dy_s dt \\
+&= \int_{T-1}^{T} \int_{t-1}^{t} dy_s dt \\
+&= \int_{T-1}^{T} (T-s) dy_s + \int_{T-2}^{T-1} (s-(T-2)) dy_s 
+\end{align*}
+The autocorrelation can now be calculated:
+\begin{align*}
+\mathrm{Cov}(\Delta \bar{y}_T,\Delta \bar{y}_{T-1}) &=  \int_{T-2}^{T-1} (T-1-s)(s-(T-2)) \sigma^2 dt \\
+&= \frac{1}{6}\sigma^2 \\
+\mathrm{Var}(\Delta \bar{y}_T) &= \int_{T-1}^{T} (T-s)^2 \sigma^2 dt + \int_{T-2}^{T-1} (s-(T-2))^2 \sigma^2 dt \\
+&= \frac{2}{3}\sigma^2 \\
+\mathrm{Corr}(\Delta \bar{y}_T,\Delta \bar{y}_{T-1}) &= \frac{1}{4}
+\end{align*}
+Which is unsurprisingly the same as the limit of the autocorrelation in the N sub-periods case.
+
+Figure \ref{fig:InducedAutocorrelation} shows how fast the N sub-period case converges towards the continuous time case. When $N=1$ the time aggregated process is the same as the underlying random walk so the autocorrelation is zero. When income is quarterly ($N=4$) the autocorrelation is 0.23 and is closely approximated by the continuous time model. With monthly ($N=12$) or higher frequency for income shocks the discrete and continuous models are almost indistinguishable.
+
+
+\section{Time Aggregation in \cite{blundell_consumption_2008}} \label{BPP}
+
+\subsection{The Model in Discrete Time Without Time Aggregation}
+Here I briefly describe the method followed by \cite{blundell_consumption_2008}. For more detail please refer to their original paper. The core of the model are their assumptions on the income and consumption processes. The model described here is a simplified version of the original in order to highlight the role played by time aggregation.\footnote{In this simplified model I assume insurance parameters are constant accross both time and households, that the transitory component of income has no persistence, and that there are no taste shocks. These elements are reintroduced in section \ref{evidence} in which I show the quantitative effect of time aggregation.} 
+
+Unexplained log income growth for household $i$ follows the process:
+\begin{align*}
+\Delta y_{i,t} = \zeta_{i,t} + \Delta \nu_{i,t}
+\end{align*}
+where $\zeta_{i,t}$ (the change in permanent income) and $\nu_{i,t}$ (transitory income) are each i.i.d. and independent of each other. The variance of permanent shocks ($\sigma^2_{\zeta}=\mathrm{Var}(\zeta_{i,t})$) and transitory shocks ($\sigma^2_{\nu}=\mathrm{Var}(\nu_{i,t})$) will be of interest. These variances can be identified from observable data by noting the following identities (where the household identifier $i$ has been removed for clarity):
+\begin{align}
+\sigma^2_{\zeta}&=\mathrm{Var}(\zeta_{t}) \nonumber \\
+&= \mathrm{Cov}(\Delta y_{t}, \Delta y_{t-1}+\Delta y_{t}+\Delta y_{t+1}) \label{perm_var}\\
+\sigma^2_{\nu}&=\mathrm{Var}(\nu_{t}) \nonumber \\
+&= -\mathrm{Cov}(\Delta y_{t},\Delta y_{t+1}) \label{tran_var}
+\end{align}
+The unexplained change in log consumption is modeled as a random walk that moves in response to changes in both permanent income and transitory income:
+\begin{align*}
+\Delta c_{i,t} = \phi \zeta_{i,t} + \psi \nu_{i,t} 
+\end{align*}
+where $\phi$ and $\psi$ are the \textit{partial insurance} parameters for permanent and transitory shocks respectively. A value of zero implies full insurance (consumption does not respond at all to the income shock), while a value of one implies no insurance. These insurance parameters can be identified in the data from these identities:
+\begin{align}
+\phi&= \frac{\mathrm{Cov}(\Delta c_{t}, \Delta y_{t-1}+\Delta y_{t}+\Delta y_{t+1})}{\mathrm{Cov}(\Delta y_{t}, \Delta y_{t-1}+\Delta y_{t}+\Delta y_{t+1})} \label{phi}\\
+\psi&= \frac{\mathrm{Cov}(\Delta c_{t},\Delta y_{t+1})}{\mathrm{Cov}(\Delta y_{t},\Delta y_{t+1})} \label{psi}
+\end{align}
+The four equations \ref{perm_var}, \ref{tran_var}, \ref{phi} and \ref{psi} are the core of the BPP identification methodology. In the following section I show how this identification fails when time aggregation is accounted for.
+
+\subsection{The Model in Continuous Time with Time Aggregation}
+The model in this section will be the exact analog of the discrete time BPP model just described, but embedded in continuous time where shocks are spread uniformly throughout the year.\footnote{There is little formal evidence on the distribution of shocks throughout the year. While this assumption is unlikely to be strictly true, it is more reasonable that the implicit assumption of BPP that shocks all occur 1st January each year.} For the income process we will assume two underlying martingale processes (possibly with jumps), $P_t$ and $Q_t$ such that for all $s_1>s_2>s_3>s_4>0$:
+\begin{align*}
+\mathrm{Var}(P_{s_1}-P_{s_2})=(s_1-s_2)\sigma_P^2 \\
+\mathrm{Cov}(P_{s_1}-P_{s_2},P_{s_3}-P_{s_4}) = 0 \\
+P_s = 0 \qquad \text{if } s<0
+\end{align*}
+and similarly for $Q_t$.  Instantaneous income in a period $dt$ is given by:\footnote{A more formal treatment of how to relate this to the log income process is given in appendix \ref{log_tranformation}}
+\begin{align}
+dy_t = \Big( \int_{0}^{t}dP_s \Big) dt  +dQ_t \label{income_process}
+\end{align}
+that is they receive their permanent income ($P_t =\int_{0}^{t}dP_s $) flow multiplied by time $dt$ in addition to a one-off transitory income $dQ_t$.
+
+Keeping with the assumption that consumption is a random walk with insurance parameters $\phi$ and $\psi$, instantaneous consumption is given by
+\begin{align}
+dc_t = \phi \Big( \int_{0}^{t} dP_s  \Big) dt +\psi\Big( \int_{0}^{t}dQ_s\Big) dt  \label{consumption_process}
+\end{align}
+that is they consume a proportion $\phi$ of their permanent income and a proportion $\psi$ of the cumulation of all the transitory income they have received in their lifetime.
+
+The Panel Study of Income Dynamics (PSID) data, we observe the total income received over the previous calendar year:
+\begin{align*}
+y^{obs}_T = \int_{T-1}^{T} dy_t
+\end{align*}
+BPP use data on food consumption to impute total annual consumption. The questionnaire asks about food consumption in a typical week, but unfortunately the timing of this `typical week' is not clear. The questionnaire is usually given at the end of March in the following year. See \cite{altonji_testing_1987} and \cite{hall_sensitivity_1982} for differing views. Here I will assume the `typical week' occurs exactly at the end of the calendar year, so it measures a snapshot of consumption at time $T$
+\begin{align*}
+c^{obs}_T = \phi \Big( \int_{0}^{t} dP_s  \Big)  +\psi\Big( \int_{0}^{t}dQ_s\Big)
+\end{align*}
+In appendix \ref{typical_week} I show that the timing of the `typical' week can have a large effect on the results. This is an important drawback to using this method with the PSID data. In a forthcoming paper (\cite{crawley_consumption_2018}) we use expenditure data imputed from Danish administrative records in which the timing of expenditure is very clearly defined.
+
+The BPP method makes use of the changes in observable income and consumption:
+\begin{align}
+\Delta y^{obs}_T &=  \Big(\int_{T-2}^{T-1} (s-(T-2))dP_s  + \int_{T-1}^{T} (T-s)dP_s \Big) \nonumber \\
+& \qquad + \Big(\int_{T-1}^{T} dQ_t -\int_{T-2}^{T-1} dQ_t \Big) \label{deltay} \\
+\Delta c^{obs}_T &= \phi  \int_{T-1}^{T} dP_s  +\psi \int_{T-1}^{T}dQ_s  \label{deltac}
+\end{align}
+If we use the identification of permanent and transitory variances in equations \ref{perm_var} and \ref{tran_var} from the discrete time model we get:
+\begin{align*}
+\mathrm{Cov}(\Delta y^{obs}_{T}, \Delta y^{obs}_{T-1}+\Delta y^{obs}_{T}+\Delta y^{obs}_{T+1}) &= \sigma^2_P\\
+-\mathrm{Cov}(\Delta y^{obs}_{T},\Delta y^{obs}_{T+1}) &= -\frac{1}{6}\sigma^2_P + \sigma^2_Q \neq \sigma^2_Q
+\end{align*}
+This shows that identification of the variance of permanent shocks, $\sigma^2_P$, is unbiased, while that of transitory shocks is biased down by $\frac{1}{6}\sigma^2_P$. Turning to the identification of $\phi$ and $\psi$ in equations \ref{phi} and \ref{psi} we have:
+\begin{align}
+\frac{\mathrm{Cov}(\Delta c^{obs}_{T}, \Delta y^{obs}_{T-1}+\Delta y^{obs}_{T}+\Delta y^{obs}_{T+1})}{\mathrm{Cov}(\Delta y^{obs}_{T}, \Delta y^{obs}_{T-1}+\Delta y^{obs}_{T}+\Delta y^{obs}_{T+1})}&= \phi\\
+\frac{\mathrm{Cov}(\Delta c^{obs}_{T},\Delta y^{obs}_{T+1})}{\mathrm{Cov}(\Delta y^{obs}_{T},\Delta y^{obs}_{T+1})} &= \frac{-\phi\frac{1}{2}\sigma^2_P + \psi\sigma^2_Q}{-\frac{1}{6}\sigma^2_P + \sigma^2_Q} \neq \psi \label{not_psi}
+\end{align}
+Again identification of the permanent insurance coefficient, $\phi$, is unbiased, but the transitory insurance coefficient bears little relation to the true value of $\psi$. 
+
+In section \ref{evidence} I repeat the GMM exercise of BPP, using the same empirical moments, but with identification coming from the continuous time model with time aggregated income. The full set of identification equations, with the model extended to include time varying coefficients, transitory persistence and taste shocks, can be found in appendices \ref{identification} and \ref{persistence_appendix}.
+
+\subsection{Intution} \label{intuition}
+While it is clear that time aggregation will introduce some bias, the size of the problem may be surprising. For example, if the household follows the permanent income hypothesis with values $\phi=1$ and $\psi=0$, and permanent and transitory income variances are close to equal, the BPP method would estimate $\psi$ to be -0.6. 
+
+Some intuition can be gleamed from viewing the estimation of the transitory insurance parameter as an IV regression. The BPP methodology essentially uses the change in income in period $t+1$ as an instrument for the transitory income shock in period $t$. Figure \ref{fig:BPPidentification} show why this works in discrete time: transitory shocks are negatively correlated with income changes the following period, while permanent shocks are uncorrelated with income changes in the following period. Thus income changes in period $t+1$ satisfy the exclusion restriction required to be a valid instrument for transitory shocks. However, with time aggregation permanent shocks are positively correlated with income changes in the following period. Therefore BPP method interprets negative permanent shocks as positive transitory shocks. As the negative permanent shocks likely lead to consumption decreasing, and the method associates this with positive transitory shocks, it results in significant downward bias for the estimate of partial transitory insurance.
+\begin{figure}
+	\includegraphics[width=0.9\textwidth]{BPP_identification.JPG}
+	\caption{Key to Transitory Shock Identification in BPP}
+	\label{fig:BPPidentification}
+\end{figure}
+
+\subsection{The Evidence} \label{evidence}
+The columns labeled `BPP' in table \ref{table:ReplicationTable} replicate the columns from table 6 from the original BPP paper. Next to each of these columns I have reported the equivalent estimate from the continuous time model with time aggregation (and no persistence in the transitory shock). The most notable changes are to the partial insurance parameters $\phi$ and $\psi$. Given the results from section \ref{cont_time_case}, it should not be surprising that the coefficient for transitory shocks has changed significantly, from 0.05 to 0.24 in the whole sample. The fact that the coefficient for permanent shock insurance has also changed, from 0.65 to 0.34, is somewhat surprising given the theory suggested it should not change when transitory shocks are not persistent. When there is persistence in transitory shocks, the identification of $\phi$ in the two models in no longer the same. In section \ref{persistence} I show how the estimate for $\phi$ is very sensitive to the degree of persistence in the discrete time model, which can explain why we observe a change in the estimate of $\phi$. The estimates for the no college and college sub-samples also move in similar ways, but the qualitative result that college educated households have significantly more insurance against income shocks holds.
+
+The whole sample permanent and transitory variances from table 6 are plotted in figure \ref{figure:shockVariance}. The transitory shock variances are of similar magnitude and follow the same pattern of increasing in the mid-80's as the original estimates of BPP. The permanent shock variances are now slightly larger (although again this is sensitive to the degree of persistence in transitory shocks). The sharp decrease in 1988, followed by increase in 1989, seems strange. However, the standard errors at these points are relatively large (approx 0.013) such that this pattern may be a result of statistical noise. Note that the standard errors for the permanent variances are approximately twice as large in the time aggregated model compared to the original BPP method.
+
+In appendix \ref{table_appendix} I have reproduced all the estimation tables from the BPP paper, along with the time aggregated estimates. As with the college/no college cohort results, the insurance coefficient accross cohorts move in the same direction as they do in BPP's estimates, but they are quantitatively very different.
+
+\input ../Code/Tables/RepTable6.tex
+
+\subsection{Persistence in the Transitory Shock} \label{persistence}
+The baseline results for the time aggregated model reported in table \ref{table:ReplicationTable} had no persistence in the transitory shock. In table \ref{table:Persistence} I report the insurance coefficients for three different ways of introducing persistence into the continuous time model, along with the estimates for the discrete time model with no persistence. The first method, called `two-shot', models transitory income as a mass of income arriving at time $t$, followed by another mass of income, smaller than the first by a factor $\theta$, arriving exactly one year later. This most closely mirrors the MA(1) model of transitory income used in the discrete time model. The second, called `uniform', models transitory income as a constant flow of income starting at time $t$ and ending at time $t+\tau$ where $\tau$ is a measure of persistence. This can be thought of as a member of the household becoming unemployed for a length of time $\tau$. The third, called `linear decay', models transitory income as a flow of income starting at time $t$, the size of which decreases linearly until it reaches zero at time $t+\tau$. This tries to capture the fact that some transitory shocks have little persistence, while others are longer lived, so that on average income from a transitory shock will be decreasing over time. The identifying equations for each model can be found in appendix \ref{persistence_appendix}. The bottom two rows of table \ref{table:Persistence} report the estimated values of $\theta$ and $\tau$ in each model. The values of $\theta$ in the MA(1) model and the two-shot model are similar, with a fraction 0.1 of the first year's transitory income arriving in the following year. The uniform model estimates transitive periods of high or low income to last for somewhat less than half a year (0.43), while the linear decay model estimates them to last more than half a year (0.61). This makes sense as the `persistence' associated with a uniform flow of income for a period $\tau$ is greater than that of a linearly decaying flow of income over a period $\tau$.
+
+The first two columns of table \ref{table:Persistence} show that the degree of persistence in the original BPP model makes a big difference to the estimate of $\phi$, while all of the time aggregation models show similar estimates for $\psi$. This suggests the difference we see in the estimates of $\phi$ between BPP original model and the time aggregated model may be driven, at least in part, by misspecification in the model of transitive income shocks. It is reassuring that, in contrast to the BPP model, the values of both $\phi$ and $\psi$ are relatively robust to the exact specification of transitive persistence in the time aggregated model.
+
+\input ../Code/Tables/Persistence.tex
+
+\begin{figure}
+	\includegraphics[width=1\textwidth]{../Code/Figures/ShockVariances1980s.pdf}
+	\footnotesize Notes: BPP plots the variances from Table 6 of the original BPP paper. Time Agg. plots the equivalent variances corrected for the time aggregation problem.
+	\caption{Shock Variances in the 1980's}
+	\label{figure:shockVariance}
+\end{figure}
+
+\section{Conclusion}
+This paper highlights the importance of time aggregation when working with panel data, especially when analyzing the covariance matrix of income and consumption growth. It also resolves the dissonance between BPP's estimates of transitory income insurance and the natural experiment literature on marginal propensity to consume. Going forward I hope the methods used here to correct for the time aggregation problem can be useful for researchers, especially as more and more high quality panel datasets on income and consumption become available.
+
+% Remove or comment out the next two lines if you are not using bibtex.
+\bibliographystyle{aea}
+\bibliography{AERComment}
+
+% The appendix command is issued once, prior to all appendices, if any.
+\appendix
+
+\section{Mathematical Appendix}
+
+\input AppendixLevelvsLogs.tex
+\input AppendixFullMoments.tex
+\input AppendixTransitoryPersistence.tex
+\input AppendixTypicalWeek.tex
+
+\section{Other Tables from the BPP paper} \label{table_appendix}
+Table \ref{table:ReplicationTable7} replicates Table 7 from the original BPP paper.
+
+\input ../Code/Tables/RepTable7.tex 
+
+Table \ref{table:ReplicationTable8} replicates Table 8 from the original BPP paper.\input ../Code/Tables/RepTable8.tex
+\end{document}
+
