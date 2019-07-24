@@ -41,7 +41,8 @@
 
 \DeclareOption{AER}{
   % AER is the default if no journal is specified
-  \def\@issueName{THE AMERICAN ECONOMIC REVIEW}
+  %\def\@issueName{THE AMERICAN ECONOMIC REVIEW}
+  \def\@issueName{}
   \@twosidetrue  
   \@twocolumnfalse
 }

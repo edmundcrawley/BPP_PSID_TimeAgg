@@ -15,7 +15,7 @@ for all $T$ and $S$ in $\{1,2,...\}$. I further make the assumption that while t
 \Delta c^{obs}_T &= \phi  \int_{T-1}^{T} dP_s  +\psi \int_{T-1}^{T}dQ_s +\int_{T-1}^{T}d\xi_s  + u_T - u_{T-1} \nonumber
 \end{align*}
 These two equations allow for the calculation of all the required identification equations:
-\begin{align*}
+\begin{align}
 \mathrm{Var}(\Delta y^{obs}_T) &= \mathbb{E} \Big(\int_{T-2}^{T-1} (s-(T-2))^2 dP_s dP_s  + \int_{T-1}^{T} (T-s)^2 dP_s dP_s \Big) \nonumber \\
 & \qquad + \mathbb{E} \Big(\int_{T-1}^{T} dQ_t dQ_t +\int_{T-2}^{T-1} dQ_t dQ_t \Big) \nonumber \\
 &= \frac{1}{3} \sigma^2_{P,T} + \frac{1}{3} \sigma^2_{P,T-1} +  \sigma^2_{Q,T} +  \sigma^2_{Q,T-1} \label{inc_var_indentification}\\
@@ -23,7 +23,7 @@ These two equations allow for the calculation of all the required identification
 &= \frac{1}{6}\sigma^2_{P,T} - \sigma^2_{Q,T} \nonumber\\
 \mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_{T-1}) &= \frac{1}{6}\sigma^2_{P,T-1} - \sigma^2_{Q,T-1} \nonumber\\
 \mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_{S}) &= 0 \qquad \forall S,T \text{ such that }|S-T| >1 \nonumber
-\end{align*}
+\end{align}
 \begin{align*}
 \mathrm{Var}{\Delta c^{obs}_T} &= \phi^2 \mathbb{E}\Big( \int_{T-1}^{T} dP_s dP_s \Big) + \psi^2 \mathbb{E}\Big( \int_{T-1}^{T} dQ_s dQ_s \Big) + \mathbb{E} \Big( \int_{T-1}^{T} d\xi_s d\xi_s \Big) +  \sigma^2_{u,T} +  \sigma^2_{u,T-1} \nonumber \\
 &= \phi^2 \sigma^2_{P,T} + \psi^2 \sigma^2_{Q,T} + \sigma^2_{\xi,T}+\sigma^2_{u,T}+   \sigma^2_{u,T-1}  \\
