@@ -8,6 +8,7 @@ from create_moments import create_moment_vector
 from min_distance_replication import Parameter_estimation
 import matplotlib.pyplot as plt
 import numpy as np
+from pathlib import Path
 
 time_agg_taste = 1
 time_agg_ma = 0
@@ -15,7 +16,7 @@ time_agg_ma = 0
 ###############################################################################
 #First create the empirical moments for whole sample
 print('Create Moment Vector from Inputs for All')
-c_vector, omega, T = create_moment_vector(".\InputFiles\CohA.csv")
+c_vector, omega, T = create_moment_vector(Path("./InputFiles/CohA.csv"))
 
 #Next replicate BPP
 print('Replicate BPP')
@@ -61,7 +62,7 @@ var_perm_TimeAgg_twoshot, var_perm_se_TimeAgg_twoshot, var_tran_TimeAgg_twoshot,
 ###############################################################################
 #Empirical moments for non-college
 print('Replicate BPP for Non-College')
-c_vector_NC, omega_NC, T = create_moment_vector(".\InputFiles\CohA_nocollege.csv")
+c_vector_NC, omega_NC, T = create_moment_vector(Path("./InputFiles/CohA_nocollege.csv"))
 
 #Next replicate BPP
 var_perm_BPP_NC, var_perm_se_BPP_NC, var_tran_BPP_NC, var_tran_se_BPP_NC, ins_perm_BPP_NC, \
@@ -78,7 +79,7 @@ var_perm_TimeAgg_NC, var_perm_se_TimeAgg_NC, var_tran_TimeAgg_NC, var_tran_se_Ti
 ###############################################################################
 #Empirical moments for college graduates
 print('Replicate BPP for College Graduates')
-c_vector_C, omega_C, T = create_moment_vector(".\InputFiles\CohA_college.csv")
+c_vector_C, omega_C, T = create_moment_vector(Path("./InputFiles/CohA_college.csv"))
 
 #Next replicate BPP
 var_perm_BPP_C, var_perm_se_BPP_C, var_tran_BPP_C, var_tran_se_BPP_C, ins_perm_BPP_C, \
@@ -202,13 +203,13 @@ plt.savefig('./Figures/ShockVariances1980s.pdf')
 ###############################################################################
 #Find parameter estimates for Tables 7 and 8
 print('Calculate Parameters to replicate tables 7 and 8')
-input_files = ['\CohA_Table7Col2.csv','\CohA_Table7Col3.csv','\CohA_Table8Col2.csv','\CohA_Table8Col3.csv','\CohA_Table8Col4.csv','\CohA_Table8Col5.csv','\CohA_Table8Col6.csv']
+input_files = ['/CohA_Table7Col2.csv','/CohA_Table7Col3.csv','/CohA_Table8Col2.csv','/CohA_Table8Col3.csv','/CohA_Table8Col4.csv','/CohA_Table8Col5.csv','/CohA_Table8Col6.csv']
 ins_perm_BPP_othertables = np.zeros((2,7))+np.nan
 ins_tran_BPP_othertables = np.zeros((2,7))+np.nan
 ins_perm_TimeAgg_othertables = np.zeros((2,7))+np.nan
 ins_tran_TimeAgg_othertables = np.zeros((2,7))+np.nan
 for i in range(7):
-    c_vector, omega, T = create_moment_vector(".\InputFiles"+input_files[i])
+    c_vector, omega, T = create_moment_vector(Path("./InputFiles")+input_files[i])
     
     #Next replicate BPP
     a, b, c, d, ins_perm_BPP_othertables[0,i], \
