@@ -1,17 +1,13 @@
 \subsection{Identification in the Full Model} \label{identification}
 In this appendix I calculate the full set of identifying equations for the non-stationary model with measurement error in consumption and taste shocks. Appendix \ref{persistence_appendix} extends these to add persistence in the transitory shock.
 
-With classical measurement error on consumption, equation \ref{c_obs} is extended to be:
-\begin{align*}
-c^{obs}_T =  \phi \Big( \int_{0}^{t} dP_s  \Big)  +\psi\Big( \int_{0}^{t}dQ_s\Big) + u_T
-\end{align*}
-where $u_T$ is i.i.d. and independent of the other variables. I am interested in the full set of observable covariances:
+I am interested in the full set of observable covariances:
 \begin{align*}
 \mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_S) \\
 \mathrm{Cov}(\Delta c^{obs}_T, \Delta c^{obs}_S) \\
 \mathrm{Cov}(\Delta c^{obs}_T,  \Delta y^{obs}_S)
 \end{align*}
-for all $T$ and $S$ in $\{1,2,...\}$. I further make the assumption that while the variance of the permanent and transitory shocks and insurance coefficients can change from year to year, within each year these are constant. The variance the permanent shock in year $T$ is $\sigma^2_{P,T}$ and the transitory shock $\sigma^2_{Q,T}$. I use equation \ref{deltay} for the change in observable log income, and extend equation \ref{deltac} for the change is observable log consumption to include taste shocks ($\xi_t$) and measurement error:
+for all $T$ and $S$ in $\{1,2,...\}$. I further make the assumption that while the variance of the permanent and transitory shocks and insurance coefficients can change from year to year, within each year these are constant. The variance the permanent shock in year $T$ is $\sigma^2_{P,T}$ and the transitory shock $\sigma^2_{Q,T}$. I use equation \ref{deltay} for the change in observable log income, and extend equation \ref{deltac} for the change in observable log consumption to include taste shocks ($\xi_t$) and measurement error ($u_T$):
 \begin{align*}
 \Delta c^{obs}_T &= \phi  \int_{T-1}^{T} dP_s  +\psi \int_{T-1}^{T}dQ_s +\int_{T-1}^{T}d\xi_s  + u_T - u_{T-1} \nonumber
 \end{align*}

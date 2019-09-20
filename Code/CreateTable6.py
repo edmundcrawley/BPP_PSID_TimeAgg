@@ -355,3 +355,47 @@ output += "\end{table}  \n"
 with open('./Tables/Persistence.tex','w') as f:
     f.write(output)
     f.close()
+    
+    ###############################################################################   
+#Shorter version of Table to show effect of transitory persistence
+print('Table to show effect of transitory persistence')
+output = "\\begin{table}  \n"
+output += "\caption{Minimum-Distance Partial Insurance and Variance Estimates}  \n"
+output += "\label{table:Persistence}  \n"
+output += "\\begin{center}  \n"
+output += "\\newsavebox{\Persistence}  \n"
+output += "\\resizebox{0.7\paperwidth}{!}{  \n"
+output += "\\begin{tabular}{lcc|cHcc}  \n"
+output += "\\toprule  \n"
+output += " & \multicolumn{2}{c}{BPP} & \multicolumn{4}{c}{Time Agg.}  \n"
+output += "\\\\ \\hline  \n"
+output += "\\\\ Persistence Type:  & None & MA(1) & None & Two-shot & Uniform & Linear Decay \n"
+output += "\\\\ \\hline  \n"
+
+output += " $\\psi$ &                               " +mystr1(ins_tran_BPP_nopers[0])+    " &   "+mystr1(ins_tran_BPP[0])+ " & " +mystr1(ins_tran_TimeAgg[0])+   " &   "+mystr1(ins_tran_TimeAgg_twoshot[0])+  " &   "+mystr1(ins_tran_TimeAgg_unif[0])+ " & " +mystr1(ins_tran_TimeAgg_lineardecay[0])+    "  \n"
+output += "\\\\ (Partial insurance tran. shock) &      ("+mystr1(ins_tran_se_BPP_nopers[0])+ ") & ("+mystr1(ins_tran_se_BPP[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg_twoshot[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg_unif[0])+ ") & ("+mystr1(ins_tran_se_TimeAgg_lineardecay[0])+ ") \n"
+
+
+output += "\\\\  $\\phi$ &                               " +mystr1(ins_perm_BPP_nopers[0])+    " &   "+mystr1(ins_perm_BPP[0])+ " & " +mystr1(ins_perm_TimeAgg[0])+   " &   "+mystr1(ins_perm_TimeAgg_twoshot[0])+  " &   "+mystr1(ins_perm_TimeAgg_unif[0])+ " & " +mystr1(ins_perm_TimeAgg_lineardecay[0])+    "  \n"
+output += "\\\\ (Partial insurance perm. shock) &      ("+mystr1(ins_perm_se_BPP_nopers[0])+ ") & ("+mystr1(ins_perm_se_BPP[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg_twoshot[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg_unif[0])+ ") & ("+mystr1(ins_perm_se_TimeAgg_lineardecay[0])+ ") \n"
+
+
+#output += "\\\\ $\\theta$ or $\\tau$ &            " +"N/A"+    " &   "+mystr1(teta_BPP)+ " & " +"N/A"+   " &   "+mystr1(teta_TimeAgg_twoshot)+  " &   "+mystr1(teta_TimeAgg_unif)+ " & " +mystr1(teta_TimeAgg_lineardecay)+    "  \n"
+#output += "\\\\ (Degree of Persistence) &      ("+mystr1(teta_se_BPP_nopers)+ ") & ("+mystr1(teta_se_BPP)+ ") & ("+mystr1(teta_se_TimeAgg)+ ") & ("+mystr1(teta_se_TimeAgg_twoshot)+ ") & ("+mystr1(teta_se_TimeAgg_unif)+ ") & ("+mystr1(teta_se_TimeAgg_lineardecay)+ ") \n"
+
+
+output += "\\\\ \\hline  \n"
+
+output += " \end{tabular}   \n"
+output += " } \n "
+output += "\\usebox{\Persistence}  \n"
+output += "\settowidth\TableWidth{\\usebox{\Persistence}} % Calculate width of table so notes will match  \n"
+#output += "\medskip\medskip \\vspace{0.0cm} \parbox{\TableWidth}{\small  \n"
+#output += "\\textbf{Notes}: The table reports the DWMD results of the parameters of interest. I also calculate time-varying measurement error in consumption (results not reported for brevity). Standard errors in parentheses.  \n"
+#output += "}  \n"
+output += "\end{center}  \n"
+output += "\end{table}  \n"
+
+with open('./Tables/Persistence_short.tex','w') as f:
+    f.write(output)
+    f.close()

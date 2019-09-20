@@ -1,0 +1,10 @@
+\subsection{Effect of Timing of Consumption in the PSID} \label{typical_week}
+BPP impute annual consumption from the question in the PSID asking about food consumption in a `typical' week. Unfortunately it is not clear if this relates to an average of the previous calendar year, or some more recent week closer to when the interview was conducted (normally in March of the following year). In the paper I have assumed the answer gives a snapshot of consumption at the end of the calendar year. Here I show that assuming the `typical' week is an average of consumption over the previous calendar year, the identifying equation from BPP for transitory insurance coefficient is different again, and still significantly biased. Under this new assumption the equation for the permanent insurance coefficient is unbiased as before:
+\begin{align*}
+\frac{\mathrm{Cov}(\Delta c^{obs}_{T}, \Delta y^{obs}_{T-1}+\Delta y^{obs}_{T}+\Delta y^{obs}_{T+1})}{\mathrm{Cov}(\Delta y^{obs}_{T}, \Delta y^{obs}_{T-1}+\Delta y^{obs}_{T}+\Delta y^{obs}_{T+1})}&= \phi
+\end{align*}
+While the identifying equation for the transitory insurance coefficient is:
+\begin{align*}
+\frac{\mathrm{Cov}(\Delta c^{obs}_{T},\Delta y^{obs}_{T+1})}{\mathrm{Cov}(\Delta y^{obs}_{T},\Delta y^{obs}_{T+1})} &= \frac{-\phi\frac{1}{6}\sigma^2_P + \frac{1}{2}\psi\sigma^2_Q}{-\frac{1}{6}\sigma^2_P + \sigma^2_Q} \neq \psi 
+\end{align*}
+Under the permanent income hypothesis with $\phi=1$, $\psi=0$ and permanent and transitory variances approximately equal, the BPP estimate of $\psi$ would be -0.2.
