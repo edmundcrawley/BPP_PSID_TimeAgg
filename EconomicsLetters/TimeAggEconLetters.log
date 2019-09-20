@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2019.8.22)  20 SEP 2019 14:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2019.8.22)  20 SEP 2019 16:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -310,18 +310,18 @@ ap}]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [2]
-<../Code/Figures/TimeAggAER_simple.pdf, id=18, 505.89pt x 505.89pt>
-File: ../Code/Figures/TimeAggAER_simple.pdf Graphic file (type pdf)
+<../Code/Figures/TimeAgg_simple.pdf, id=18, 505.89pt x 505.89pt>
+File: ../Code/Figures/TimeAgg_simple.pdf Graphic file (type pdf)
 
-<use ../Code/Figures/TimeAggAER_simple.pdf>
-Package pdftex.def Info: ../Code/Figures/TimeAggAER_simple.pdf used on input li
-ne 63.
+<use ../Code/Figures/TimeAgg_simple.pdf>
+Package pdftex.def Info: ../Code/Figures/TimeAgg_simple.pdf used on input line 
+63.
 (pdftex.def)             Requested size: 269.8732pt x 269.8804pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[3] [4 <../Code/Figures/TimeAggAER_simple.pdf>]
+[3] [4 <../Code/Figures/TimeAgg_simple.pdf>]
 Underfull \vbox (badness 2521) has occurred while \output is active []
 
  [5]
@@ -454,7 +454,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [23] [24] [25] (./TimeAggEconLetters.aux) ) 
 Here is how much of TeX's memory you used:
  2968 strings out of 493117
- 42412 string characters out of 6130074
+ 42397 string characters out of 6130074
  138082 words of memory out of 5000000
  6362 multiletter control sequences out of 15000+600000
  12395 words of font info for 46 fonts, out of 8000000 for 9000
@@ -479,7 +479,7 @@ amsfonts/cm/cmsy8.pfb><c:/Program Files (x86)/texlive/2014/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmti10.pfb><c:/Program Files (x86)/texlive/2014/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmti8.pfb><c:/Program Files (x86)/texlive/2014
 /texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TimeAggEconLetters.pdf (25 pages, 259717 bytes).
+Output written on TimeAggEconLetters.pdf (25 pages, 259833 bytes).
 PDF statistics:
  156 PDF objects out of 1000 (max. 8388607)
  109 compressed objects within 2 object streams
