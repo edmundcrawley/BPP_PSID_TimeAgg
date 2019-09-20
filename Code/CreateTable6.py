@@ -1,5 +1,6 @@
 """
-Code to replicate Table 6 from BPP using both their methodology and the updated one
+Code to replicate all tables and graphs from BPP using both their methodology 
+and the updated one
 """
 import sys 
 import os
