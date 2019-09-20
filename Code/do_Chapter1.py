@@ -1,5 +1,5 @@
 """
- Creates all tables and figures for Chapter 1 of my dissertation
+ Creates all tables and figures for Time Aggregation in BPP paper
 """
 
 # Requrements:

@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2014/W32TeX)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: TimeAggEconLetters.aux
+The style file: aea.bst
+Database file #1: TimeAggEconLetters.bib
+Warning--empty journal in commault_how_2017
+You've used 19 entries,
+            2695 wiz_defined-function locations,
+            719 strings with 7984 characters,
+and the built_in function-call counts, 115493 in all, are:
+= -- 19338
+> -- 1270
+< -- 0
++ -- 9354
+- -- 398
+* -- 10371
+:= -- 22539
+add.period$ -- 131
+call.type$ -- 19
+change.case$ -- 247
+chr.to.int$ -- 19
+cite$ -- 20
+duplicate$ -- 277
+empty$ -- 765
+format.name$ -- 401
+if$ -- 20758
+int.to.chr$ -- 5
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 64
+num.names$ -- 209
+pop$ -- 21
+preamble$ -- 1
+purify$ -- 285
+quote$ -- 0
+skip$ -- 225
+stack$ -- 0
+substring$ -- 27744
+swap$ -- 110
+text.length$ -- 266
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 76
+warning$ -- 1
+while$ -- 483
+width$ -- 0
+write$ -- 96
+(There was 1 warning)
