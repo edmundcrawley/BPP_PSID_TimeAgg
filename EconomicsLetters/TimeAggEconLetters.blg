@@ -4,45 +4,45 @@ The top-level auxiliary file: TimeAggEconLetters.aux
 The style file: aea.bst
 Database file #1: TimeAggEconLetters.bib
 Warning--empty journal in commault_how_2017
-You've used 19 entries,
+You've used 21 entries,
             2695 wiz_defined-function locations,
-            719 strings with 7984 characters,
-and the built_in function-call counts, 115493 in all, are:
-= -- 19338
-> -- 1270
+            730 strings with 8239 characters,
+and the built_in function-call counts, 120114 in all, are:
+= -- 20035
+> -- 1338
 < -- 0
-+ -- 9354
-- -- 398
-* -- 10371
-:= -- 22539
-add.period$ -- 131
-call.type$ -- 19
-change.case$ -- 247
-chr.to.int$ -- 19
-cite$ -- 20
-duplicate$ -- 277
-empty$ -- 765
-format.name$ -- 401
-if$ -- 20758
++ -- 9667
+- -- 418
+* -- 10757
+:= -- 23542
+add.period$ -- 145
+call.type$ -- 21
+change.case$ -- 273
+chr.to.int$ -- 21
+cite$ -- 22
+duplicate$ -- 305
+empty$ -- 847
+format.name$ -- 421
+if$ -- 21569
 int.to.chr$ -- 5
 int.to.str$ -- 0
 missing$ -- 0
-newline$ -- 64
-num.names$ -- 209
-pop$ -- 21
+newline$ -- 70
+num.names$ -- 231
+pop$ -- 23
 preamble$ -- 1
-purify$ -- 285
+purify$ -- 315
 quote$ -- 0
-skip$ -- 225
+skip$ -- 249
 stack$ -- 0
-substring$ -- 27744
-swap$ -- 110
-text.length$ -- 266
+substring$ -- 28702
+swap$ -- 121
+text.length$ -- 294
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 76
+type$ -- 84
 warning$ -- 1
-while$ -- 483
+while$ -- 531
 width$ -- 0
-write$ -- 96
+write$ -- 106
 (There was 1 warning)

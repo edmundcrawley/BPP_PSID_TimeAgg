@@ -41,11 +41,6 @@
   and {Interest} {Rates}: {Reinterpreting} the {Time} {Series} {Evidence}.''
   National Bureau of Economic Research, Inc {NBER} {Chapters}.
 
-\harvarditem[Carroll \harvardand\ Samwick]{Christopher Carroll \harvardand\
-  Andrew Samwick}{1997}{carroll_nature_1997}
-{\bf Carroll, Christopher, and Andrew Samwick.} 1997. ``The nature of
-  precautionary wealth.'' {\em Journal of Monetary Economics}, 40(1):~41--71.
-
 \harvarditem[Commault]{Jeanne Commault}{2017}{commault_how_2017}
 {\bf Commault, Jeanne.} 2017. ``How {Does} {Consumption} {Respond} to a
   {Transitory} {Income} {Shock}? {Reconciling} {Natural} {Experiments} and
@@ -73,6 +68,11 @@
   {Consumption} to {Transitory} {Income}: {Estimates} from {Panel} {Data} on
   {Households}.'' {\em Econometrica}, 50(2):~461--81.
 
+\harvarditem[Hause]{John Hause}{1973}{hause_1973}
+{\bf Hause, John.} 1973. ``The Covariance Structure of Earnings and the On the
+  Job Training Hypothesis.'' National Bureau of Economic Research Working
+  {Paper} 25.
+
 \harvarditem[Jappelli \harvardand\ Pistaferri]{Tullio Jappelli \harvardand\
   Luigi Pistaferri}{2010}{jappelli_consumption_2010}
 {\bf Jappelli, Tullio, and Luigi Pistaferri.} 2010. ``The {Consumption}
@@ -91,6 +91,11 @@
   {Insurance} beyond {Self}-{Insurance}?'' {\em American Economic Journal:
   Macroeconomics}, 2(4):~53--87.
 
+\harvarditem[MaCurdy]{Thomas~E. MaCurdy}{1982}{macurdy_time_1982}
+{\bf MaCurdy, Thomas~E.} 1982. ``The use of time series processes to model the
+  error structure of earnings in a longitudinal data analysis.'' {\em Journal
+  of Econometrics}, 18(1):~83 -- 114.
+
 \harvarditem[Parker et~al.]{Jonathan~A Parker, Nicholas~S Souleles, David~S
   Johnson \harvardand\ Robert McClelland}{2013}{parker_consumer_2013}
 {\bf Parker, Jonathan~A, Nicholas~S Souleles, David~S Johnson, and Robert
@@ -106,6 +111,12 @@
 \harvarditem[Weiss]{Andrew~A. Weiss}{1984}{weiss_systematic_1984}
 {\bf Weiss, Andrew~A.} 1984. ``Systematic sampling and temporal aggregation in
   time series models.'' {\em Journal of Econometrics}, 26(3):~271--281.
+
+\harvarditem[Weiss \harvardand\ Lillard]{Yoram Weiss \harvardand\ Lee
+  Lillard}{1979}{weiss_1979}
+{\bf Weiss, Yoram, and Lee Lillard.} 1979. ``Components of Variation in Panel
+  Earnings Data: American Scientists 1960-70.'' {\em Econometrica},
+  47:~437--54.
 
 \harvarditem[Working]{Holbrook Working}{1960}{working_note_1960}
 {\bf Working, Holbrook.} 1960. ``Note on the {Correlation} of {First}
