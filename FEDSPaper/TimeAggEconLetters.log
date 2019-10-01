@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2019.8.7)  29 SEP 2019 12:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2019.8.22)  1 OCT 2019 13:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -210,18 +210,18 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 (./TimeAggEconLetters.aux)
 \openout1 = `TimeAggEconLetters.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
+LaTeX Font Info:    ... okay on input line 33.
 
 (c:/Program Files (x86)/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -293,12 +293,12 @@ sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for U+msa on input line 50.
+LaTeX Font Info:    Try loading font information for U+msa on input line 51.
 
 (c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 50.
+LaTeX Font Info:    Try loading font information for U+msb on input line 51.
 
 (c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -311,7 +311,7 @@ File: ../Code/Figures/TimeAgg_simple.pdf Graphic file (type pdf)
 
 <use ../Code/Figures/TimeAgg_simple.pdf>
 Package pdftex.def Info: ../Code/Figures/TimeAgg_simple.pdf used on input line 
-58.
+59.
 (pdftex.def)             Requested size: 269.8732pt x 269.8804pt.
 
 
@@ -321,21 +321,19 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 Underfull \vbox (badness 1859) has occurred while \output is active []
 
  [2]
-[3 <../Code/Figures/TimeAgg_simple.pdf>] [4]
-Underfull \vbox (badness 4144) has occurred while \output is active []
-
- [5]
+[3 <../Code/Figures/TimeAgg_simple.pdf>] [4] [5]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [6]
-[7] (../Code/Tables/Persistence_short.tex
+(../Code/Tables/Persistence_short.tex
 \Persistence=\box55
 
 Overfull \hbox (44.49031pt too wide) in paragraph at lines 6--22
  [] 
  []
 
-) [8] (./TimeAggEconLetters.bbl [9] [10]) (./AppendixFullMoments.tex [11]
+[7]) [8] (./TimeAggEconLetters.bbl [9] [10]) (./AppendixFullMoments.tex
+[11]
 Overfull \hbox (91.67694pt too wide) in paragraph at lines 30--30
 [] 
  []
@@ -344,26 +342,23 @@ Overfull \hbox (91.67694pt too wide) in paragraph at lines 30--30
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [12])
-[13] (./AppendixLevelvsLogs.tex
+(./AppendixLevelvsLogs.tex [13]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [14]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [15]
 Overfull \hbox (50.43112pt too wide) in paragraph at lines 49--49
 [] 
  []
 
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [15]
 Overfull \hbox (58.051pt too wide) in paragraph at lines 56--56
 [] 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [16]
 Overfull \hbox (64.48093pt too wide) in paragraph at lines 73--73
 [] 
  []
@@ -371,10 +366,10 @@ Overfull \hbox (64.48093pt too wide) in paragraph at lines 73--73
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [17]
+ [16]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [18]
+ [17]
 Overfull \hbox (23.68826pt too wide) in paragraph at lines 89--89
 [] 
  []
@@ -382,7 +377,7 @@ Overfull \hbox (23.68826pt too wide) in paragraph at lines 89--89
 ) (./AppendixTransitoryPersistence.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [19]
+ [18]
 Overfull \hbox (97.58466pt too wide) in paragraph at lines 22--22
 [] 
  []
@@ -390,7 +385,7 @@ Overfull \hbox (97.58466pt too wide) in paragraph at lines 22--22
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [20]
+ [19]
 Overfull \hbox (61.98283pt too wide) in paragraph at lines 41--41
 [] 
  []
@@ -398,7 +393,7 @@ Overfull \hbox (61.98283pt too wide) in paragraph at lines 41--41
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [21]
+ [20]
 Overfull \hbox (22.823pt too wide) in paragraph at lines 55--55
 [] 
  []
@@ -411,8 +406,8 @@ Overfull \hbox (11.32043pt too wide) in paragraph at lines 60--60
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [22])
-(./AppendixTypicalWeek.tex [23]) (../Code/Tables/RepTable6.tex
+ [21])
+(./AppendixTypicalWeek.tex [22]) (../Code/Tables/RepTable6.tex
 \ReplicationTable=\box56
 
 Overfull \hbox (61.9769pt too wide) in paragraph at lines 6--73
@@ -446,11 +441,11 @@ Overfull \hbox (44.47678pt too wide) in paragraph at lines 6--37
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[24] [25] [26] (./TimeAggEconLetters.aux) ) 
+[23] [24] [25] (./TimeAggEconLetters.aux) ) 
 Here is how much of TeX's memory you used:
  2974 strings out of 493117
- 42499 string characters out of 6130075
- 138225 words of memory out of 5000000
+ 42499 string characters out of 6130074
+ 138208 words of memory out of 5000000
  6368 multiletter control sequences out of 15000+600000
  12395 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -474,10 +469,10 @@ amsfonts/cm/cmsy8.pfb><c:/Program Files (x86)/texlive/2014/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmti10.pfb><c:/Program Files (x86)/texlive/2014/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmti8.pfb><c:/Program Files (x86)/texlive/2014
 /texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TimeAggEconLetters.pdf (26 pages, 263259 bytes).
+Output written on TimeAggEconLetters.pdf (25 pages, 262394 bytes).
 PDF statistics:
- 159 PDF objects out of 1000 (max. 8388607)
- 111 compressed objects within 2 object streams
+ 156 PDF objects out of 1000 (max. 8388607)
+ 109 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
