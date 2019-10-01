@@ -28,6 +28,7 @@
 \newlength\TableWidth
 \usepackage{array}
 \newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}}
+\renewcommand{\draftDate}{\vspace{12pt} October 1, 2019}
 
 \begin{document}
 
@@ -35,7 +36,7 @@
 \shortTitle{In Search of Lost Time Aggregation}
 \author{Edmund Crawley\thanks{ Federal Reserve Board, 20th Street and Constitution Avenue N.W., Washington, DC 20551, edmund.s.crawley@frb.gov. The analysis and conclusions set forth are those of the author alone and do not indicate concurrence by other members of the research staff or the Board of Governors. Many thanks to Chris Carroll for support and guidance.}}
 \date{\today}
-\pubMonth{September}
+\pubMonth{October}
 \pubYear{2019}
 \pubVolume{}
 \pubIssue{}
@@ -79,14 +80,14 @@ The unexplained change in log consumption is modeled as a random walk that moves
 \begin{align*}
 \Delta c_{i,t} = \phi \zeta_{i,t} + \psi \nu_{i,t} 
 \end{align*}
-where $\phi$ and $\psi$ are the \textit{partial insurance} parameters. A value of zero implies full insurance (consumption does not respond at all to the income shock), while a value of one implies no insurance. The core of the empirical methodology is to identify these insurance parameters in the data from the following identities:
+where $\phi$ and $\psi$ are the \textit{partial insurance} parameters. A value of zero for either $\phi$ or $\psi$  implies full insurance to permanent or transitory shocks respectively (consumption does not respond at all to the income shock), while a value of one implies no insurance. The transitory insurance parameter will be of particular interest in this analysis. The core of the empirical methodology is to identify these insurance parameters in the data from the following identities:
 \begin{align}
 \phi&= \frac{\mathrm{Cov}(\Delta c_{t}, \Delta y_{t-1}+\Delta y_{t}+\Delta y_{t+1})}{\mathrm{Cov}(\Delta y_{t}, \Delta y_{t-1}+\Delta y_{t}+\Delta y_{t+1})} \label{phi}\\
 \psi&= \frac{\mathrm{Cov}(\Delta c_{t},\Delta y_{t+1})}{\mathrm{Cov}(\Delta y_{t},\Delta y_{t+1})} \label{psi}
 \end{align}
 
 \subsection{The Model in Continuous Time with Time Aggregation}
-In this section I show how time aggregation can significantly bias the partial insurance parameter estimates obtained by equations \ref{phi} and \ref{psi}. The model in this section will be the exact analog of the discrete time model just described, but embedded in continuous time where shocks are spread uniformly throughout the year.\footnote{There is little formal evidence on the distribution of shocks throughout the year. While this assumption is unlikely to be strictly true, it is more reasonable than the implicit assumption of BPP that shocks all occur 1st January each year.} The main result does not hinge on the use of continuous time, and similar estimates would be obtained by dividing the year into quarters or months.\footnote{The autocorrelation of a time aggregated random walk is 0.25 in continuous time, compared to 0.23 for a discrete quarterly model and almost indistinguishable from a discrete monthly model. The theoretical moments are however significantly more elegant in continuous time. See online appendix \ref{log_tranformation}}
+In this section I show how time aggregation can significantly bias the partial insurance parameter estimates obtained by equations \ref{phi} and \ref{psi}. The model in this section will be the exact analog of the discrete time model just described, but embedded in continuous time where shocks are spread uniformly throughout the year.\footnote{There is little formal evidence on the distribution of shocks throughout the year. While this assumption is unlikely to be strictly true, it is more reasonable than the implicit assumption of BPP that shocks all occur 1st January each year.} The main result does not hinge on the use of continuous time, and similar estimates would be obtained by dividing the year into quarters or months.\footnote{The autocorrelation of a time aggregated random walk is 0.25 in continuous time, compared to 0.23 for a discrete quarterly model and almost indistinguishable from a discrete monthly model. The theoretical moments are however significantly more elegant in continuous time. See appendix \ref{log_tranformation}}
 
 Time is continuous and one time unit represents one year. For the income process we will assume two underlying martingale processes, $P_t$ and $Q_t$ such that for all $s_1>s_2>s_3>s_4>0$:
 \begin{align*}
@@ -94,7 +95,7 @@ Time is continuous and one time unit represents one year. For the income process
 \mathrm{Cov}(P_{s_1}-P_{s_2},P_{s_3}-P_{s_4}) = 0 \\
 P_s = 0 \qquad \text{if } s<0
 \end{align*}
-and similarly for $Q_t$. Brownian motion fits these assumptions, but the slightly more general definition allows for jumps in the income process, such as getting promoted.  Instantaneous income in a period $dt$ is given by:\footnote{A more formal treatment of how to relate this to the log income process is given in online appendix \ref{log_tranformation}.}
+and similarly for $Q_t$. Brownian motion fits these assumptions, but the slightly more general definition allows for jumps in the income process, such as getting promoted.  Instantaneous income in a period $dt$ is given by:\footnote{A more formal treatment of how to relate this to the log income process is given in appendix \ref{log_tranformation}.}
 \begin{align}
 dy_t = P_t dt  +dQ_t \label{income_process}
 \end{align}
@@ -110,7 +111,7 @@ In the Panel Study of Income Dynamics (PSID) data, we observe the total income r
 \begin{align*}
 y^{obs}_T = \int_{T-1}^{T} dy_t
 \end{align*}
-Consumption is measured by a survey at the beginning of the following calendar year, which I map to a snapshot of consumption exactly at the end of the calendar year:\footnote{BPP use data on food consumption to impute total annual consumption. The questionnaire asks about food consumption in a typical week, but unfortunately the timing of this `typical week' is not clear. The questionnaire is usually given at the end of March in the following year. See \cite{altonji_testing_1987} and \cite{hall_sensitivity_1982} for differing views. In online appendix \ref{typical_week} I show that the timing of the `typical' week can have a large effect on the results. This is an important drawback to using this method with the PSID data. In \cite{crawley_consumption_2018} we use expenditure data imputed from Danish administrative records in which the timing of expenditure is very clearly defined.}
+Consumption is measured by a survey at the beginning of the following calendar year, which I map to a snapshot of consumption exactly at the end of the calendar year:\footnote{BPP use data on food consumption to impute total annual consumption. The questionnaire asks about food consumption in a typical week, but unfortunately the timing of this `typical week' is not clear. The questionnaire is usually given at the end of March in the following year. See \cite{altonji_testing_1987} and \cite{hall_sensitivity_1982} for differing views. In appendix \ref{typical_week} I show that the timing of the `typical' week can have a large effect on the results. This is an important drawback to using this method with the PSID data. In \cite{crawley_consumption_2018} we use expenditure data imputed from Danish administrative records in which the timing of expenditure is very clearly defined.}
 \begin{align}
 c^{obs}_T = \phi P_T  +\psi Q_T \label{c_obs}
 \end{align}
@@ -133,11 +134,11 @@ Indeed the transitory insurance coefficient bears little relation to the true va
 
 \section{Revised BPP Estimates} \label{evidence}
 
-In this section I repeat the BPP estimation proceedure, but with the model moments coming from the continuous time model with time aggregated income. While the core identification in BPP is illustrated in equations \ref{phi} and \ref{psi}, the full estimation proceedure minimizes the distance between all the observable covariances ($ \mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_S)$, $\mathrm{Cov}(\Delta c^{obs}_T, \Delta c^{obs}_S)$ and $\mathrm{Cov}(\Delta c^{obs}_T,  \Delta y^{obs}_S)$) and their model implied equivalents.\footnote{I follow the exact same diagonally weighted minimum distance proceedure in BPP as described in online appendix D of \cite{blundell_consumption_2008}} The full set of these model implied moments for the continuous time model, extended to include time varying coefficients, transitory persistence and taste shocks, can be found in appendix \ref{identification} and online appendix \ref{persistence_appendix}. 
+In this section I repeat the BPP estimation proceedure, but with the model moments coming from the continuous time model with time aggregated income. While the core identification in BPP is illustrated in equations \ref{phi} and \ref{psi}, the full estimation proceedure minimizes the distance between all the observable covariances ($ \mathrm{Cov}(\Delta y^{obs}_T, \Delta y^{obs}_S)$, $\mathrm{Cov}(\Delta c^{obs}_T, \Delta c^{obs}_S)$ and $\mathrm{Cov}(\Delta c^{obs}_T,  \Delta y^{obs}_S)$) and their model implied equivalents.\footnote{I follow the exact same diagonally weighted minimum distance proceedure in BPP as described in appendix D of \cite{blundell_consumption_2008}} The full set of these model implied moments for the continuous time model, extended to include time varying coefficients, transitory persistence and taste shocks, can be found in appendix \ref{identification} and appendix \ref{persistence_appendix}. 
 
 \input ../Code/Tables/Persistence_short.tex
 
-Table \ref{table:Persistence} shows the estimates for the transitory and permanent insurance parameters, first using BPP's original method and then with time aggregation. As there is no equivalent to an MA(1) process in continuous time, I consider two alternative ways to introduce persistence in the transitory shock, as well as reporting results assuming no persistence. First I assume a transitory shock provides a stream of income uniformly distributed over a short period of time (to be estimated). Second I assume the stream of income decays linearly over a short period.\footnote{See online appendix \ref{persistence_appendix} for details.} The time aggregated results are not very sensitive to these assumptions.
+Table \ref{table:Persistence} shows the estimates for the transitory and permanent insurance parameters, first using BPP's original method and then with time aggregation. As there is no equivalent to an MA(1) process in continuous time, I consider two alternative ways to introduce persistence in the transitory shock, as well as reporting results assuming no persistence. First I assume a transitory shock provides a stream of income uniformly distributed over a short period of time (to be estimated). Second I assume the stream of income decays linearly over a short period.\footnote{See appendix \ref{persistence_appendix} for details.} The time aggregated results are not very sensitive to these assumptions.
 
 The top row of table \ref{table:Persistence} gives the main result showing the transitory insurance parameter increases from 0.05 in BPP to 0.24 with time aggregation. This new estimate is much more in line with the literature that estimates MPCs using natural experiments.
 
@@ -156,8 +157,6 @@ This paper highlights the importance of time aggregation when working with panel
 
 \section{Mathematical Appendix}
 \input AppendixFullMoments.tex
-\newpage
-\section{For Online Publication}
 \input AppendixLevelvsLogs.tex
 \input AppendixTransitoryPersistence.tex
 \input AppendixTypicalWeek.tex
