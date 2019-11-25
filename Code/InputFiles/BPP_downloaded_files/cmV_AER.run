@@ -1,0 +1,163 @@
+/*This part prepares the data to be used later in the minimum distance estimation setting*/
+
+new;
+
+first_diff=1;					/*Tells whether moments are in levels (0) or FD (1)*/
+T1=0;
+
+open f1 = c:\papers\partial\revise2\cohA;
+z      =readr(f1,rowsf(f1));
+f1     =close(f1);
+
+col_coh=3;
+col_year=2;
+
+x7992  =selif(z,z[.,col_coh].==0 .and z[.,col_year].<=1992);
+c7992  =selif(z,z[.,col_coh].==0 .and z[.,col_year].<=1992);
+
+m7992 =crea_7992(x7992,first_diff);
+mc7992=crea_7992c(c7992,first_diff);
+y7992 =saved(m7992,"c:\\papers\\partial\\revise2\\coh07992",0);	/*Income 79-92*/
+yc7992=saved(mc7992,"c:\\papers\\partial\\revise2\\coh7992",0);	/*Income & consumption 79-92*/
+
+system;
+
+
+proc (1) = crea_7992(x,first_diff);
+local col_year,coly_lev,colc_lev,col_id,col_del,l,coldy_lev,coldc_lev,xxy,T,y,lev,d_lev,lev_j,
+i,c_matrix,c_vector,dim,omega,moments,d_lev_j,c_matrix_j,d_matrix_j,c_vector_j,d_vector_j,d_matrix,d_vector,
+col_deld,coly_dif,coldy_dif,colc_dif,coldc_dif,col_missl,col_missd,dif,d_dif,dif_j,d_dif_j,nmissl,nmissd;
+
+x=x7992;
+col_id     =1;                      /*colum where id is */ 
+col_year   =2;                      /*column where year is*/
+col_coh    =3;                      /*columns where dummies for cohorts are*/
+col_deld   =4;                      /*columns where dummies for the missing years in FD consumption*/
+coly_dif   =5;                      /*column where residuals in FD of income are*/
+coldy_dif  =6;                      /*column where dummies for no-missing residuals in FD are*/
+colc_dif   =7;                      /*column where residuals in FD of consumption are*/
+coldc_dif  =8;                      /*column where dummies for no-missing residuals in FD are*/
+col_missd  =9;                      /*number of missing consumption years in FD*/
+
+xxy=(x[.,coly_dif]~x[.,coldy_dif]~x[.,col_id]~x[.,col_year]);
+
+T  =maxc(x[.,col_year])-minc(x[.,col_year])+1;  
+
+dif    =zeros(T,T);
+d_dif  =zeros(T,T);
+y      =rows(xxy)-T+1;         
+
+for i(1,y,T);
+  dif_j  =xxy[i:i+T-1,1]*xxy[i:i+T-1,1]';
+  d_dif_j=xxy[i:i+T-1,2]*xxy[i:i+T-1,2]';
+  dif    =dif+dif_j;
+  d_dif  =d_dif+d_dif_j;
+  clear dif_j,d_dif_j;
+endfor;
+dif     =dif./d_dif;
+
+c_matrix=dif;
+c_vector=vech(c_matrix);
+dim    =(rows(c_matrix)*(rows(c_matrix)+1))/2;
+
+omega  =zeros(dim,dim);
+d_matrix=d_dif;
+d_vector=vech(d_matrix);
+clear d_dif,d_matrix,c_matrix,dif;
+
+for i(1,y,T);
+        dif_j  =xxy[i:i+T-1,1]*xxy[i:i+T-1,1]';
+        d_dif_j=xxy[i:i+T-1,2]*xxy[i:i+T-1,2]';
+        c_matrix_j=dif_j;
+        clear dif_j;
+        d_matrix_j=d_dif_j;
+        clear d_dif_j;
+        c_vector_j=vech(c_matrix_j);
+        d_vector_j=vech(d_matrix_j);
+        clear c_matrix_j,d_matrix_j;
+        omega=omega+(((c_vector_j-c_vector)*(c_vector_j-c_vector)').*(d_vector_j*d_vector_j'));
+        clear c_vector_j,d_vector_j;
+endfor;
+
+omega=omega./(d_vector*d_vector');
+
+moments=c_vector~omega~(T*ones(rows(c_vector),1));
+moments[2,cols(moments)]=1;
+moments[3,cols(moments)]=minc(x[.,col_year]);
+moments[4,cols(moments)]=maxc(x[.,col_year]);
+
+retp(moments);
+endp;
+
+
+proc (1) = crea_7992c(x,first_diff);
+local col_year,coly_lev,colc_lev,col_id,col_del,l,coldy_lev,coldc_lev,xxy,T,y,lev,d_lev,lev_j,
+i,c_matrix,c_vector,dim,omega,moments,d_lev_j,c_matrix_j,d_matrix_j,c_vector_j,d_vector_j,d_matrix,d_vector,
+col_deld,coly_dif,coldy_dif,colc_dif,coldc_dif,col_missl,col_missd,dif,d_dif,dif_j,d_dif_j,nmissl,nmissd;
+
+col_id     =1;                      /*colum where id is */ 
+col_year   =2;                      /*column where year is*/
+col_coh    =3;                      /*columns where dummies for cohorts are*/
+col_deld   =4;                      /*columns where dummies for the missing years in FD consumption*/
+coly_dif   =5;                      /*column where residuals in FD of income are*/
+coldy_dif  =6;                      /*column where dummies for no-missing residuals in FD are*/
+colc_dif   =7;                      /*column where residuals in FD of consumption are*/
+coldc_dif  =8;                      /*column where dummies for no-missing residuals in FD are*/
+col_missd  =9;                      /*number of missing consumption years in FD*/
+ 
+xxy=(x[.,colc_dif]~x[.,coldc_dif]~x[.,col_deld]~x[.,col_id]~x[.,col_year]~ones(rows(x),1))
+   |(x[.,coly_dif]~x[.,coldy_dif]~zeros(rows(x),1)~x[.,col_id]~x[.,col_year]~2*ones(rows(x),1));
+xxy=selif(xxy,xxy[.,3].==0);
+l=zeros(3,1);
+l[1,1]=4;
+l[2,1]=6;
+l[3,1]=5;
+xxy=sortmc(xxy,l);
+
+T  =maxc(x[.,col_year])-minc(x[.,col_year])+1;  
+T1=T+T-x[1,col_missd];
+
+dif    =zeros(T1,T1);
+d_dif  =zeros(T1,T1);
+y      =rows(xxy)-T1+1;         
+
+for i(1,y,T1);
+  dif_j  =xxy[i:i+T1-1,1]*xxy[i:i+T1-1,1]';
+  d_dif_j=xxy[i:i+T1-1,2]*xxy[i:i+T1-1,2]';
+  dif    =dif+dif_j;
+  d_dif  =d_dif+d_dif_j;
+  clear dif_j,d_dif_j;
+endfor;
+dif     =dif./d_dif;
+
+c_matrix=dif;
+c_vector=vech(c_matrix);
+dim    =(rows(c_matrix)*(rows(c_matrix)+1))/2;
+omega  =zeros(dim,dim);
+d_matrix=d_dif;
+d_vector=vech(d_matrix);
+clear d_dif,d_matrix,c_matrix,dif;
+
+for i(1,y,T1);
+        dif_j  =xxy[i:i+T1-1,1]*xxy[i:i+T1-1,1]';
+        d_dif_j=xxy[i:i+T1-1,2]*xxy[i:i+T1-1,2]';
+        c_matrix_j=dif_j;
+        clear dif_j;
+        d_matrix_j=d_dif_j;
+        clear d_dif_j;
+        c_vector_j=vech(c_matrix_j);
+        d_vector_j=vech(d_matrix_j);
+        clear c_matrix_j,d_matrix_j;
+        omega=omega+(((c_vector_j-c_vector)*(c_vector_j-c_vector)').*(d_vector_j*d_vector_j'));
+        clear c_vector_j,d_vector_j;
+endfor;
+
+omega=omega./(d_vector*d_vector');
+
+moments=c_vector~omega~(T*ones(rows(c_vector),1));
+moments[2,cols(moments)]=1;
+moments[3,cols(moments)]=minc(x[.,col_year]);
+moments[4,cols(moments)]=maxc(x[.,col_year]);
+
+retp(moments);
+endp;
