@@ -18,6 +18,7 @@ set more off
 /*COL. 2:	810010*/  	/*y excludes help*/
 /*COL. 6:	010110*/ 	/*Add SEO*/
 
+
 version 6.0
 				scalar incdef  =0		/* 0=earnings+transfers, 1=earnings+transfer+financial income		*/
 								/* 2=earnings, 3=earnings+financial income, 4=male earnings			*/
@@ -162,13 +163,15 @@ xi	i.educ*i.year i.white*i.year i.black*i.year i.other*i.year i.kidsout*i.year i
 /*Controls present:	year dummies, year of birth dummies, education dummies, race dummies,# of kids dummies, #of family member dummies,
 				empl. status dummies, dummy for income recipient other than h/w, region dummies, dummy for big city, dummy for kids not in FU*/
 /*Interactions present: 1)educ*year 2)race dummies*year 3)empl. status dummies*year 4)region*year 5)big city*year*/	
-				 	
+
+/*Choose whether to control for intdate (done in appendix of time aggregation paper)*/	 	
 qui reg logy	yrd* ybd* edd*  white black other fd* chd* empl  unempl retir extra regd* bigcity kidsout 
 			          Iey_* Iwy_* Iby_* Ioy_*          Ieyb* Iuy_*  Irya*       Iry_* Iyb_*;
 predict uy if e(sample),res;
 qui reg lc	      yrd* ybd* edd*  white black other fd* chd* empl  unempl retir extra regd* bigcity kidsout 
 			          Iey_* Iwy_* Iby_* Ioy_*          Ieyb* Iuy_*  Irya*       Iry_* Iyb_*;
 predict uc if e(sample),res;
+
 #delimit cr
 
 drop I*
@@ -268,7 +271,7 @@ sort id year
 keep  id year coh ndrod duy yduy duc yduc nmissd
 order id year coh ndrod duy yduy duc yduc nmissd
 saveold cohA,replace
-outsheet using cohA.csv, comma replace
+outsheet using CohA.csv, comma replace
 /*
 stcmd cohA.dta cohA.dat /y
 erase C:\Users\edmun\OneDrive\Documents\Research\BPP_PSID_TimeAgg\Code\InputFiles\BPP_downloaded_files\cohA.dta
