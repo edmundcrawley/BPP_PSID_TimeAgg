@@ -126,9 +126,11 @@ merge id year using fam
 tab _merge
 drop if _merge!=3			/*_merge==1 is 1993-96, _merge==2 is latino subsample*/
 drop _merge
-// Add in variable smsa that doesn't appear in downloaded PSID data
-drop smsa
-merge 1:1 id year using C:\Users\edmun\OneDrive\Documents\Research\PSIDdata\DataForBPP2008\dataBPP2008, keepusing(smsa)
+save data_additional_vars, replace
+
+// Use data file from original BPP, but add in additional vars
+u C:\Users\edmun\OneDrive\Documents\Research\PSIDdata\DataForBPP2008\dataBPP2008, clear
+merge 1:1 id year using data_additional_vars
 drop _merge
 save data, replace
 

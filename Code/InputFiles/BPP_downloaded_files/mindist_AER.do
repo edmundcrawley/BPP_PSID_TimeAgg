@@ -31,7 +31,6 @@ version 6.0
 				scalar group   =0		/* 0=whole sample, 1=no college, 2= college, 3=born 1940s, 4=born 1930s */
 
 u data3,clear
-
 ******Does not use osbervations with topcoded income or financial income or federal taxes paid******
 replace asset=. if trunca==1
 replace y    =. if truncy==1
@@ -165,7 +164,7 @@ xi	i.educ*i.year i.white*i.year i.black*i.year i.other*i.year i.kidsout*i.year i
 /*Interactions present: 1)educ*year 2)race dummies*year 3)empl. status dummies*year 4)region*year 5)big city*year*/	
 				 	
 qui reg logy	yrd* ybd* edd*  white black other fd* chd* empl  unempl retir extra regd* bigcity kidsout 
-			          Iey_* Iwy_* Iby_* Ioy_*          Ieyb* Iuy_*  Irya*       Iry_* c*;
+			          Iey_* Iwy_* Iby_* Ioy_*          Ieyb* Iuy_*  Irya*       Iry_* Iyb_*;
 predict uy if e(sample),res;
 qui reg lc	      yrd* ybd* edd*  white black other fd* chd* empl  unempl retir extra regd* bigcity kidsout 
 			          Iey_* Iwy_* Iby_* Ioy_*          Ieyb* Iuy_*  Irya*       Iry_* Iyb_*;
@@ -269,6 +268,7 @@ sort id year
 keep  id year coh ndrod duy yduy duc yduc nmissd
 order id year coh ndrod duy yduy duc yduc nmissd
 saveold cohA,replace
+outsheet using cohA.csv, comma replace
 /*
 stcmd cohA.dta cohA.dat /y
 erase C:\Users\edmun\OneDrive\Documents\Research\BPP_PSID_TimeAgg\Code\InputFiles\BPP_downloaded_files\cohA.dta
