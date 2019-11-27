@@ -184,7 +184,7 @@ else if group==4	{keep if yb>=1930 & yb<=1939}
 sort person year
 qui by person:gen duc=uc-uc[_n-1]
 qui by person:gen duy=uy-uy[_n-1]
-keep person year duy duc
+keep person year duy duc uc uy
 save cohA,replace
 
 ***This creates results in Tables V, VI, and VII 
@@ -248,8 +248,8 @@ sort person year
 gen id=group(nind)
 compress
 gen coh=0
-keep  id year coh duy yduy duc yduc
-order id year coh duy yduy duc yduc
+keep  id year coh duy yduy duc yduc uy uc
+order id year coh duy yduy duc yduc uy uc
 save cohA,replace
 
 *******Set a minimum of 50 observations per year
@@ -268,8 +268,8 @@ saveold cohA,replace
 
 u cohA,clear
 sort id year
-keep  id year coh ndrod duy yduy duc yduc nmissd
-order id year coh ndrod duy yduy duc yduc nmissd
+keep  id year coh ndrod duy yduy duc yduc nmissd uy uc
+order id year coh ndrod duy yduy duc yduc nmissd uy uc
 saveold cohA,replace
 outsheet using CohA.csv, comma replace
 /*
