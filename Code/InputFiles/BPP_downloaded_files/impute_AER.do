@@ -110,6 +110,15 @@ gen age2=age^2
 egen lwhi=mean(lwh),by(coh educ year)
 egen lwwi=mean(lww),by(coh educ year)
 
+//egen lwhi=mean(ln(income_at)),by(coh educ year)
+//egen lwwi=mean(ln(income_at)),by(coh educ year)
+
+//gen lwhi=lwh
+//gen lwwi=lww
+
+//gen lwhi=income_at
+//gen lwwi=income_at
+
 cap program drop doit
 program def doit
         local i=1

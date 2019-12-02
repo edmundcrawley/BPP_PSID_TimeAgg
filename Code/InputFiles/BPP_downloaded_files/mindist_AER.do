@@ -184,6 +184,7 @@ else if group==4	{keep if yb>=1930 & yb<=1939}
 sort person year
 qui by person:gen duc=uc-uc[_n-1]
 qui by person:gen duy=uy-uy[_n-1]
+save cohA_scratch,replace
 keep person year duy duc uc uy
 save cohA,replace
 
