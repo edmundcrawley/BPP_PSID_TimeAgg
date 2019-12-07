@@ -1,5 +1,8 @@
 import statsmodels.api as sm
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from pathlib import Path
 
 all_data = pd.read_csv(Path("./InputFiles/CohA.csv"), delimiter=',')
 
@@ -25,6 +28,7 @@ num_hh      =int(np.shape(all_data)[0] /T)
 inc_growth = np.zeros((num_hh,1))
 con_growth = np.zeros((num_hh,1))
 beta_n = np.zeros((T-1,1))
+beta_n_se = np.zeros((T-1,1))
 for n in range(T-1):
     for i in range(num_hh):
             inc_growth[i] = all_data.iat[i*T + n+1, col_uy] - all_data.iat[i*T, col_uy]
@@ -33,3 +37,4 @@ for n in range(T-1):
     if n!=7 and n!=8:
         model = sm.OLS(con_growth, inc_growth,missing='drop').fit()
         beta_n[n] = model.params[0]
+        beta_n_se[n] = model.bse[0]
