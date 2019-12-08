@@ -154,13 +154,16 @@ def implied_cov_ExpConsDecay(params, taste, T):
     return fm
 
 
-def Parameter_estimation_simple(model, c_vector, omega, T, taste=1):
+def Parameter_estimation_simple(model, c_vector, omega, T, taste=1, theta=0):
     if model=='Simple':
         implied_cov = lambda params, taste, T : implied_cov_simple(params, taste, T)
         num_params = taste+5
     if model=='ExpConsDecay':
         implied_cov = lambda params, taste, T : implied_cov_ExpConsDecay(params, taste, T)
         num_params = taste+6
+    if model=='ExpConsDecay_fix_theta':
+        implied_cov = lambda params, taste, T, theta : implied_cov_ExpConsDecay(np.concatenate((params,[theta])), taste, T)
+        num_params = taste+5
     
     init_params = np.zeros(num_params)
     if taste:
@@ -173,8 +176,11 @@ def Parameter_estimation_simple(model, c_vector, omega, T, taste=1):
     if model=='ExpConsDecay':
         init_params[taste+5] = 0.5
         
-    def objectiveFun(params, taste, T, empirical_cov, weight_matrix):
-        model_cov = implied_cov(params, taste,T)
+    def objectiveFun(params, taste, T, theta, empirical_cov, weight_matrix):
+        if model=='ExpConsDecay_fix_theta':
+            model_cov = implied_cov(params, taste,T, theta)
+        else:
+            model_cov = implied_cov(params, taste,T)
         distance = np.dot(np.dot((model_cov-empirical_cov), weight_matrix),(model_cov-empirical_cov))
         distance = distance #+ 10000*np.std(params[ma+taste:ma+taste+perm_shk_params]) #add in this to keep same variance for permanent shocks over the whole time period
         return distance
@@ -182,17 +188,19 @@ def Parameter_estimation_simple(model, c_vector, omega, T, taste=1):
     # Define the weight matrix as Equal Weight Minimum Distance
     weight_matrix = np.diag(np.diag(omega)**(-1))
     
-    ret = objectiveFun(init_params, taste, T, c_vector, weight_matrix)
+    ret = objectiveFun(init_params, taste, T, theta, c_vector, weight_matrix)
     
     #Solve with one method, reset init_params, then solve again. Seems to converge OK.
-    solved_objective1 = minimize(objectiveFun, init_params, args=(taste, T, c_vector, weight_matrix))  
+    solved_objective1 = minimize(objectiveFun, init_params, args=(taste, T, theta, c_vector, weight_matrix))  
     init_params2 = solved_objective1.x
-    solved_objective = minimize(objectiveFun, init_params2, args=(taste, T, c_vector, weight_matrix),method='Nelder-Mead')
+    solved_objective = minimize(objectiveFun, init_params2, args=(taste, T, theta, c_vector, weight_matrix),method='Nelder-Mead')
      
     solved_params = solved_objective.x
     
-    fun_for_jacob = lambda params: implied_cov(params, taste, T)
-    
+    if model=='ExpConsDecay_fix_theta':
+        fun_for_jacob = lambda params: implied_cov(params, taste, T,theta)
+    else:
+        fun_for_jacob = lambda params: implied_cov(params, taste, T)
     jacob = nd.Jacobian(fun_for_jacob)(solved_params)
     
     Sandwich1 = inv(np.dot(np.transpose(jacob),np.dot(weight_matrix,jacob)))
@@ -310,4 +318,28 @@ var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
   
 init_params = np.array([0.0,var_perm_test,var_tran_test,ins_perm_test,ins_tran_test,0.0,theta_test])
 implied_cov = implied_cov_ExpConsDecay(init_params, 1, T)
+
+num_thetas=10
+var_perm_fix_theta = np.zeros(num_thetas+1)
+var_tran_fix_theta = np.zeros(num_thetas+1)
+ins_perm_fix_theta = np.zeros(num_thetas+1)
+ins_tran_fix_theta = np.zeros(num_thetas+1)
+theta_array =  np.concatenate(([0],np.linspace(0.01,10,num_thetas)))
+var_perm_fix_theta[0], var_perm_se_BPP, var_tran_fix_theta[0], var_tran_se_BPP, ins_perm_fix_theta[0], \
+ ins_perm_se_BPP, ins_tran_fix_theta[0], ins_tran_se_BPP, var_c_error_BPP, \
+ var_c_error_se_BPP, theta_BPP, theta_se_BPP, varcsi_BPP, varcsi_se_BPP \
+  = Parameter_estimation_simple('Simple', c_vector, omega, T, taste=1)
+for i in np.array(range(num_thetas))+1:
+    theta = theta_array[i]
+    var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
+     ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
+     var_c_error_se_BPP, theta_BPP, theta_se_BPP, varcsi_BPP, varcsi_se_BPP \
+      = Parameter_estimation_simple('ExpConsDecay_fix_theta', c_vector, omega, T, theta=theta, taste=1)
+    var_perm_fix_theta[i] = var_perm_BPP
+    var_tran_fix_theta[i] = var_tran_BPP
+    ins_perm_fix_theta[i] = ins_perm_BPP
+    ins_tran_fix_theta[i] = ins_tran_BPP
     
+    
+plt.plot(theta_array,ins_perm_fix_theta)
+plt.plot(theta_array,ins_tran_fix_theta)
