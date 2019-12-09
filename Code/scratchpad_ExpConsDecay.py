@@ -319,12 +319,13 @@ var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
 init_params = np.array([0.0,var_perm_test,var_tran_test,ins_perm_test,ins_tran_test,0.0,theta_test])
 implied_cov = implied_cov_ExpConsDecay(init_params, 1, T)
 
+T=14
 num_thetas=10
 var_perm_fix_theta = np.zeros(num_thetas+1)
 var_tran_fix_theta = np.zeros(num_thetas+1)
 ins_perm_fix_theta = np.zeros(num_thetas+1)
 ins_tran_fix_theta = np.zeros(num_thetas+1)
-theta_array =  np.concatenate(([0],np.linspace(0.01,10,num_thetas)))
+theta_array =  np.concatenate(([0],np.linspace(0.01,5,num_thetas)))
 var_perm_fix_theta[0], var_perm_se_BPP, var_tran_fix_theta[0], var_tran_se_BPP, ins_perm_fix_theta[0], \
  ins_perm_se_BPP, ins_tran_fix_theta[0], ins_tran_se_BPP, var_c_error_BPP, \
  var_c_error_se_BPP, theta_BPP, theta_se_BPP, varcsi_BPP, varcsi_se_BPP \
