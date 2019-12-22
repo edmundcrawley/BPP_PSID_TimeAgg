@@ -6,8 +6,9 @@ from numpy.linalg import inv
 from scipy.optimize import minimize
 import numdifftools as nd
 import matplotlib.pyplot as plt
+from pathlib import Path
+from create_moments import create_moment_vector
 
-implied_cov = implied_cov_ExpConsDecay(init_params, 1, T)
 
 # This assumes all parameters are constant, and consumption follows a random walk
 def implied_cov_simple(params, taste, T):
@@ -234,20 +235,95 @@ def Parameter_estimation_simple(model, c_vector, omega, T, taste=1, theta=0):
         theta_se = 0.0
     return var_perm, var_perm_se, var_tran, var_tran_se, ins_perm, ins_perm_se, ins_tran, ins_tran_se, var_c_error, var_c_error_se, theta, theta_se, varcsi, varcsi_se
     
-#implied_cov_ExpConsDecay(init_params, taste, T)
-#implied_cov_simple(init_params, taste, T)
+###########################################################################
+# Start estimations
+###########################################################################
+# Calculate empirical moments
+print('Create Moment Vector from Inputs for All')
+c_vector, omega, T = create_moment_vector(Path("./InputFiles/CohA.csv"))
 
-var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
- ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
- var_c_error_se_BPP, theta_BPP, theta_se_BPP, varcsi_BPP, varcsi_se_BPP \
+var_perm_ExpsDecay, var_perm_se_ExpsDecay, var_tran_ExpsDecay, var_tran_se_ExpsDecay, ins_perm_ExpsDecay, \
+ ins_perm_se_ExpsDecay, ins_tran_ExpsDecay, ins_tran_se_ExpsDecay, var_c_error_ExpsDecay, \
+ var_c_error_se_ExpsDecay, theta_ExpsDecay, theta_se_ExpsDecay, varcsi_ExpsDecay, varcsi_se_ExpsDecay \
   = Parameter_estimation_simple('ExpConsDecay', c_vector, omega, T, taste=1) 
 #        
-# Create some simulated data to test 
-var_perm_test = 0.05
+
+T=14
+num_thetas=10
+var_perm_fix_theta = np.zeros(num_thetas+1)
+var_tran_fix_theta = np.zeros(num_thetas+1)
+ins_perm_fix_theta = np.zeros(num_thetas+1)
+ins_tran_fix_theta = np.zeros(num_thetas+1)
+var_perm_se_fix_theta = np.zeros(num_thetas+1)
+var_tran_se_fix_theta = np.zeros(num_thetas+1)
+ins_perm_se_fix_theta = np.zeros(num_thetas+1)
+ins_tran_se_fix_theta = np.zeros(num_thetas+1)
+theta_array =  np.concatenate(([0],np.linspace(0.01,5,num_thetas)))
+var_perm_fix_theta[0], var_perm_se_fix_theta[0], var_tran_fix_theta[0], var_tran_se_fix_theta[0], ins_perm_fix_theta[0], \
+ ins_perm_se_fix_theta[0], ins_tran_fix_theta[0], ins_tran_se_fix_theta[0], var_c_error_fix_theta, \
+ var_c_error_se_fix_theta, theta_fix_theta, theta_se_fix_theta, varcsi_fix_theta, varcsi_se_fix_theta \
+  = Parameter_estimation_simple('Simple', c_vector, omega, T, taste=1)
+for i in np.array(range(num_thetas))+1:
+    theta = theta_array[i]
+    var_perm_fix_theta[i], var_perm_se_fix_theta[i], var_tran_fix_theta[i], var_tran_se_fix_theta[i], ins_perm_fix_theta[i], \
+     ins_perm_se_fix_theta[i], ins_tran_fix_theta[i], ins_tran_se_fix_theta[i], var_c_error_fix_theta, \
+     var_c_error_se_fix_theta, theta_fix_theta, theta_se_fix_theta, varcsi_fix_theta, varcsi_se_fix_theta \
+      = Parameter_estimation_simple('ExpConsDecay_fix_theta', c_vector, omega, T, theta=theta, taste=1)
+#    var_perm_fix_theta[i] = var_perm_fix_theta
+#    var_tran_fix_theta[i] = var_tran_fix_theta
+#    ins_perm_fix_theta[i] = ins_perm_fix_theta
+#    ins_tran_fix_theta[i] = ins_tran_fix_theta
+#    var_perm_se_fix_theta[i] = var_perm_fix_theta
+#    var_tran_se_fix_theta[i] = var_tran_fix_theta
+#    ins_perm_se_fix_theta[i] = ins_perm_fix_theta
+#    ins_tran_se_fix_theta[i] = ins_tran_fix_theta
+    
+    
+plt.plot(theta_array,ins_perm_fix_theta,color="blue")
+plt.plot(theta_array,ins_tran_fix_theta,color="red")
+plt.plot(theta_array,ins_perm_fix_theta+1.96*ins_perm_se_fix_theta,color="blue",linestyle="--")
+plt.plot(theta_array,ins_perm_fix_theta-1.96*ins_perm_se_fix_theta,color="blue",linestyle="--")
+plt.plot(theta_array,ins_tran_fix_theta+1.96*ins_tran_se_fix_theta,color="red",linestyle="--")
+plt.plot(theta_array,ins_tran_fix_theta-1.96*ins_tran_se_fix_theta,color="red",linestyle="--")
+
+
+###############################################################################
+# Look just at the perm insurance moments
+###############################################################################
+#recreate covariance matrix from vector
+c_matrix1 = np.zeros((25,25))
+vech_indicies = np.tril_indices(25)
+c_matrix1[vech_indicies] = cov_vector_test
+c_matrix1 = np.transpose(c_matrix1)
+c_matrix1[vech_indicies] = cov_vector_test
+#add in missing consumption as N/As
+c_matrix2 = np.concatenate((c_matrix1[0:8,:],np.nan*np.zeros((3,25)),c_matrix1[8:25,:]),0)
+c_matrix = np.concatenate((c_matrix2[:,0:8],np.nan*np.zeros((28,3)),c_matrix2[:,8:25]),1)
+
+# Now look at equation 9
+T=14
+phi_estimate = np.zeros(12)
+nominator     = np.zeros(12)
+denominator   = np.zeros(12)
+for t in np.array(range(12))+1:
+    nominator[t-1]   = c_matrix[t,T+t-1] + c_matrix[t,T+t] + c_matrix[t,T+t+1]
+    denominator[t-1] = c_matrix[T+t,T+t-1] + c_matrix[T+t,T+t] + c_matrix[T+t,T+t+1]
+phi_estimate = nominator/denominator
+mean_phi_estimate = np.nanmean(nominator)/np.nanmean(denominator+0.0*nominator)
+    
+
+
+
+##############################################################################
+# TESTING: Create some simulated data to test the moment calculation 
+# returns unbiased estimates
+##############################################################################
+var_perm_test = 0.02
 var_tran_test = 0.04
-ins_perm_test = 0.5
-ins_tran_test = 0.3
-theta_test = 0.5
+ins_perm_test = 0.20685882126750385
+ins_tran_test = 0.1759568432842964
+theta_test = 0.9036180417684739
+theta_inc_test = 4.0
 
 #var_perm_test = 0.0
 #var_tran_test = 1.0
@@ -271,26 +347,33 @@ tran_shocks = (var_tran_test*num_divisions)**0.5*np.random.normal(size=total_obs
 perm_inc  = np.cumsum(perm_shocks)
 perm_cons = ins_perm_test*perm_inc
 tran_cons = np.zeros_like(perm_cons)
+tran_inc = np.zeros_like(perm_cons)
 decay = np.exp(-np.arange(total_obs)*theta_test/num_divisions)
+decay_inc = np.exp(-np.arange(total_obs)*theta_inc_test/num_divisions)
 for t in range(total_obs):
     tran_cons[t] = np.sum(theta_test*ins_tran_test/(1.0-np.exp(-theta_test)) * decay[0:t+1] * np.flip(tran_shocks[0:t+1],0))/num_divisions
+    tran_inc[t]  = np.sum(theta_inc_test              /(1.0-np.exp(-theta_inc_test)) * decay_inc[0:t+1] * np.flip(tran_shocks[0:t+1],0))/num_divisions
 
 #tran_cons = ins_tran_test*np.cumsum(tran_shocks)/num_divisions  # This is a random walk
-
-total_inc  = perm_inc  + tran_shocks
+#tran_inc = tran_shocks
+total_inc  = perm_inc  + tran_inc
 total_cons = perm_cons + tran_cons
 observed_inc = np.zeros(num_periods)
+observed_tran_inc = np.zeros(num_periods)
+observed_tran_shocks = np.zeros(num_periods)
 observed_cons = np.zeros(num_periods)
 for T1 in range(num_periods):
     observed_inc[T1] = np.sum(total_inc[num_divisions*T1:num_divisions*(T1+1)])/num_divisions
     observed_cons[T1] = total_cons[(T1+1)*num_divisions-1]
+    observed_tran_inc[T1] = np.sum(tran_inc[num_divisions*T1:num_divisions*(T1+1)])/num_divisions
+    observed_tran_shocks[T1] = np.sum(tran_shocks[num_divisions*T1:num_divisions*(T1+1)])/num_divisions
 #for T in range(num_periods):    
 #    for i in range(np.min([(T+1)*num_divisions,50])):
 #        observed_cons[T] += theta_test*ins_tran_test/(1.0-np.exp(-theta_test)) * np.exp(-i*theta_test/num_divisions) * tran_shocks[(T+1)*num_divisions-i-1]
 delta_inc = np.diff(observed_inc)
 delta_cons = np.diff(observed_cons)
 
-T=3
+T=14
 #Now create a c_vector matrix
 ignore = 20
 delta_offset = np.zeros((num_periods-T-ignore,2*T))
@@ -319,28 +402,10 @@ var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
 init_params = np.array([0.0,var_perm_test,var_tran_test,ins_perm_test,ins_tran_test,0.0,theta_test])
 implied_cov = implied_cov_ExpConsDecay(init_params, 1, T)
 
-T=14
-num_thetas=10
-var_perm_fix_theta = np.zeros(num_thetas+1)
-var_tran_fix_theta = np.zeros(num_thetas+1)
-ins_perm_fix_theta = np.zeros(num_thetas+1)
-ins_tran_fix_theta = np.zeros(num_thetas+1)
-theta_array =  np.concatenate(([0],np.linspace(0.01,5,num_thetas)))
-var_perm_fix_theta[0], var_perm_se_BPP, var_tran_fix_theta[0], var_tran_se_BPP, ins_perm_fix_theta[0], \
- ins_perm_se_BPP, ins_tran_fix_theta[0], ins_tran_se_BPP, var_c_error_BPP, \
- var_c_error_se_BPP, theta_BPP, theta_se_BPP, varcsi_BPP, varcsi_se_BPP \
-  = Parameter_estimation_simple('Simple', c_vector, omega, T, taste=1)
-for i in np.array(range(num_thetas))+1:
-    theta = theta_array[i]
-    var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
-     ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
-     var_c_error_se_BPP, theta_BPP, theta_se_BPP, varcsi_BPP, varcsi_se_BPP \
-      = Parameter_estimation_simple('ExpConsDecay_fix_theta', c_vector, omega, T, theta=theta, taste=1)
-    var_perm_fix_theta[i] = var_perm_BPP
-    var_tran_fix_theta[i] = var_tran_BPP
-    ins_perm_fix_theta[i] = ins_perm_BPP
-    ins_tran_fix_theta[i] = ins_tran_BPP
-    
-    
-plt.plot(theta_array,ins_perm_fix_theta)
-plt.plot(theta_array,ins_tran_fix_theta)
+from min_distance_replication import Parameter_estimation
+#Next replicate BPP
+print('Replicate BPP')
+var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
+ ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
+ var_c_error_se_BPP, teta_BPP, teta_se_BPP, varcsi_BPP, varcsi_se_BPP \
+  = Parameter_estimation('BPP', cov_vector_test, omega_test, T, ma=1, taste=1, varying_ins=0) 

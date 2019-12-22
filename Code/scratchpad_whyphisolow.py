@@ -1,8 +1,12 @@
+import sys 
+import os
+sys.path.insert(0, os.path.abspath('../'))
 import statsmodels.api as sm
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
+from create_moments import create_moment_vector
 
 all_data = pd.read_csv(Path("./InputFiles/CohA.csv"), delimiter=',')
 
