@@ -76,7 +76,7 @@ def implied_cov_simple(params, taste, T):
 
     return fm
 
-# This assumes all parameters are constant, and consumption follows a random walk
+# This assumes all parameters are constant, and consumption decays exponentially
 def implied_cov_ExpConsDecay(params, taste, T):
     if taste ==1:
         var_taste = params[0] 
@@ -154,6 +154,95 @@ def implied_cov_ExpConsDecay(params, taste, T):
 
     return fm
 
+# This assumes all parameters are constant, and consumption AND income decay exponentially
+def implied_cov_ExpConsIncDecay(params, taste, T):
+    if taste ==1:
+        var_taste = params[0] 
+    else:
+        var_taste = 0.0
+    var_perm = params[taste] 
+    var_tran = params[taste+1] 
+    ins_perm = params[taste+2] 
+    ins_tran = params[taste+3] 
+    var_c_error = params[taste+4] 
+    theta = params[taste+5] 
+    Omega = params[taste+6] 
+
+    dify  =np.zeros((T,T)) #/* Income */
+    difcd =np.zeros((T,T)) #/* Consumption */
+    difc  =np.zeros((T,T)) #/* Consumption */
+    difcme=np.zeros((T,T)) #/* Measurement error of consumption */
+    difyc =np.zeros((T,T)) #/* Cov Income Consumption */
+    dif   =np.zeros((2*T,2*T))
+    
+    # Useful quantities to store
+    e1t = np.exp(-theta)
+    e1o = np.exp(-Omega)
+    
+    ##########################################
+    #/* This is the variance of Income */
+    for j in np.array(range(T)):
+        dify[j,j]=2.0/3.0*var_perm +  (2.0/(1-e1o)**2 - (3-e1o)/(Omega*(1-e1o)))*var_tran
+    for j in np.array(range(T-1))+1:
+        dify[j-1,j]=1.0/6.0*var_perm + ( (2-e1o)/(2*Omega) - (1.0-(1.0-e1o)/Omega )/(1-e1o)**2   )*var_tran
+    for M in np.array(range(T-2))+2:
+        for j in np.array(range(T-M))+M:
+            dify[j-M,j] = ( -(1-e1o)*e1o**(M-2)/Omega  +(1-e1o**2)*e1o**(M-2)/(2*Omega) - (2-Omega)*e1o**(M-1) *(1-e1o**2)/(2*Omega) + e1o**(M-1)*(1-e1o)/Omega + (1-e1o)**2 *e1o**M /(2*Omega)   ) * var_tran
+    #symetric
+    for i in np.array(range(T-1))+1:
+        for j in np.array(range(T-i)+i):
+            dify[j,i-1]=dify[i-1,j]
+            
+    ##########################################
+    #/* This is the variance of Consumption */
+    for j in np.array(range(T)):
+        difcd[j,j]=ins_perm**2*var_perm + ins_tran**2*theta/(1-e1t)*var_tran + var_taste
+    for M in np.array(range(T-1))+1:
+        for j in np.array(range(T-M))+M:
+            difcd[j-M,j] = (-ins_tran**2*theta/2.0*e1t**(M-1) )*var_tran
+            difcd[j,j-M] = difcd[j-M,j]
+    
+    for j in np.array(range(T)):
+        difcme[j,j]=2.0*var_c_error
+    for j in np.array(range(T-1)):
+        difcme[j,j+1]=-var_c_error
+
+    difc=difcme+difcd
+    
+    for i in np.array(range(T-1))+1:
+        for j in np.array(range(T-i))+i:
+            difc[j,i-1]=difc[i-1,j]
+            
+    ##########################################
+    #/* This is the Covariance of Income and Consumption */
+    for j in np.array(range(T)):
+        difyc[j,j]   = 1.0/2.0*ins_perm*var_perm + ins_tran*theta*( ((1-e1t)/theta - (1-e1t*e1o)/(theta+Omega))/((1-e1o)*(1-e1t))  - ((2-e1o)*(1-e1o*e1t)/(theta+Omega) - (1-e1t)/theta )/(1-e1o) + (1-e1o)*e1t/(theta+Omega) )*var_tran
+    for j in np.array(range(T-1))+1:
+        difyc[j-1,j] = 1.0/2.0*ins_perm*var_perm + ins_tran*theta*( ( (2-e1o)*(1-e1o*e1t)/(theta+Omega)  -(1-e1t)/theta )/((1-e1o)*(1-e1t)) + (1-e1o)/(theta+Omega) )*var_tran
+    for M in np.array(range(T-2))+2:
+        for j in np.array(range(T-M))+M:
+            difyc[j-M,j] = ins_tran*theta*( -(1-e1o)/(1-e1t)*e1o**(M-2)*(1-e1o*e1t)/(Omega+theta) + (1-e1o)*e1o**(M-1)/(theta+Omega)  )*var_tran
+    for M in np.array(range(T-1))+1:
+        for j in np.array(range(T-M))+M:
+            difyc[j,j-M] = ins_tran*theta*( -e1t**(M-1)*( (1-e1t)/theta - (1-e1o*e1t)/(theta+Omega)  )/(1-e1o) - e1t**M*( (2-e1o)*(1-e1o*e1t)/(theta+Omega) -(1-e1t)/theta )/(1-e1o)  + (1-e1o)*e1t**(M+1)/(theta+Omega) )*var_tran
+    ##########################################
+            
+    #/* Final matrix */
+    dif[0:T,0:T]            =difc
+    dif[T:2*(T),0:T]        =difyc
+    dif[0:T,T:2*(T)]        =np.transpose(difyc)
+    dif[T:2*(T),T:2*(T)]    =dify
+    
+    # remove missing consumption values
+    if True:
+        difa1 = np.concatenate((dif[0:8,:],dif[11:2*T,:]),0)
+        difa2 = np.concatenate((difa1[:,0:8],difa1[:,11:2*T]),1)
+    
+    vech_indicies = np.tril_indices(np.shape(difa2)[0])
+    fm=difa2[vech_indicies]
+
+    return fm
+
 
 def Parameter_estimation_simple(model, c_vector, omega, T, taste=1, theta=0):
     if model=='Simple':
@@ -165,6 +254,9 @@ def Parameter_estimation_simple(model, c_vector, omega, T, taste=1, theta=0):
     if model=='ExpConsDecay_fix_theta':
         implied_cov = lambda params, taste, T, theta : implied_cov_ExpConsDecay(np.concatenate((params,[theta])), taste, T)
         num_params = taste+5
+    if model=='ExpConsIncDecay':
+        implied_cov = lambda params, taste, T : implied_cov_ExpConsIncDecay(params, taste, T)
+        num_params = taste+7
     
     init_params = np.zeros(num_params)
     if taste:
@@ -176,6 +268,9 @@ def Parameter_estimation_simple(model, c_vector, omega, T, taste=1, theta=0):
     init_params[taste+4] = 0.5
     if model=='ExpConsDecay':
         init_params[taste+5] = 0.5
+    if model=='ExpConsIncDecay':
+        init_params[taste+5] = 0.5
+        init_params[taste+6] = 2.0
         
     def objectiveFun(params, taste, T, theta, empirical_cov, weight_matrix):
         if model=='ExpConsDecay_fix_theta':
@@ -230,10 +325,19 @@ def Parameter_estimation_simple(model, c_vector, omega, T, taste=1, theta=0):
     if model=='ExpConsDecay':
         theta = solved_params[taste+5] 
         theta_se = standard_errors[taste+5] 
+        Omega = 0.0 
+        Omega_se = 0.0
+    elif model=='ExpConsIncDecay':
+        theta = solved_params[taste+5] 
+        theta_se = standard_errors[taste+5] 
+        Omega = solved_params[taste+6] 
+        Omega_se = standard_errors[taste+6] 
     else:
         theta = 0.0
         theta_se = 0.0
-    return var_perm, var_perm_se, var_tran, var_tran_se, ins_perm, ins_perm_se, ins_tran, ins_tran_se, var_c_error, var_c_error_se, theta, theta_se, varcsi, varcsi_se
+        Omega = 0.0 
+        Omega_se = 0.0
+    return var_perm, var_perm_se, var_tran, var_tran_se, ins_perm, ins_perm_se, ins_tran, ins_tran_se, var_c_error, var_c_error_se, theta, theta_se, varcsi, varcsi_se, Omega, Omega_se
     
 ###########################################################################
 # Start estimations
@@ -244,8 +348,13 @@ c_vector, omega, T = create_moment_vector(Path("./InputFiles/CohA.csv"))
 
 var_perm_ExpsDecay, var_perm_se_ExpsDecay, var_tran_ExpsDecay, var_tran_se_ExpsDecay, ins_perm_ExpsDecay, \
  ins_perm_se_ExpsDecay, ins_tran_ExpsDecay, ins_tran_se_ExpsDecay, var_c_error_ExpsDecay, \
- var_c_error_se_ExpsDecay, theta_ExpsDecay, theta_se_ExpsDecay, varcsi_ExpsDecay, varcsi_se_ExpsDecay \
+ var_c_error_se_ExpsDecay, theta_ExpsDecay, theta_se_ExpsDecay, varcsi_ExpsDecay, varcsi_se_ExpsDecay, Omega_ExpsDecay, Omega_se_ExpsDecay \
   = Parameter_estimation_simple('ExpConsDecay', c_vector, omega, T, taste=1) 
+  
+var_perm_ExpsIncDecay, var_perm_se_ExpsIncDecay, var_tran_ExpsIncDecay, var_tran_se_ExpsIncDecay, ins_perm_ExpsIncDecay, \
+ ins_perm_se_ExpsIncDecay, ins_tran_ExpsIncDecay, ins_tran_se_ExpsIncDecay, var_c_error_ExpsIncDecay, \
+ var_c_error_se_ExpsIncDecay, theta_ExpsIncDecay, theta_se_ExpsIncDecay, varcsi_ExpsIncDecay, varcsi_se_ExpsIncDecay, Omega_ExpsIncDecay, Omega_se_ExpsIncDecay \
+  = Parameter_estimation_simple('ExpConsIncDecay', c_vector, omega, T, taste=1) 
 #        
 
 T=14
@@ -318,24 +427,19 @@ mean_phi_estimate = np.nanmean(nominator)/np.nanmean(denominator+0.0*nominator)
 # TESTING: Create some simulated data to test the moment calculation 
 # returns unbiased estimates
 ##############################################################################
-var_perm_test = 0.02
-var_tran_test = 0.04
-ins_perm_test = 0.20685882126750385
-ins_tran_test = 0.1759568432842964
-theta_test = 0.9036180417684739
-theta_inc_test = 4.0
+#var_perm_test = 0.02
+#var_tran_test = 0.04
+#ins_perm_test = 0.20685882126750385
+#ins_tran_test = 0.1759568432842964
+#theta_test = 0.9036180417684739
+#Omega_test = 4.0
 
-#var_perm_test = 0.0
-#var_tran_test = 1.0
-#ins_perm_test = 0.0
-#ins_tran_test = 1.0
-#theta_test = 0.2
-
-#var_perm_test = 0.5
-#var_tran_test = 1.0
-#ins_perm_test = 1.0
-#ins_tran_test = 0.5
-#theta_test = 0.000001
+var_perm_test = var_perm_ExpsIncDecay
+var_tran_test = var_tran_ExpsIncDecay
+ins_perm_test = ins_perm_ExpsDecay
+ins_tran_test = ins_tran_ExpsDecay
+theta_test = theta_ExpsDecay
+Omega_test = Omega_ExpsIncDecay
 
 
 num_periods = 4000
@@ -349,10 +453,10 @@ perm_cons = ins_perm_test*perm_inc
 tran_cons = np.zeros_like(perm_cons)
 tran_inc = np.zeros_like(perm_cons)
 decay = np.exp(-np.arange(total_obs)*theta_test/num_divisions)
-decay_inc = np.exp(-np.arange(total_obs)*theta_inc_test/num_divisions)
+decay_inc = np.exp(-np.arange(total_obs)*Omega_test/num_divisions)
 for t in range(total_obs):
     tran_cons[t] = np.sum(theta_test*ins_tran_test/(1.0-np.exp(-theta_test)) * decay[0:t+1] * np.flip(tran_shocks[0:t+1],0))/num_divisions
-    tran_inc[t]  = np.sum(theta_inc_test              /(1.0-np.exp(-theta_inc_test)) * decay_inc[0:t+1] * np.flip(tran_shocks[0:t+1],0))/num_divisions
+    tran_inc[t]  = np.sum(Omega_test              /(1.0-np.exp(-Omega_test)) * decay_inc[0:t+1] * np.flip(tran_shocks[0:t+1],0))/num_divisions
 
 #tran_cons = ins_tran_test*np.cumsum(tran_shocks)/num_divisions  # This is a random walk
 #tran_inc = tran_shocks
@@ -391,8 +495,8 @@ omega_test = np.eye(cov_vector_test.shape[0])
     
 var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
  ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
- var_c_error_se_BPP, theta_BPP, theta_se_BPP, varcsi_BPP, varcsi_se_BPP \
-  = Parameter_estimation_simple('ExpConsDecay', cov_vector_test, omega_test, T, taste=1) 
+ var_c_error_se_BPP, theta_BPP, theta_se_BPP, varcsi_BPP, varcsi_se_BPP , Omega_BPP, Omega_se_BPP\
+  = Parameter_estimation_simple('ExpConsIncDecay', cov_vector_test, omega_test, T, taste=1) 
   
 #var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
 # ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
