@@ -8,3 +8,8 @@ While the identifying equation for the transitory insurance coefficient is:
 \frac{\mathrm{Cov}(\Delta c^{obs}_{T},\Delta y^{obs}_{T+1})}{\mathrm{Cov}(\Delta y^{obs}_{T},\Delta y^{obs}_{T+1})} &= \frac{-\phi\frac{1}{6}\sigma^2_P + \frac{1}{2}\psi\sigma^2_Q}{-\frac{1}{6}\sigma^2_P + \sigma^2_Q} \neq \psi 
 \end{align*}
 Under the permanent income hypothesis with $\phi=1$, $\psi=0$ and permanent and transitory variances approximately equal, the BPP estimate of $\psi$ would be -0.2.
+
+\subsection{Controlling for Interview Date} \label{interview_date}
+To mitigate some of the seasonal effects coming from the timing of consumption in the data, here I control for the interview date at the first stage (before residualizing). Specifically, I include dummies for the time of year (divided into nine bins) that the interview was taken in the first stage regression. The results are little changed from table \ref{table:Persistence}:
+
+\input ../Code/Tables/Persistence_short_intdate.tex
