@@ -2,6 +2,7 @@
 ***************************************************************************
 * Experiment with regressing consumption on income in PSID
 ***************************************************************************
+cd C:\Users\edmun\OneDrive\Documents\Research\BPP_PSID_TimeAgg\Code\InputFiles\BPP_downloaded_files
 u cohA_scratch, clear
 sort person year
 fillin person year
