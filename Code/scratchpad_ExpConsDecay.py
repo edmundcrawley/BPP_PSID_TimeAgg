@@ -355,7 +355,47 @@ var_perm_ExpsIncDecay, var_perm_se_ExpsIncDecay, var_tran_ExpsIncDecay, var_tran
  ins_perm_se_ExpsIncDecay, ins_tran_ExpsIncDecay, ins_tran_se_ExpsIncDecay, var_c_error_ExpsIncDecay, \
  var_c_error_se_ExpsIncDecay, theta_ExpsIncDecay, theta_se_ExpsIncDecay, varcsi_ExpsIncDecay, varcsi_se_ExpsIncDecay, Omega_ExpsIncDecay, Omega_se_ExpsIncDecay \
   = Parameter_estimation_simple('ExpConsIncDecay', c_vector, omega, T, taste=1) 
-#        
+# 
+
+###############################################################################   
+#Shorter version of Table to show effect of transitory persistence
+print('Table to show ExpInc Decay parameters')
+def mystr1(number):
+    if not np.isnan(number):
+        out = "{:.4f}".format(number)
+    else:
+        out = ''
+    return out
+output = "\\begin{table}  \n"
+output += "\caption{Parameter Estimates for Exponential Decay Model}  \n"
+output += "\label{table:ExpIncDecay}  \n"
+output += "\\begin{center}  \n"
+output += "\\begin{tabular}{lc}  \n"
+output += "\\toprule  \n"
+
+output += " $\\psi$ &                               " +mystr1(ins_tran_ExpsIncDecay)+     "  \n"
+output += "\\\\ (Partial insurance tran. shock) &      ("+mystr1(ins_tran_se_ExpsIncDecay)+ ") \n"
+
+output += "\\\\  $\\phi$ &                               " +mystr1(ins_perm_ExpsIncDecay)+     "  \n"
+output += "\\\\ (Partial insurance perm. shock) &      ("+mystr1(ins_perm_se_ExpsIncDecay)+ ") \n"
+
+output += "\\\\ $\\Omega$ &                               " +mystr1(Omega_ExpsIncDecay)+     "  \n"
+output += "\\\\ (Tran. income decay) &      ("+mystr1(Omega_se_ExpsIncDecay)+ ") \n"
+
+output += "\\\\ $\\theta$ &                               " +mystr1(theta_ExpsIncDecay)+     "  \n"
+output += "\\\\ (Tran. consumption decay) &      ("+mystr1(theta_se_ExpsIncDecay)+ ") \n"
+
+
+output += "\\\\ \\hline  \n"
+
+output += " \end{tabular}   \n"
+output += "\end{center}  \n"
+output += "\end{table}  \n"
+
+with open('./Tables/ExpIncDecay.tex','w') as f:
+    f.write(output)
+    f.close()    
+############################################################################### 
 
 T=14
 num_thetas=10

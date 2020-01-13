@@ -1,0 +1,23 @@
+\subsection{Exponential Decay in the Transitory Consumption Response} \label{exp_decay_appendix}
+The work in this paper, along with numerous other natural experiments, suggest that the consumption response to a transitory income shock over three months to a year is large. This behavior is incompatible with the consumption moving as a random walk, at least if the household budget constraint is to hold. Motivated by this, as well as the unexplained differences in estimate of $\phi$ between the time aggregated and BPP models, here I extend the model to allow for exponential decay in consumption response to transitory shocks.
+
+In this model, permanent income is modeled exactly as in the main paper. However, both transitory income shocks and the consumption response decay exponentially, albeit at different rates. A shock to transitory income follows the path:
+\begin{align*}
+f(t) = \frac{\Omega}{1-e^{-\Omega}} e^{-\Omega t}
+\end{align*}
+Where $\Omega$ is the rate of decay, and the denominator is chosen such that a shock of size one increases income in the following year by one.
+
+Similarly, a the consumption path following a transitory income shock follows the path:
+\begin{align*}
+g(t) = \frac{\psi \theta}{1-e^{-\theta}} e^{-\theta t}
+\end{align*}
+So that consumption decays at a rate $\theta$, and the increase in consumption in the year following a unit transitory income shock is $\psi$. The relevant moments for this model are calculated at the end of this appendix in section \ref{exp_decay_moments_appendix}.
+
+Table \ref{table:ExpIncDecay} shows the estimates for the insurance parameters, as well as the rates of decay, for this model.  The transitory insurance parameter, $\psi$, is slightly lower than in the main paper, but in the same ballpark at 0.19. The permanent insurance parameter, $\phi$, is significantly below the estimate in the main paper, and statistically no different from the estimate for $\psi$. This deepens the puzzle that $\phi$ appears to be too low. The estimates for $\Omega$ and $\theta$ suggest the half life of a transitory income shock to be close to one month, while the consumption response to this income shock has a half life close to one year.
+
+\input ../Code/Tables/ExpIncDecay.tex
+
+While this model extension does not solve the low $\phi$ puzzle, it can explain why the estimate for $\phi$ in the original BPP model was so relatively high. To do this, I simulate a panel of income and consumption, following this model, and using the estimated parameters from table \ref{table:ExpIncDecay}. I can then reestimate the partial insurance parameters from this simulated data, using the original BPP model, as well as the time aggregated model from the main paper. The results are shown in table ****************************.
+
+\subsubsection{Calculation of moments} \label{exp_decay_moments_appendix}
+
