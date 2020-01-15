@@ -76,6 +76,74 @@ def implied_cov_simple(params, taste, T):
 
     return fm
 
+
+# This assumes all parameters are constant, and consumption follows a random walk
+# AND NO TIME AGGREGATION
+def implied_cov_simple_BPP(params, taste, T):
+    if taste ==1:
+        var_taste = params[0] 
+    else:
+        var_taste = 0.0
+    var_perm = params[taste] 
+    var_tran = params[taste+1] 
+    ins_perm = params[taste+2] 
+    ins_tran = params[taste+3] 
+    var_c_error = params[taste+4] 
+
+    dify  =np.zeros((T,T)) #/* Income */
+    difcd =np.zeros((T,T)) #/* Consumption */
+    difc  =np.zeros((T,T)) #/* Consumption */
+    difcme=np.zeros((T,T)) #/* Measurement error of consumption */
+    difyc =np.zeros((T,T)) #/* Cov Income Consumption */
+    dif   =np.zeros((2*T,2*T))
+    
+    ##########################################
+    #/* This is the variance of Income */
+    for j in np.array(range(T)):
+        dify[j,j]= var_perm +  2.0*var_tran
+    for j in np.array(range(T-1))+1:
+        dify[j-1,j]= - var_tran
+    for i in np.array(range(T-1))+1:
+        for j in np.array(range(T-i)+i):
+            dify[j,i-1]=dify[i-1,j]
+            
+    ##########################################
+    #/* This is the variance of Consumption */
+    for j in np.array(range(T)):
+        difcd[j,j]=ins_perm**2*var_perm + ins_tran**2*var_tran + var_taste
+    for j in np.array(range(T)):
+        difcme[j,j]=2.0*var_c_error
+    for j in np.array(range(T-1)):
+        difcme[j,j+1]=-var_c_error
+
+    difc=difcme+difcd
+    
+    for i in np.array(range(T-1))+1:
+        for j in np.array(range(T-i))+i:
+            difc[j,i-1]=difc[i-1,j]
+            
+    ##########################################
+    #/* This is the Covariance of Income and Consumption */
+    for j in np.array(range(T)):
+        difyc[j,j]   = ins_perm*var_perm + ins_tran*var_tran
+    for j in np.array(range(T-1))+1:
+        difyc[j-1,j] =  - ins_tran*var_tran
+    ##########################################
+            
+    #/* Final matrix */
+    dif[0:T,0:T]            =difc
+    dif[T:2*(T),0:T]        =difyc
+    dif[0:T,T:2*(T)]        =np.transpose(difyc)
+    dif[T:2*(T),T:2*(T)]    =dify
+    
+    difa1 = np.concatenate((dif[0:8,:],dif[11:2*T,:]),0)
+    difa2 = np.concatenate((difa1[:,0:8],difa1[:,11:2*T]),1)
+    
+    vech_indicies = np.tril_indices(np.shape(difa2)[0])
+    fm=difa2[vech_indicies]
+
+    return fm
+
 # This assumes all parameters are constant, and consumption decays exponentially
 def implied_cov_ExpConsDecay(params, taste, T):
     if taste ==1:
@@ -248,6 +316,9 @@ def Parameter_estimation_simple(model, c_vector, omega, T, taste=1, theta=0):
     if model=='Simple':
         implied_cov = lambda params, taste, T : implied_cov_simple(params, taste, T)
         num_params = taste+5
+    if model=='Simple_BPP':
+        implied_cov = lambda params, taste, T : implied_cov_simple_BPP(params, taste, T)
+        num_params = taste+5
     if model=='ExpConsDecay':
         implied_cov = lambda params, taste, T : implied_cov_ExpConsDecay(params, taste, T)
         num_params = taste+6
@@ -260,17 +331,17 @@ def Parameter_estimation_simple(model, c_vector, omega, T, taste=1, theta=0):
     
     init_params = np.zeros(num_params)
     if taste:
-        init_params[0] = 0.01  #variance of taste shocks
-    init_params[taste] = 0.03
-    init_params[taste+1] = 0.03
-    init_params[taste+2] = 0.5
-    init_params[taste+3] = 0.25
-    init_params[taste+4] = 0.5
+        init_params[0] = 0.0  #variance of taste shocks
+    init_params[taste] = 0.024490376875463526
+    init_params[taste+1] = 0.045704900335573506
+    init_params[taste+2] = 0.1832135986874511
+    init_params[taste+3] = 0.19193855569774637
+    init_params[taste+4] = 0.0
     if model=='ExpConsDecay':
         init_params[taste+5] = 0.5
     if model=='ExpConsIncDecay':
-        init_params[taste+5] = 0.5
-        init_params[taste+6] = 2.0
+        init_params[taste+5] = 0.631930037639509
+        init_params[taste+6] = 6.057050895995721
         
     def objectiveFun(params, taste, T, theta, empirical_cov, weight_matrix):
         if model=='ExpConsDecay_fix_theta':
@@ -356,8 +427,13 @@ var_perm_ExpsIncDecay, var_perm_se_ExpsIncDecay, var_tran_ExpsIncDecay, var_tran
  var_c_error_se_ExpsIncDecay, theta_ExpsIncDecay, theta_se_ExpsIncDecay, varcsi_ExpsIncDecay, varcsi_se_ExpsIncDecay, Omega_ExpsIncDecay, Omega_se_ExpsIncDecay \
   = Parameter_estimation_simple('ExpConsIncDecay', c_vector, omega, T, taste=1) 
 # 
-
+var_perm_BPPsimple, var_perm_se_BPPsimple, var_tran_BPPsimple, var_tran_se_BPPsimple, ins_perm_BPPsimple, \
+ ins_perm_se_BPPsimple, ins_tran_BPPsimple, ins_tran_se_BPPsimple, var_c_error_BPPsimple, \
+ var_c_error_se_BPPsimple, theta_BPPsimple, theta_se_BPPsimple, varcsi_BPPsimple, varcsi_se_BPPsimple, Omega_BPPsimple, Omega_se_BPPsimple \
+  = Parameter_estimation_simple('Simple_BPP', c_vector, omega, T, taste=1) 
+  
 ###############################################################################   
+
 #Shorter version of Table to show effect of transitory persistence
 print('Table to show ExpInc Decay parameters')
 def mystr1(number):
@@ -396,72 +472,72 @@ with open('./Tables/ExpIncDecay.tex','w') as f:
     f.write(output)
     f.close()    
 ############################################################################### 
-
-T=14
-num_thetas=10
-var_perm_fix_theta = np.zeros(num_thetas+1)
-var_tran_fix_theta = np.zeros(num_thetas+1)
-ins_perm_fix_theta = np.zeros(num_thetas+1)
-ins_tran_fix_theta = np.zeros(num_thetas+1)
-var_perm_se_fix_theta = np.zeros(num_thetas+1)
-var_tran_se_fix_theta = np.zeros(num_thetas+1)
-ins_perm_se_fix_theta = np.zeros(num_thetas+1)
-ins_tran_se_fix_theta = np.zeros(num_thetas+1)
-theta_array =  np.concatenate(([0],np.linspace(0.01,5,num_thetas)))
-var_perm_fix_theta[0], var_perm_se_fix_theta[0], var_tran_fix_theta[0], var_tran_se_fix_theta[0], ins_perm_fix_theta[0], \
- ins_perm_se_fix_theta[0], ins_tran_fix_theta[0], ins_tran_se_fix_theta[0], var_c_error_fix_theta, \
- var_c_error_se_fix_theta, theta_fix_theta, theta_se_fix_theta, varcsi_fix_theta, varcsi_se_fix_theta \
-  = Parameter_estimation_simple('Simple', c_vector, omega, T, taste=1)
-for i in np.array(range(num_thetas))+1:
-    theta = theta_array[i]
-    var_perm_fix_theta[i], var_perm_se_fix_theta[i], var_tran_fix_theta[i], var_tran_se_fix_theta[i], ins_perm_fix_theta[i], \
-     ins_perm_se_fix_theta[i], ins_tran_fix_theta[i], ins_tran_se_fix_theta[i], var_c_error_fix_theta, \
-     var_c_error_se_fix_theta, theta_fix_theta, theta_se_fix_theta, varcsi_fix_theta, varcsi_se_fix_theta \
-      = Parameter_estimation_simple('ExpConsDecay_fix_theta', c_vector, omega, T, theta=theta, taste=1)
-#    var_perm_fix_theta[i] = var_perm_fix_theta
-#    var_tran_fix_theta[i] = var_tran_fix_theta
-#    ins_perm_fix_theta[i] = ins_perm_fix_theta
-#    ins_tran_fix_theta[i] = ins_tran_fix_theta
-#    var_perm_se_fix_theta[i] = var_perm_fix_theta
-#    var_tran_se_fix_theta[i] = var_tran_fix_theta
-#    ins_perm_se_fix_theta[i] = ins_perm_fix_theta
-#    ins_tran_se_fix_theta[i] = ins_tran_fix_theta
-    
-    
-plt.plot(theta_array,ins_perm_fix_theta,color="blue")
-plt.plot(theta_array,ins_tran_fix_theta,color="red")
-plt.plot(theta_array,ins_perm_fix_theta+1.96*ins_perm_se_fix_theta,color="blue",linestyle="--")
-plt.plot(theta_array,ins_perm_fix_theta-1.96*ins_perm_se_fix_theta,color="blue",linestyle="--")
-plt.plot(theta_array,ins_tran_fix_theta+1.96*ins_tran_se_fix_theta,color="red",linestyle="--")
-plt.plot(theta_array,ins_tran_fix_theta-1.96*ins_tran_se_fix_theta,color="red",linestyle="--")
-
-
-###############################################################################
-# Look just at the perm insurance moments
-###############################################################################
-#recreate covariance matrix from vector
-c_matrix1 = np.zeros((25,25))
-vech_indicies = np.tril_indices(25)
-c_matrix1[vech_indicies] = cov_vector_test
-c_matrix1 = np.transpose(c_matrix1)
-c_matrix1[vech_indicies] = cov_vector_test
-#add in missing consumption as N/As
-c_matrix2 = np.concatenate((c_matrix1[0:8,:],np.nan*np.zeros((3,25)),c_matrix1[8:25,:]),0)
-c_matrix = np.concatenate((c_matrix2[:,0:8],np.nan*np.zeros((28,3)),c_matrix2[:,8:25]),1)
-
-# Now look at equation 9
-T=14
-phi_estimate = np.zeros(12)
-nominator     = np.zeros(12)
-denominator   = np.zeros(12)
-for t in np.array(range(12))+1:
-    nominator[t-1]   = c_matrix[t,T+t-1] + c_matrix[t,T+t] + c_matrix[t,T+t+1]
-    denominator[t-1] = c_matrix[T+t,T+t-1] + c_matrix[T+t,T+t] + c_matrix[T+t,T+t+1]
-phi_estimate = nominator/denominator
-mean_phi_estimate = np.nanmean(nominator)/np.nanmean(denominator+0.0*nominator)
-    
-
-
+###################################################
+#T=14
+#num_thetas=10
+#var_perm_fix_theta = np.zeros(num_thetas+1)
+#var_tran_fix_theta = np.zeros(num_thetas+1)
+#ins_perm_fix_theta = np.zeros(num_thetas+1)
+#ins_tran_fix_theta = np.zeros(num_thetas+1)
+#var_perm_se_fix_theta = np.zeros(num_thetas+1)
+#var_tran_se_fix_theta = np.zeros(num_thetas+1)
+#ins_perm_se_fix_theta = np.zeros(num_thetas+1)
+#ins_tran_se_fix_theta = np.zeros(num_thetas+1)
+#theta_array =  np.concatenate(([0],np.linspace(0.01,5,num_thetas)))
+#var_perm_fix_theta[0], var_perm_se_fix_theta[0], var_tran_fix_theta[0], var_tran_se_fix_theta[0], ins_perm_fix_theta[0], \
+# ins_perm_se_fix_theta[0], ins_tran_fix_theta[0], ins_tran_se_fix_theta[0], var_c_error_fix_theta, \
+# var_c_error_se_fix_theta, theta_fix_theta, theta_se_fix_theta, varcsi_fix_theta, varcsi_se_fix_theta \
+#  = Parameter_estimation_simple('Simple', c_vector, omega, T, taste=1)
+#for i in np.array(range(num_thetas))+1:
+#    theta = theta_array[i]
+#    var_perm_fix_theta[i], var_perm_se_fix_theta[i], var_tran_fix_theta[i], var_tran_se_fix_theta[i], ins_perm_fix_theta[i], \
+#     ins_perm_se_fix_theta[i], ins_tran_fix_theta[i], ins_tran_se_fix_theta[i], var_c_error_fix_theta, \
+#     var_c_error_se_fix_theta, theta_fix_theta, theta_se_fix_theta, varcsi_fix_theta, varcsi_se_fix_theta \
+#      = Parameter_estimation_simple('ExpConsDecay_fix_theta', c_vector, omega, T, theta=theta, taste=1)
+##    var_perm_fix_theta[i] = var_perm_fix_theta
+##    var_tran_fix_theta[i] = var_tran_fix_theta
+##    ins_perm_fix_theta[i] = ins_perm_fix_theta
+##    ins_tran_fix_theta[i] = ins_tran_fix_theta
+##    var_perm_se_fix_theta[i] = var_perm_fix_theta
+##    var_tran_se_fix_theta[i] = var_tran_fix_theta
+##    ins_perm_se_fix_theta[i] = ins_perm_fix_theta
+##    ins_tran_se_fix_theta[i] = ins_tran_fix_theta
+#    
+#    
+#plt.plot(theta_array,ins_perm_fix_theta,color="blue")
+#plt.plot(theta_array,ins_tran_fix_theta,color="red")
+#plt.plot(theta_array,ins_perm_fix_theta+1.96*ins_perm_se_fix_theta,color="blue",linestyle="--")
+#plt.plot(theta_array,ins_perm_fix_theta-1.96*ins_perm_se_fix_theta,color="blue",linestyle="--")
+#plt.plot(theta_array,ins_tran_fix_theta+1.96*ins_tran_se_fix_theta,color="red",linestyle="--")
+#plt.plot(theta_array,ins_tran_fix_theta-1.96*ins_tran_se_fix_theta,color="red",linestyle="--")
+#
+#
+################################################################################
+## Look just at the perm insurance moments
+################################################################################
+##recreate covariance matrix from vector
+#c_matrix1 = np.zeros((25,25))
+#vech_indicies = np.tril_indices(25)
+#c_matrix1[vech_indicies] = cov_vector_test
+#c_matrix1 = np.transpose(c_matrix1)
+#c_matrix1[vech_indicies] = cov_vector_test
+##add in missing consumption as N/As
+#c_matrix2 = np.concatenate((c_matrix1[0:8,:],np.nan*np.zeros((3,25)),c_matrix1[8:25,:]),0)
+#c_matrix = np.concatenate((c_matrix2[:,0:8],np.nan*np.zeros((28,3)),c_matrix2[:,8:25]),1)
+#
+## Now look at equation 9
+#T=14
+#phi_estimate = np.zeros(12)
+#nominator     = np.zeros(12)
+#denominator   = np.zeros(12)
+#for t in np.array(range(12))+1:
+#    nominator[t-1]   = c_matrix[t,T+t-1] + c_matrix[t,T+t] + c_matrix[t,T+t+1]
+#    denominator[t-1] = c_matrix[T+t,T+t-1] + c_matrix[T+t,T+t] + c_matrix[T+t,T+t+1]
+#phi_estimate = nominator/denominator
+#mean_phi_estimate = np.nanmean(nominator)/np.nanmean(denominator+0.0*nominator)
+#    
+#
+#
 
 ##############################################################################
 # TESTING: Create some simulated data to test the moment calculation 
@@ -476,51 +552,48 @@ mean_phi_estimate = np.nanmean(nominator)/np.nanmean(denominator+0.0*nominator)
 
 var_perm_test = var_perm_ExpsIncDecay
 var_tran_test = var_tran_ExpsIncDecay
-ins_perm_test = ins_perm_ExpsDecay
-ins_tran_test = ins_tran_ExpsDecay
-theta_test = theta_ExpsDecay
+ins_perm_test = ins_perm_ExpsIncDecay
+ins_tran_test = ins_tran_ExpsIncDecay
+theta_test = theta_ExpsIncDecay
 Omega_test = Omega_ExpsIncDecay
+varcsi_test = varcsi_ExpsIncDecay
 
-
-num_periods = 4000
-num_divisions = 20
+num_periods = 20000
+num_divisions = 200
 total_obs = num_periods*num_divisions
-np.random.seed(seed=6)
+max_decay = num_divisions*50
+total_obs = num_periods*num_divisions
+np.random.seed(seed=10)
 perm_shocks = (var_perm_test/num_divisions)**0.5*np.random.normal(size=total_obs)
-tran_shocks = (var_tran_test*num_divisions)**0.5*np.random.normal(size=total_obs)
-perm_inc  = np.cumsum(perm_shocks)
-perm_cons = ins_perm_test*perm_inc
-tran_cons = np.zeros_like(perm_cons)
-tran_inc = np.zeros_like(perm_cons)
-decay = np.exp(-np.arange(total_obs)*theta_test/num_divisions)
-decay_inc = np.exp(-np.arange(total_obs)*Omega_test/num_divisions)
-for t in range(total_obs):
-    tran_cons[t] = np.sum(theta_test*ins_tran_test/(1.0-np.exp(-theta_test)) * decay[0:t+1] * np.flip(tran_shocks[0:t+1],0))/num_divisions
-    tran_inc[t]  = np.sum(Omega_test              /(1.0-np.exp(-Omega_test)) * decay_inc[0:t+1] * np.flip(tran_shocks[0:t+1],0))/num_divisions
+tran_shocks = (var_tran_test/num_divisions)**0.5*np.random.normal(size=total_obs)
+taste_shocks = (varcsi_test/num_divisions)**0.5*np.random.normal(size=total_obs)
 
-#tran_cons = ins_tran_test*np.cumsum(tran_shocks)/num_divisions  # This is a random walk
-#tran_inc = tran_shocks
-total_inc  = perm_inc  + tran_inc
-total_cons = perm_cons + tran_cons
+#perm_shocks = (0.0/num_divisions)**0.5*np.random.normal(size=total_obs)
+#tran_shocks = (1.0/num_divisions)**0.5*np.random.normal(size=total_obs)
+
+perm_inc  = np.cumsum(perm_shocks)
+perm_cons = ins_perm_test*perm_inc + np.cumsum(taste_shocks)
 observed_inc = np.zeros(num_periods)
 observed_tran_inc = np.zeros(num_periods)
 observed_tran_shocks = np.zeros(num_periods)
+observed_trans_cons = np.zeros(num_periods)
 observed_cons = np.zeros(num_periods)
-for T1 in range(num_periods):
-    observed_inc[T1] = np.sum(total_inc[num_divisions*T1:num_divisions*(T1+1)])/num_divisions
-    observed_cons[T1] = total_cons[(T1+1)*num_divisions-1]
-    observed_tran_inc[T1] = np.sum(tran_inc[num_divisions*T1:num_divisions*(T1+1)])/num_divisions
-    observed_tran_shocks[T1] = np.sum(tran_shocks[num_divisions*T1:num_divisions*(T1+1)])/num_divisions
-#for T in range(num_periods):    
-#    for i in range(np.min([(T+1)*num_divisions,50])):
-#        observed_cons[T] += theta_test*ins_tran_test/(1.0-np.exp(-theta_test)) * np.exp(-i*theta_test/num_divisions) * tran_shocks[(T+1)*num_divisions-i-1]
-delta_inc = np.diff(observed_inc)
-delta_cons = np.diff(observed_cons)
+decay     = np.exp(-np.arange(total_obs)*theta_test/num_divisions)
+decay_inc = np.exp(-np.arange(total_obs)*Omega_test/num_divisions)
+for T1 in range(num_periods-1):
+    observed_trans_cons[T1] =  np.sum(theta_test*ins_tran_test/(1.0-np.exp(-theta_test)) * decay[0:min((T1+1)*num_divisions,max_decay)] * np.flip(tran_shocks[max(0,(T1+1)*num_divisions-max_decay):(T1+1)*num_divisions],0))
+    #observed_trans_cons[T1] =  np.sum(theta_test*ins_tran_test/(1.0-np.exp(-theta_test)) * decay[0:min((T1+1)*num_divisions+50,max_decay)] * np.flip(tran_shocks[max(0,(T1+1)*num_divisions+50-max_decay):(T1+1)*num_divisions+50],0))
+    if T1>=2:
+        observed_tran_inc[T1] = 1.0/(1-np.exp(-Omega_test))*np.sum((1-np.flip(decay_inc[0:num_divisions] ,0)) * tran_shocks[T1*num_divisions:(T1+1)*num_divisions]) + np.sum( np.flip(decay_inc[0:min(max_decay,T1*num_divisions)] ,0)   * tran_shocks[max(0,T1*num_divisions-max_decay):(T1)*num_divisions])
+    observed_inc[T1] = observed_tran_inc[T1] + np.sum(perm_inc[num_divisions*T1:num_divisions*(T1+1)])/num_divisions
+    observed_cons[T1] = observed_trans_cons[T1]+ perm_cons[(T1+1)*num_divisions-1]
+delta_inc = np.diff(observed_inc[:-1])
+delta_cons = np.diff(observed_cons[:-1])
 
 T=14
 #Now create a c_vector matrix
 ignore = 20
-delta_offset = np.zeros((num_periods-T-ignore,2*T))
+delta_offset = np.zeros((num_periods-T-ignore-1,2*T))
 for t in np.array(range(T)):
     delta_offset[:,t] = delta_cons[ignore+T-t-2:-1-t]
     delta_offset[:,t+T] = delta_inc[ignore+T-t-2:-1-t]
@@ -533,23 +606,43 @@ vech_indicies = np.tril_indices(np.shape(difa2)[0])
 cov_vector_test=difa2[vech_indicies]
 omega_test = np.eye(cov_vector_test.shape[0])
     
-var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
- ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
- var_c_error_se_BPP, theta_BPP, theta_se_BPP, varcsi_BPP, varcsi_se_BPP , Omega_BPP, Omega_se_BPP\
+var_perm_sim1, var_perm_se_sim1, var_tran_sim1, var_tran_se_sim1, ins_perm_sim1, \
+ ins_perm_se_sim1, ins_tran_sim1, ins_tran_se_sim1, var_c_error_sim1, \
+ var_c_error_se_sim1, theta_sim1, theta_se_sim1, varcsi_sim1, varcsi_se_sim1 , Omega_sim1, Omega_se_sim1\
   = Parameter_estimation_simple('ExpConsIncDecay', cov_vector_test, omega_test, T, taste=1) 
   
-#var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
-# ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
-# var_c_error_se_BPP, theta_BPP, theta_se_BPP, varcsi_BPP, varcsi_se_BPP \
-#  = Parameter_estimation_simple('Simple', cov_vector_test, omega_test, T, taste=1) 
-  
-init_params = np.array([0.0,var_perm_test,var_tran_test,ins_perm_test,ins_tran_test,0.0,theta_test])
-implied_cov = implied_cov_ExpConsDecay(init_params, 1, T)
 
 from min_distance_replication import Parameter_estimation
 #Next replicate BPP
 print('Replicate BPP')
-var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
- ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
- var_c_error_se_BPP, teta_BPP, teta_se_BPP, varcsi_BPP, varcsi_se_BPP \
+var_perm_sim2, var_perm_se_sim2, var_tran_sim2, var_tran_se_sim2, ins_perm_sim2, \
+ ins_perm_se_sim2, ins_tran_sim2, ins_tran_se_sim2, var_c_error_sim2, \
+ var_c_error_se_sim2, teta_sim2, teta_se_sim2, varcsi_sim2, varcsi_se_sim2 \
   = Parameter_estimation('BPP', cov_vector_test, omega_test, T, ma=1, taste=1, varying_ins=0) 
+
+print('Replicate BPP')
+var_perm_sim3, var_perm_se_sim3, var_tran_sim3, var_tran_se_sim3, ins_perm_sim3, \
+ ins_perm_se_sim3, ins_tran_sim3, ins_tran_se_sim3, var_c_error_sim3, \
+ var_c_error_se_sim3, teta_sim3, teta_se_sim3, varcsi_sim3, varcsi_se_sim3 \
+  = Parameter_estimation('BPP', cov_vector_test, omega_test, T, ma=0, taste=1, varying_ins=0) 
+
+print('Replicate BPP')
+var_perm_sim4, var_perm_se_sim4, var_tran_sim4, var_tran_se_sim4, ins_perm_sim4, \
+ ins_perm_se_sim4, ins_tran_sim4, ins_tran_se_sim4, var_c_error_sim4, \
+ var_c_error_se_sim4, teta_sim4, teta_se_sim4, varcsi_sim4, varcsi_se_sim4 \
+  = Parameter_estimation('TimeAgg', cov_vector_test, omega_test, T, ma=0, taste=1, varying_ins=0) 
+
+print('Replicate BPP')
+var_perm_sim5, var_perm_se_sim5, var_tran_sim5, var_tran_se_sim5, ins_perm_sim5, \
+ ins_perm_se_sim5, ins_tran_sim5, ins_tran_se_sim5, var_c_error_sim5, \
+ var_c_error_se_sim5, teta_sim5, teta_se_sim5, varcsi_sim5, varcsi_se_sim5 \
+  = Parameter_estimation('TimeAgg_uniform', cov_vector_test, omega_test, T, ma=1, taste=1, varying_ins=0) 
+
+print('Replicate BPP')
+var_perm_sim6, var_perm_se_sim6, var_tran_sim6, var_tran_se_sim6, ins_perm_sim6, \
+ ins_perm_se_sim6, ins_tran_sim6, ins_tran_se_sim6, var_c_error_sim6, \
+ var_c_error_se_sim6, teta_sim6, teta_se_sim6, varcsi_sim6, varcsi_se_sim6 \
+  = Parameter_estimation('TimeAgg_lineardecay', cov_vector_test, omega_test, T, ma=1, taste=1, varying_ins=0) 
+
+[ins_perm_test, ins_perm_sim1,ins_perm_sim2,ins_perm_sim3,ins_perm_sim4,ins_perm_sim5,ins_perm_sim6]
+[ins_tran_test, ins_tran_sim1,ins_tran_sim2,ins_tran_sim3,ins_tran_sim4,ins_tran_sim5,ins_tran_sim6]
