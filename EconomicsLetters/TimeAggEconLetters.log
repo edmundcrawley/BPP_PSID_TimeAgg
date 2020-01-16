@@ -1,37 +1,33 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2019.8.22)  16 JAN 2020 09:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.11.20)  16 JAN 2020 16:04
 entering extended mode
- restricted \write18 enabled.
- %&-line parsing enabled.
-**TimeAggEconLetters.tex
-(./TimeAggEconLetters.tex
-LaTeX2e <2014/05/01>
-Babel <3.9k> and hyphenation patterns for 78 languages loaded.
-(./AEA.cls
+**./TimeAggEconLetters.tex
+(TimeAggEconLetters.tex
+LaTeX2e <2018-12-01>
+(AEA.cls
 Document Class: AEA 2011/07/24 American Economic Association Article Classes
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/tools/multicol.sty
-Package: multicol 2014/04/23 v1.8e multicolumn formatting (FMi)
-\c@tracingmulticols=\count79
-\mult@box=\box26
+("C:\Program Files\MiKTeX 2.9\tex/latex/tools\multicol.sty"
+Package: multicol 2018/12/27 v1.8v multicolumn formatting (FMi)
+\c@tracingmulticols=\count80
+\mult@box=\box27
 \multicol@leftmargin=\dimen102
-\c@unbalance=\count80
-\c@collectmore=\count81
-\doublecol@number=\count82
-\multicoltolerance=\count83
-\multicolpretolerance=\count84
+\c@unbalance=\count81
+\c@collectmore=\count82
+\doublecol@number=\count83
+\multicoltolerance=\count84
+\multicolpretolerance=\count85
 \full@width=\dimen103
 \page@free=\dimen104
 \premulticols=\dimen105
 \postmulticols=\dimen106
 \multicolsep=\skip41
 \multicolbaselineskip=\skip42
-\partial@page=\box27
-\last@line=\box28
+\partial@page=\box28
+\last@line=\box29
 \maxbalancingoverflow=\dimen107
-\mult@rightbox=\box29
-\mult@grightbox=\box30
-\mult@gfirstbox=\box31
-\mult@firstbox=\box32
-\@tempa=\box33
+\mult@rightbox=\box30
+\mult@grightbox=\box31
+\mult@gfirstbox=\box32
+\mult@firstbox=\box33
 \@tempa=\box34
 \@tempa=\box35
 \@tempa=\box36
@@ -48,60 +44,63 @@ Package: multicol 2014/04/23 v1.8e multicolumn formatting (FMi)
 \@tempa=\box47
 \@tempa=\box48
 \@tempa=\box49
-\c@columnbadness=\count85
-\c@finalcolumnbadness=\count86
+\@tempa=\box50
+\c@columnbadness=\count86
+\c@finalcolumnbadness=\count87
 \last@try=\dimen108
 \multicolovershoot=\dimen109
 \multicolundershoot=\dimen110
-\mult@nat@firstbox=\box50
-\colbreak@box=\box51
-\mc@col@check@num=\count87
+\mult@nat@firstbox=\box51
+\colbreak@box=\box52
+\mc@col@check@num=\count88
 )
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/setspace/setspace.sty
+(C:\Users\edmun\AppData\Roaming\MiKTeX\2.9\tex/latex/setspace\setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
-) (c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2013/01/14 v2.14 AMS math features
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsmath.sty"
+Package: amsmath 2018/12/01 v2.17b AMS math features
 \@mathmargin=\skip43
-For additional information on amsmath, use the `?' option.
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/amsmath/amstext.sty
-Package: amstext 2000/06/29 v2.01
 
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/amsmath/amsgen.sty
-File: amsgen.sty 1999/11/30 v2.0
+For additional information on amsmath, use the `?' option.
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amstext.sty"
+Package: amstext 2000/06/29 v2.01 AMS text
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks14
 \ex@=\dimen111
 ))
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/amsmath/amsbsy.sty
-Package: amsbsy 1999/11/29 v1.2d
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 \pmbraise@=\dimen112
 )
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 1999/12/14 v2.01 operator names
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsmath\amsopn.sty"
+Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count88
-LaTeX Info: Redefining \frac on input line 210.
-\uproot@=\count89
-\leftroot@=\count90
-LaTeX Info: Redefining \overline on input line 306.
-\classnum@=\count91
-\DOTSCASE@=\count92
-LaTeX Info: Redefining \ldots on input line 378.
-LaTeX Info: Redefining \dots on input line 381.
-LaTeX Info: Redefining \cdots on input line 466.
-\Mathstrutbox@=\box52
-\strutbox@=\box53
+\inf@bad=\count89
+LaTeX Info: Redefining \frac on input line 223.
+\uproot@=\count90
+\leftroot@=\count91
+LaTeX Info: Redefining \overline on input line 385.
+\classnum@=\count92
+\DOTSCASE@=\count93
+LaTeX Info: Redefining \ldots on input line 482.
+LaTeX Info: Redefining \dots on input line 485.
+LaTeX Info: Redefining \cdots on input line 606.
+\Mathstrutbox@=\box53
+\strutbox@=\box54
 \big@size=\dimen113
-LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
-\macc@depth=\count93
-\c@MaxMatrixCols=\count94
+LaTeX Font Info:    Redeclaring font encoding OML on input line 729.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 730.
+\macc@depth=\count94
+\c@MaxMatrixCols=\count95
 \dotsspace@=\muskip10
-\c@parentequation=\count95
-\dspbrk@lvl=\count96
+\c@parentequation=\count96
+\dspbrk@lvl=\count97
 \tag@help=\toks15
-\row@=\count97
-\column@=\count98
-\maxfields@=\count99
+\row@=\count98
+\column@=\count99
+\maxfields@=\count100
 \andhelp@=\toks16
 \eqnshift@=\dimen114
 \alignsep@=\dimen115
@@ -113,73 +112,64 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \multlinegap=\skip44
 \multlinetaggap=\skip45
 \mathdisplay@stack=\toks18
-LaTeX Info: Redefining \[ on input line 2665.
-LaTeX Info: Redefining \] on input line 2666.
+LaTeX Info: Redefining \[ on input line 2844.
+LaTeX Info: Redefining \] on input line 2845.
 )
 Journal Selected: 
 Mode Selected: final
 \abstractIndent=\skip46
 \abstractWidth=\skip47
-\c@part=\count100
-\c@section=\count101
-\c@subsection=\count102
-\c@subsubsection=\count103
-\c@paragraph=\count104
-\c@subparagraph=\count105
-\c@figure=\count106
-\c@table=\count107
+\c@part=\count101
+\c@section=\count102
+\c@subsection=\count103
+\c@subsubsection=\count104
+\c@paragraph=\count105
+\c@subparagraph=\count106
+\c@figure=\count107
+\c@table=\count108
 \abovecaptionskip=\skip48
 \belowcaptionskip=\skip49
 \bibindent=\dimen120
-) (c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/natbib/natbib.sty
+) (C:\Users\edmun\AppData\Roaming\MiKTeX\2.9\tex/latex/natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip50
 \bibsep=\skip51
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count108
+\c@NAT@ctr=\count109
 )
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\amsfonts.sty"
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 )
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/04/25 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphicx.sty"
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks19
 )
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
-)
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/latexconfig/graphics.
-cfg
-File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
-)
-Package graphics Info: Driver file: pdftex.def on input line 91.
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphics.sty"
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
 
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
 
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/generic/oberdiek/infwarerr.
-sty
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/generic/oberdiek/ltxcmds.st
-y
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
-\Gread@gobject=\count109
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-def\pdftex.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen121
 \Gin@req@width=\dimen122
 )
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/booktabs/booktabs.sty
-Package: booktabs 2005/04/14 v1.61803 publication quality tables
+(C:\Users\edmun\AppData\Roaming\MiKTeX\2.9\tex/latex/booktabs\booktabs.sty
+Package: booktabs 2019/10/08 v1.6180339 publication quality tables
 \heavyrulewidth=\dimen123
 \lightrulewidth=\dimen124
 \cmidrulewidth=\dimen125
@@ -199,15 +189,18 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \@thisrulewidth=\dimen135
 )
 \TableWidth=\skip52
- (c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/tools/array.sty
-Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/tools\array.sty"
+Package: array 2018/12/30 v2.4k Tabular extension package (FMi)
 \col@sep=\dimen136
+\ar@mcellbox=\box55
 \extrarowheight=\dimen137
 \NC@list=\toks20
 \extratabsurround=\skip53
 \backup@length=\skip54
+\ar@cellbox=\box56
 )
-(./TimeAggEconLetters.aux)
+(TimeAggEconLetters.aux)
 \openout1 = `TimeAggEconLetters.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
@@ -223,11 +216,11 @@ LaTeX Font Info:    ... okay on input line 32.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
 LaTeX Font Info:    ... okay on input line 32.
 
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
+(C:\Users\edmun\AppData\Roaming\MiKTeX\2.9\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count114
 \scratchdimen=\dimen138
-\scratchbox=\box54
+\scratchbox=\box57
 \nofMPsegments=\count115
 \nofMParguments=\count116
 \everyMPshowfont=\toks21
@@ -236,84 +229,86 @@ LaTeX Font Info:    ... okay on input line 32.
 \MPnumerator=\count118
 \makeMPintoPDFobject=\count119
 \everyMPtoPDFconversion=\toks22
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\infwarerr.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
 )
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/generic/oberdiek/pdftexcmds
-.sty
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\grfext.sty"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds.sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)))
+("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\kvoptions.sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\etexcmds.sty"
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ifluatex.sty"
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+))))
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
 )
 
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/generic/oberdiek/ifluatex.s
-ty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-)
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ifpdf.sty"
+Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
 )
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/oberdiek/epstopdf-bas
-e.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
-
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/generic/oberdiek/kvdefineke
-ys.sty
-Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
-))
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/oberdiek/kvoptions.st
-y
-Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
-
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/generic/oberdiek/kvsetkeys.
-sty
-Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
-
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/generic/oberdiek/etexcmds.s
-ty
-Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
 Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
-
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/latexconfig/epstopdf-
-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
 LaTeX Font Info:    Try loading font information for U+msa on input line 50.
 
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 50.
 
-(c:/Program Files (x86)/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
+("C:\Program Files\MiKTeX 2.9\tex/latex/amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-[1
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 50.
 
-{c:/Program Files (x86)/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.m
-ap}] [2] <../Code/Figures/TimeAgg_simple.pdf, id=18, 505.89pt x 505.89pt>
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\omscmr.fd"
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 50.
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 50.
+ [1
+
+{C:/Users/edmun/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+Underfull \vbox (badness 5077) has occurred while \output is active []
+
+ [2]
+<../Code/Figures/TimeAgg_simple.pdf, id=17, 505.89pt x 505.89pt>
 File: ../Code/Figures/TimeAgg_simple.pdf Graphic file (type pdf)
-
 <use ../Code/Figures/TimeAgg_simple.pdf>
-Package pdftex.def Info: ../Code/Figures/TimeAgg_simple.pdf used on input line 
-60.
+Package pdftex.def Info: ../Code/Figures/TimeAgg_simple.pdf  used on input line
+ 60.
 (pdftex.def)             Requested size: 269.8732pt x 269.8804pt.
- [3 <../Code/Figures/TimeAgg_simple.pdf>]
+
+[3 <../Code/Figures/TimeAgg_simple.pdf>]
 Underfull \vbox (badness 2903) has occurred while \output is active []
 
  [4]
@@ -325,47 +320,44 @@ Underfull \vbox (badness 3547) has occurred while \output is active []
 
  [7]
 (../Code/Tables/Persistence_short.tex
-\Persistence=\box55
+\Persistence=\box58
 
-Overfull \hbox (44.49031pt too wide) in paragraph at lines 6--22
+Overfull \hbox (44.4904pt too wide) in paragraph at lines 6--22
  [] 
  []
 
-) [8] [9] (./TimeAggEconLetters.bbl
-Underfull \vbox (badness 2837) has occurred while \output is active []
-
- [10]
-[11] [12]) (./AppendixFullMoments.tex [13]
-Overfull \hbox (91.67694pt too wide) in paragraph at lines 30--30
-[] 
+) [8] [9] (TimeAggEconLetters.bbl [10] [11] [12]) (AppendixFullMoments.tex
+[13]
+Overfull \hbox (91.67694pt too wide) detected at line 30
+[]
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [14])
-[15] (./AppendixLevelvsLogs.tex
+[15] (AppendixLevelvsLogs.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [16]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [17]
-Overfull \hbox (50.43112pt too wide) in paragraph at lines 49--49
-[] 
+Overfull \hbox (50.43112pt too wide) detected at line 49
+[]
  []
 
 
-Overfull \hbox (58.051pt too wide) in paragraph at lines 56--56
-[] 
+Overfull \hbox (58.051pt too wide) detected at line 56
+[]
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [18]
-Overfull \hbox (64.48093pt too wide) in paragraph at lines 73--73
-[] 
+Overfull \hbox (64.48093pt too wide) detected at line 73
+[]
  []
 
 
@@ -375,58 +367,121 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [20]
-Overfull \hbox (23.68826pt too wide) in paragraph at lines 89--89
-[] 
+Overfull \hbox (23.68826pt too wide) detected at line 89
+[]
  []
 
-) (./AppendixTransitoryPersistence.tex
+) (AppendixTransitoryPersistence.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [21]
-Overfull \hbox (97.58466pt too wide) in paragraph at lines 22--22
-[] 
+Overfull \hbox (97.58466pt too wide) detected at line 22
+[]
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [22]
-Overfull \hbox (61.98283pt too wide) in paragraph at lines 41--41
-[] 
+Overfull \hbox (61.98283pt too wide) detected at line 41
+[]
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [23]
-Overfull \hbox (22.823pt too wide) in paragraph at lines 55--55
-[] 
+Overfull \hbox (22.823pt too wide) detected at line 55
+[]
  []
 
 
-Overfull \hbox (11.32043pt too wide) in paragraph at lines 60--60
-[] 
+Overfull \hbox (11.32043pt too wide) detected at line 60
+[]
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [24])
-(./AppendixTypicalWeek.tex [25] (../Code/Tables/Persistence_short_intdate.tex
-\Persistenceintdate=\box56
+(AppendixTypicalWeek.tex [25] (../Code/Tables/Persistence_short_intdate.tex
+\Persistenceintdate=\box59
 
-Overfull \hbox (44.49031pt too wide) in paragraph at lines 6--22
+Overfull \hbox (44.4904pt too wide) in paragraph at lines 6--22
  [] 
  []
 
-)) (./AppendixExpDecay.tex [26] (../Code/Tables/ExpIncDecay.tex
+)) (AppendixExpDecay.tex [26] (../Code/Tables/ExpIncDecay.tex
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [27]) (../Code/Tables/RepTable6.tex
-\ReplicationTable=\box57
+)
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
 
-Overfull \hbox (61.9769pt too wide) in paragraph at lines 6--73
+ []
+
+[27]
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [28]
+Overfull \hbox (56.23996pt too wide) detected at line 69
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [29]
+Overfull \hbox (28.14679pt too wide) detected at line 84
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [30]
+Overfull \hbox (16.52286pt too wide) detected at line 101
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [31]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [32]
+Underfull \hbox (badness 10000) in paragraph at lines 144--147
+
+ []
+
+
+Overfull \hbox (0.30568pt too wide) detected at line 155
+[]
+ []
+
+
+Overfull \hbox (27.82713pt too wide) detected at line 165
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [33]
+Overfull \hbox (44.32967pt too wide) detected at line 189
+[]
+ []
+
+) (../Code/Tables/RepTable6.tex
+\ReplicationTable=\box60
+
+Overfull \hbox (61.97699pt too wide) in paragraph at lines 6--73
  [] 
  []
 
@@ -437,9 +492,9 @@ LaTeX Warning: Float too large for page by 27.64336pt on input line 74.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 ) (../Code/Tables/RepTable7.tex
-\ReplicationTableSeven=\box58
+\ReplicationTableSeven=\box61
 
-Overfull \hbox (44.47678pt too wide) in paragraph at lines 6--24
+Overfull \hbox (44.47685pt too wide) in paragraph at lines 6--24
  [] 
  []
 
@@ -447,9 +502,9 @@ Overfull \hbox (44.47678pt too wide) in paragraph at lines 6--24
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 ) (../Code/Tables/RepTable8.tex
-\ReplicationTableEight=\box59
+\ReplicationTableEight=\box62
 
-Overfull \hbox (44.47678pt too wide) in paragraph at lines 6--37
+Overfull \hbox (44.47685pt too wide) in paragraph at lines 6--37
  [] 
  []
 
@@ -457,38 +512,33 @@ Overfull \hbox (44.47678pt too wide) in paragraph at lines 6--37
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[28] [29] [30] (./TimeAggEconLetters.aux) ) 
+[34] [35] [36] (TimeAggEconLetters.aux) ) 
 Here is how much of TeX's memory you used:
- 2996 strings out of 493117
- 43029 string characters out of 6130074
- 139081 words of memory out of 5000000
- 6381 multiletter control sequences out of 15000+600000
- 12395 words of font info for 46 fonts, out of 8000000 for 9000
+ 2983 strings out of 492897
+ 42882 string characters out of 3133497
+ 153889 words of memory out of 3000000
+ 6816 multiletter control sequences out of 15000+200000
+ 12395 words of font info for 46 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,13n,28p,2278b,315s stack positions out of 5000i,500n,10000p,200000b,80000s
-<c:/Program Files (x86)/texlive/2014
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/Program Files (x86)/t
-exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/Program F
-iles (x86)/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c
-:/Program Files (x86)/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-mi10.pfb><c:/Program Files (x86)/texlive/2014/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmmi6.pfb><c:/Program Files (x86)/texlive/2014/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmmi8.pfb><c:/Program Files (x86)/texlive/2014/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr10.pfb><c:/Program Files (x86)/texlive/2014/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/Program Files (x86)/texlive
-/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/Program Files (x86
-)/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><c:/Progr
-am Files (x86)/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
-b><c:/Program Files (x86)/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy6.pfb><c:/Program Files (x86)/texlive/2014/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmsy8.pfb><c:/Program Files (x86)/texlive/2014/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmti10.pfb><c:/Program Files (x86)/texlive/2014/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmti8.pfb><c:/Program Files (x86)/texlive/2014
-/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TimeAggEconLetters.pdf (30 pages, 274724 bytes).
+ 41i,13n,28p,2280b,315s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb
+><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Prog
+ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
+pe1/public/amsfonts/cm/cmssbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/ams
+fonts/cm/cmsy6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pf
+b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on TimeAggEconLetters.pdf (36 pages, 312008 bytes).
 PDF statistics:
- 171 PDF objects out of 1000 (max. 8388607)
- 119 compressed objects within 2 object streams
+ 187 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

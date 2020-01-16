@@ -17,7 +17,176 @@ Table \ref{table:ExpIncDecay} shows the estimates for the insurance parameters, 
 
 \input ../Code/Tables/ExpIncDecay.tex
 
-While this model extension does not solve the low $\phi$ puzzle, it can explain why the estimate for $\phi$ in the original BPP model was so relatively high. To do this, I simulate a panel of income and consumption, following this model, and using the estimated parameters from table \ref{table:ExpIncDecay}. I can then reestimate the partial insurance parameters from this simulated data, using the original BPP model, as well as the time aggregated model from the main paper. The results are shown in table ****************************.
+\subsubsection{Moment in the Exponential Decay Model} \label{exp_decay_moments_appendix}
+To keep the notation manageable, the moments calculated below are for the transitory components in income and consumption only. The full model adds in the same permanent income and consumption as the main paper (permanent and transitory shocks are independent, so the variances and covariances are additive).\\
 
-\subsubsection{Calculation of moments} \label{exp_decay_moments_appendix}
+\textit{Exponentially Decaying Income Process}\\
+
+A shock to transitory income decays exponentially according to the function:
+\begin{align*}
+f(t) = \frac{\Omega}{1-e^{-\Omega}} e^{-\Omega t}
+\end{align*}
+The constant in front of the exponential is so that the income in the first year following a unit shock will be equal to one.
+
+The flow of income at a point in time $s$ is therefore:
+\begin{align*}
+y(t) = \frac{\Omega}{1-e^{-\Omega}} \int_{-\infty}^{t} e^{-\Omega (t-s)}dQ_s
+\end{align*}
+Observed income over the year $T$ is the integral of the income flow over that year:
+\begin{align*}
+y_T^{obs} &=\frac{\Omega}{1-e^{-\Omega}} \int_{T-1}^{T} \int_{-\infty}^{t} e^{-\Omega (t-s)}dQ_s dt \\
+&= \frac{\Omega}{1-e^{-\Omega}} \left[ \int_{T-1}^{T} \int_{-\infty}^{T-1} e^{-\Omega (t-s)}dQ_s dt + \int_{T-1}^{T} \int_{T-1}^{t} e^{-\Omega (t-s)}dQ_s dt \right] 
+\end{align*}
+Swapping the order of the integrals gives:
+\begin{align*}
+y_T^{obs} &=\frac{\Omega}{1-e^{-\Omega}} \left[ \int_{-\infty}^{T-1} \int_{T-1}^{T} e^{-\Omega (t-s)} dt dQ_s  + \int_{T-1}^{T} \int_{s}^{T} e^{-\Omega (t-s)} dt dQ_s \right] \\
+&=\frac{1}{1-e^{-\Omega}} \left[ \int_{-\infty}^{T-1} ( e^{-\Omega (T-1-s)} - e^{-\Omega (T-s)}) dQ_s  + \int_{T-1}^{T}  ( 1 - e^{-\Omega (T-s)} ) dQ_s \right] \\
+&= \frac{1}{1-e^{-\Omega}}\int_{T-1}^{T}  ( 1 - e^{-\Omega (T-s)} ) dQ_s  + \int_{-\infty}^{T-1}  e^{-\Omega (T-1-s)} dQ_s  
+\end{align*}
+Now take the first difference:
+\begin{align*}
+\Delta y_T^{obs} &=\frac{1}{1-e^{-\Omega}}\int_{T-1}^{T}  ( 1 - e^{-\Omega (T-s)} ) dQ_s \\ & \qquad + \int_{T-2}^{T-1} \left( e^{-\Omega (T-1-s)}   - \frac{1}{1-e^{-\Omega}}  ( 1 - e^{-\Omega (T-1-s)} ) \right) dQ_s \\
+& \qquad - \int_{-\infty}^{T-2}  e^{-\Omega (T-2-s)} (1-e^{-\Omega}) dQ_s  \\
+&=\frac{1}{1-e^{-\Omega}}\int_{T-1}^{T}  ( 1 - e^{-\Omega (T-s)} ) dQ_s \\ & \qquad +  \frac{1}{1-e^{-\Omega}} \int_{T-2}^{T-1}\left( (2-e^{-\Omega}) e^{-\Omega (T-1-s)} -1  \right)dQ_s \\
+& \qquad -  (1-e^{-\Omega}) \int_{-\infty}^{T-2}  e^{-\Omega (T-2-s)} dQ_s 
+\end{align*}
+Calculate covariances - first the variance:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Var(Delta Y_T)
+\begin{align*}
+\mathrm{Var}(\Delta y_T^{obs}) &= \frac{1}{(1-e^{-\Omega})^2}\int_{T-1}^{T} ( 1 - 2e^{-\Omega (T-s)}  + e^{-2\Omega (T-s)}) ds \\
+& \qquad + \frac{1}{(1-e^{-\Omega})^2} \int_{T-2}^{T-1}\left( (2-e^{-\Omega})^2 e^{-2\Omega (T-1-s)} -2(2-e^{-\Omega}) e^{-\Omega (T-1-s)} +1  \right)ds \\
+& \qquad + (1-e^{-\Omega})^2 \int_{-\infty}^{T-2}  e^{-2\Omega (T-2-s)} ds \\
+&= \frac{1}{(1-e^{-\Omega})^2}\left( 1 - \frac{2}{\Omega}(1-e^{-\Omega})    + \frac{1}{2\Omega}(1-e^{-2\Omega}) \right) \\
+& \qquad + \frac{1}{(1-e^{-\Omega})^2}\left( (2-e^{-\Omega})^2\frac{1}{2\Omega}(1-e^{-2\Omega}) -2(2-e^{-\Omega}) \frac{1}{\Omega}(1-e^{-\Omega}) +1  \right) \\
+& \qquad +  \frac{1}{2\Omega}(1-e^{-\Omega})^2 \\
+&= \frac{1}{(1-e^{-\Omega})^2}\left( 2    + \left( (2-e^{-\Omega})^2 +1\right)\frac{1}{2\Omega}(1-e^{-2\Omega}) -(3-e^{-\Omega}) \frac{2}{\Omega}(1-e^{-\Omega})   \right) \\
+& \qquad +  \frac{1}{2\Omega}(1-e^{-\Omega})^2 \\
+&=  \frac{1}{(1-e^{-\Omega})^2}\left( 2   - \frac{1}{2\Omega}\left( 7 -12e^{-\Omega} +8e^{-2\Omega} -4e^{-3\Omega} + e^{-4\Omega} \right) \right) \\
+& \qquad +  \frac{1}{2\Omega}(1-e^{-\Omega})^2 \\
+&=  \frac{1}{(1-e^{-\Omega})^2}\left( 2   - \frac{1}{\Omega}\left( 3 -4e^{-\Omega} +e^{-2\Omega}  \right) \right)\\
+&=  \frac{2}{(1-e^{-\Omega})^2}   - \frac{ 3 -e^{-\Omega}}{\Omega(1-e^{-\Omega})}
+\end{align*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cov(Delta Y_T,Delta Y_T-1)
+Next calculate covariance with one lag:
+\begin{align*}
+\mathrm{Cov}(\Delta y_T^{obs},\Delta y_{T-1}^{obs}) 
+&=\frac{1}{(1-e^{-\Omega})^2}\int_{T-2}^{T-1}  ( 1 - e^{-\Omega (T-1-s)} ) \left( (2-e^{-\Omega}) e^{-\Omega (T-1-s)} -1  \right) ds \\
+& \qquad - \int_{T-3}^{T-2}\left( (2-e^{-\Omega}) e^{-\Omega (T-2-s)} -1  \right) e^{-\Omega (T-2-s)} ds \\
+& \qquad +  (1-e^{-\Omega})^2 \int_{-\infty}^{T-3}  e^{-\Omega (T-3-s)}  e^{-\Omega (T-2-s)} dQ_s \\
+&=   \frac{1}{2\Omega}(2-e^{-\Omega}) - \frac{1}{(1-e^{-\Omega})^2}( 1 - \frac{1-e^{-\Omega}}{\Omega}) \\
+& \qquad - \frac{1-e^{-2\Omega}}{2\Omega}\left( 2- e^{-\Omega} \right) + \frac{1}{\Omega}(1-e^{-\Omega}) \\
+& \qquad +  \frac{1 }{2\Omega} e^{-\Omega}(1-e^{-\Omega})^2 \\
+&=   \frac{1}{2\Omega}(2-e^{-\Omega}) - \frac{1}{(1-e^{-\Omega})^2}( 1 - \frac{1-e^{-\Omega}}{\Omega})
+\end{align*}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cov(Delta Y_T,Delta Y_T-M)
+And the covariance with $M \geq 2$ lags: 
+\begin{align*}
+\mathrm{Cov}(\Delta y_T^{obs},\Delta y_{T-M}^{obs}) 
+&=-\int_{T-M-1}^{T-M}  ( 1 - e^{-\Omega (T-M-s)} ) e^{-\Omega (T-2-s)} ds \\ 
+& \qquad - \int_{T-M-2}^{T-M-1}\left( (2-e^{-\Omega}) e^{-\Omega (T-M-1-s)} -1  \right)e^{-\Omega (T-2-s)} ds \\
+& \qquad +  (1-e^{-\Omega})^2 \int_{-\infty}^{T-M-2}  e^{-\Omega (T-M-2-s)} e^{-\Omega (T-2-s)} ds \\
+&= -\frac{1}{\Omega}(1-e^{-\Omega})e^{-\Omega (M-2)} +\frac{1}{2\Omega}(1-e^{-2\Omega})e^{-\Omega (M-2)} \\
+& \qquad - (2-e^{-\Omega}) e^{-\Omega(M-1)}\frac{1}{2\Omega}(1-e^{-2\Omega}) + \frac{1}{\Omega} e^{-\Omega(M-1)} (1-e^{-\Omega})\\
+& \qquad +(1-e^{-\Omega})^2 \frac{1}{2\Omega} e^{-\Omega M} \\
+\end{align*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Var( Y_T)
+Note the variance of $y_T^{obs}$ is not equal to one (as in the discrete time case). For comparison I calculate it here:
+\begin{align*}
+\mathrm{Var}( y_T^{obs}) &= \frac{1}{(1-e^{-\Omega})^2}\int_{T-1}^{T} ( 1 - 2e^{-\Omega (T-s)}  + e^{-2\Omega (T-s)}) ds \\
+& \qquad +  \int_{-\infty}^{T-1}  e^{-2\Omega (T-1-s)} ds \\
+&= \frac{1}{(1-e^{-\Omega})^2}\left( 1 - \frac{2}{\Omega}(1-e^{-\Omega})    + \frac{1}{2\Omega}(1-e^{-2\Omega}) \right) +  \frac{1}{2\Omega}
+\end{align*}
+\textit{Exponentially Decaying Consumption Process}\\
+Consumption responds to a transitory income shock according to the function:
+\begin{align*}
+g(t) = \frac{\psi \theta}{1-e^{-\theta}} e^{-\theta t}
+\end{align*}
+The flow of consumption is observed at the end of each calendar year:
+\begin{align*}
+c_T^{obs} = \frac{\psi \theta}{1-e^{-\theta}} \int_{-\infty}^{T} e^{-\theta (T-s)}dQ_s
+\end{align*}
+Now take the first difference
+\begin{align*}
+\Delta c_T^{obs} &= \frac{ \psi\theta}{1-e^{-\theta}} \left[ \int_{T-1}^{T} e^{-\theta (T-s)}dQ_s +  \int_{-\infty}^{T-1} e^{-\theta (T-s)} - e^{-\theta (T-1-s)}dQ_s \right] \\
+&= \frac{ \psi \theta}{1-e^{-\theta}}  \int_{T-1}^{T} e^{-\theta (T-s)}dQ_s - \psi \theta \int_{-\infty}^{T-1} e^{-\theta (T-1-s)} dQ_s
+\end{align*}
+Calculate covariances:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Var(Delta C_T)
+\begin{align*}
+\mathrm{Var}(\Delta c_T^{obs}) &= \frac{ \psi^2\theta^2}{(1-e^{-\theta})^2}  \int_{T-1}^{T} e^{-2\theta (T-s)}ds + \psi^2\theta^2 \int_{-\infty}^{T-1} e^{-2\theta (T-1-s)} ds \\
+&= \frac{ \psi^2\theta}{2} \left(1+ \frac{ 1-e^{-2\theta}}{(1-e^{-\theta})^2} \right)\\
+&= \frac{ \psi^2\theta}{1-e^{-\theta}}
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cov(Delta C_T,Delta C_T-M)
+\begin{align*}
+\mathrm{Cov}(\Delta c_T^{obs},\Delta c_{T-M}^{obs}) &= \frac{ -\psi^2\theta^2}{(1-e^{-\theta})}  \int_{T-M-1}^{T-M} e^{-\theta M}e^{-\theta (2(T-M-s)-1) }ds \\
+& \qquad + \psi^2\theta^2 \int_{-\infty}^{T-M-1} e^{-\theta M} e^{-2\theta (T-M-1-s)} ds \\
+&= \frac{\psi^2\theta}{2} e^{-\theta (M-1)} \left[ \frac{ e^{-2\theta}-1 }{1-e^{-\theta} }   + e^{-\theta}  \right] \\
+&= \frac{-\psi^2\theta}{2} e^{-\theta (M-1)} 
+\end{align*}
+
+\textit{Covariance of Income and Consumption}\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cov(Delta C_T,Delta Y_T)
+\begin{align*}
+\mathrm{Cov}(\Delta c_T^{obs},\Delta y_{T}^{obs}) 
+&=\frac{\psi \theta}{(1-e^{-\Omega})(1-e^{-\theta})}\int_{T-1}^{T}  ( 1 - e^{-\Omega (T-s)} ) e^{-\theta (T-s)}ds \\
+& \qquad  - \frac{\psi \theta}{1-e^{-\Omega}} \int_{T-2}^{T-1}\left( (2-e^{-\Omega}) e^{-\Omega (T-1-s)} -1  \right)  e^{-\theta (T-1-s)}ds \\
+& \qquad + \psi \theta (1-e^{-\Omega}) \int_{-\infty}^{T-2}  e^{-\Omega (T-2-s)}  e^{-\theta (T-1-s)}ds \\
+&=\frac{\psi \theta}{(1-e^{-\Omega})(1-e^{-\theta})} \left[ \frac{1}{\theta}(1-e^{-\theta}) - \frac{1}{\Omega + \theta}(1-e^{-(\Omega+\theta)})  \right] \\
+& \qquad  - \frac{\psi \theta}{1-e^{-\Omega}} \left[ (2-e^{-\Omega}) \frac{1}{\Omega + \theta}(1-e^{-(\Omega+\theta)}) - \frac{1}{\theta}(1-e^{-\theta})  \right] \\
+& \qquad + \psi \theta (1-e^{-\Omega}) e^{-\theta} \frac{1}{\Omega + \theta} \\
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cov(Delta C_T,Delta Y_{T+1})
+\begin{align*}
+\mathrm{Cov}(\Delta c_{T}^{obs},\Delta y_{T+1}^{obs}) 
+&= \frac{\psi \theta}{(1-e^{-\Omega})(1-e^{-\theta})} \int_{T-1}^{T}\left( (2-e^{-\Omega}) e^{-\Omega (T-s)} -1  \right) e^{-\theta (T-s)}ds \\
+& \qquad +\psi \theta  (1-e^{-\Omega}) \int_{-\infty}^{T-1}  e^{-\Omega (T-1-s)} e^{-\theta (T-1-s)}ds \\
+&= \frac{\psi \theta}{(1-e^{-\Omega})(1-e^{-\theta})} \left[ (2-e^{-\Omega})\frac{1}{\Omega + \theta}(1-e^{-(\Omega+\theta)}) - \frac{1}{\theta}(1-e^{-\theta})  \right] \\
+& \qquad +\psi \theta  (1-e^{-\Omega}) \frac{1}{\Omega + \theta}
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cov(Delta C_T,Delta Y_{T+M}) 
+For $M \geq 2$:
+\begin{align*}
+\mathrm{Cov}(\Delta c_T^{obs},\Delta y_{T+M}^{obs}) 
+&= -\psi \theta\frac{1-e^{-\Omega}}{1-e^{-\theta}} e^{-\Omega (M-2)}\int_{T-1}^{T}  e^{-\Omega (T-s)} e^{-\theta (T-s)}ds \\
+& \qquad + \psi \theta (1-e^{-\Omega})e^{-\Omega(M-1)} \int_{-\infty}^{T-1}  e^{-\Omega (T-1-s)} e^{-\theta (T-1-s)}ds \\
+&= -\psi \theta\frac{1-e^{-\Omega}}{1-e^{-\theta}} e^{-\Omega (M-2)}\frac{1}{\Omega + \theta}(1-e^{-(\Omega+\theta)}) \\
+& \qquad + \psi \theta (1-e^{-\Omega})e^{-\Omega(M-1)} \frac{1}{\Omega + \theta}
+\end{align*}
+
+For $M \geq 1$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cov(Delta C_T,Delta Y_{T-M})
+\begin{align*}
+\mathrm{Cov}(\Delta c_{T+M}^{obs},\Delta y_{T}^{obs}) 
+&=-\frac{\psi \theta}{1-e^{-\Omega}} e^{-\theta (M-1)} \int_{T-1}^{T}  ( 1 - e^{-\Omega (T-s)} ) e^{-\theta (T-s)}ds \\
+& \qquad +  -\frac{\psi \theta}{1-e^{-\Omega}}  e^{-\theta M} \int_{T-2}^{T-1}\left( (2-e^{-\Omega}) e^{-\Omega (T-1-s)} -1  \right)e^{-\theta (T-1-s)}ds \\
+& \qquad +  \psi \theta (1-e^{-\Omega}) e^{-\theta (M+1)} \int_{-\infty}^{T-2}  e^{-\Omega (T-2-s)} e^{-\theta (T-2-s)}ds \\
+&=-\frac{\psi \theta}{1-e^{-\Omega}} e^{-\theta (M-1)} \left[ \frac{1}{\theta}(1-e^{-\theta}) - \frac{1}{\Omega + \theta}(1-e^{-(\Omega+\theta)})  \right]\\
+& \qquad +  -\frac{\psi \theta}{1-e^{-\Omega}}  e^{-\theta M} \left[ (2-e^{-\Omega})\frac{1}{\Omega + \theta}(1-e^{-(\Omega+\theta)})  - \frac{1}{\theta}(1-e^{-\theta})\right] \\
+& \qquad +  \psi \theta (1-e^{-\Omega}) e^{-\theta (M+1)}\frac{1}{\Omega + \theta}
+\end{align*}
+
+
 
