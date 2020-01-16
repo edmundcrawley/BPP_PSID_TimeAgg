@@ -55,5 +55,11 @@ deltas_no_nan = deltas[~np.isnan(deltas).any(axis=1)]
 cov_matrix = np.cov(np.transpose(deltas_no_nan))
 phi_BPP =  cov_matrix[0,1]/cov_matrix[2,1]
 psi_BPP =  cov_matrix[0,3]/cov_matrix[2,3]
-
-
+for n in np.array(range(13))+1:
+    select_n = np.array(range(num_hh))*T +n
+    deltas_year_n = deltas[select_n,:]
+    deltas_no_nan_year_n = deltas_year_n[~np.isnan(deltas_year_n).any(axis=1)]
+    cov_matrix_year_n = np.cov(np.transpose(deltas_no_nan_year_n))
+    phi_BPP_year_n =  cov_matrix_year_n[0,1]/cov_matrix_year_n[2,1]
+    psi_BPP_year_n =  cov_matrix_year_n[0,3]/cov_matrix_year_n[2,3]
+    print(phi_BPP_year_n)

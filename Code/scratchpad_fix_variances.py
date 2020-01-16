@@ -92,7 +92,7 @@ def Parameter_estimation(model, c_vector, omega, T, ma=1, taste=1, varying_ins=0
         init_params[0] = 0.1   #teta, ma component of income process
     if taste:
         init_params[ma] = 0.01  #variance of taste shocks
-    init_params[ma+taste:ma+taste+perm_shk_params] = 0.03*np.ones(perm_shk_params)
+    init_params[ma+taste:ma+taste+perm_shk_params] = 0.0275*np.ones(perm_shk_params)
     init_params[ma+taste+perm_shk_params:ma+taste+perm_shk_params+tran_shk_params] = 0.03*np.ones(tran_shk_params)
     init_params[ma+taste+perm_shk_params+tran_shk_params:ma+taste+perm_shk_params+tran_shk_params+perm_ins_params] = 1.0*np.ones(perm_ins_params)
     init_params[ma+taste+perm_shk_params+tran_shk_params+perm_ins_params:ma+taste+perm_shk_params+tran_shk_params+perm_ins_params+tran_ins_params] = 0.3*np.ones(tran_ins_params)
@@ -102,13 +102,30 @@ def Parameter_estimation(model, c_vector, omega, T, ma=1, taste=1, varying_ins=0
         model_cov = implied_cov(params, ma, taste, varying_ins,T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
         distance = np.dot(np.dot((model_cov-empirical_cov), weight_matrix),(model_cov-empirical_cov))
         if fix == "perm_var":
-            distance = distance + 10000*np.std(params[ma+taste:ma+taste+perm_shk_params]) #add in this to keep same variance for permanent shocks over the whole time period
+            perm_var=params[ma+taste+perm_shk_params]
+            params_new=np.ones_like(params)*params
+            params_new[ma+taste:ma+taste+perm_shk_params]=perm_var
+            model_cov = implied_cov(params_new, ma, taste, varying_ins,T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+            distance = np.dot(np.dot((model_cov-empirical_cov), weight_matrix),(model_cov-empirical_cov))
+            distance = distance + 10000*np.sum((params[ma+taste+1:ma+taste+perm_shk_params])**2) #add in this to keep same variance for permanent shocks over the whole time period
         elif fix == "tran_var":
             distance = distance + 10000*(np.std(params[ma+taste+perm_shk_params:ma+taste+perm_shk_params+tran_shk_params]))
         elif fix == "all_var":
-            distance = distance + 10000*(np.std(params[ma+taste:ma+taste+perm_shk_params])+np.std(params[ma+taste+perm_shk_params:ma+taste+perm_shk_params+tran_shk_params]))
+            distance = distance + 10000*(np.std(params[ma+taste:ma+taste+perm_shk_params])+10*np.std(params[ma+taste+perm_shk_params:ma+taste+perm_shk_params+tran_shk_params]))
         if fix == "mid_perm_var":
-            distance = distance + 10000*np.std(params[ma+taste+1:ma+taste+perm_shk_params]) #add in this to keep same variance for permanent shocks over the whole time period
+            params_new=np.ones_like(params)*params
+            fix_perm_var=params[ma+taste+perm_shk_params+1]
+            params_new[ma+taste+1:ma+taste+perm_shk_params-1]=fix_perm_var
+            model_cov = implied_cov(params_new, ma, taste, varying_ins,T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+            distance = np.dot(np.dot((model_cov-empirical_cov), weight_matrix),(model_cov-empirical_cov))
+            distance = distance + 10000*np.sum((params[ma+taste+2:ma+taste+perm_shk_params-1])**2)
+        elif fix == "fix0275":
+            distance = distance + 10000*(100*np.sum((params[ma+taste:ma+taste+perm_shk_params]-0.0275)**2)+10*np.std(params[ma+taste+perm_shk_params:ma+taste+perm_shk_params+tran_shk_params]))
+        return distance
+    
+    def orig_objectiveFun(params, ma, taste, varying_ins, T, empirical_cov, weight_matrix,fix):
+        model_cov = implied_cov(params, ma, taste, varying_ins,T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+        distance = np.dot(np.dot((model_cov-empirical_cov), weight_matrix),(model_cov-empirical_cov))
         return distance
     
     # Define the weight matrix as Equal Weight Minimum Distance
@@ -122,6 +139,7 @@ def Parameter_estimation(model, c_vector, omega, T, ma=1, taste=1, varying_ins=0
     solved_objective = minimize(objectiveFun, init_params2, args=(ma, taste, varying_ins, T, c_vector, weight_matrix,fix),method='Nelder-Mead')
      
     solved_params = solved_objective.x
+    print(orig_objectiveFun(solved_params, ma, taste, varying_ins, T, c_vector, weight_matrix,fix))
     
     fun_for_jacob = lambda params: implied_cov(params, ma, taste, varying_ins,T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
     
@@ -191,6 +209,24 @@ var_perm_fix_allvar, var_perm_se_fix_allvar, var_tran_fix_allvar, var_tran_se_fi
  ins_perm_se_fix_allvar, ins_tran_fix_allvar, ins_tran_se_fix_allvar, var_c_error_fix_allvar, \
  var_c_error_se_fix_allvar, teta_fix_allvar, teta_se_fix_allvar, varcsi_fix_allvar, varcsi_se_fix_allvar \
   = Parameter_estimation('BPP', c_vector, omega, T, ma=1, taste=1, varying_ins=0,fix="all_var") 
+
+print('Replicate BPP')
+var_perm_fix0275, var_perm_se_fix0275, var_tran_fix0275, var_tran_se_fix0275, ins_perm_fix0275, \
+ ins_perm_se_fix0275, ins_tran_fix0275, ins_tran_se_fix0275, var_c_error_fix0275, \
+ var_c_error_se_fix0275, teta_fix0275, teta_se_fix0275, varcsi_fix0275, varcsi_se_fix0275 \
+  = Parameter_estimation('BPP', c_vector, omega, T, ma=1, taste=1, varying_ins=0,fix="fix0275") 
+
+
+plt.plot(var_perm_fix_allvar)
+plt.plot(var_perm_fix_permvar)
+plt.plot(var_perm_fix_midpermvar)
+plt.plot(var_perm_fix0275)
+
+plt.plot(var_tran_fix_allvar)
+plt.plot(var_tran_fix_midpermvar)
+
+plt.plot(var_c_error_fix_allvar)
+plt.plot(var_c_error_fix_midpermvar)
   
 print('Replicate BPP')
 var_perm_fix_midpermvar, var_perm_se_fix_midpermvar, var_tran_fix_midpermvar, var_tran_se_fix_midpermvar, ins_perm_fix_midpermvar, \
