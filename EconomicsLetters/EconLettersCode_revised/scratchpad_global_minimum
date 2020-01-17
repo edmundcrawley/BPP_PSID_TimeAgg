@@ -1,0 +1,87 @@
+#######################################################
+# Have we found a global minimum - code for Original BPP
+from min_distance_replication import implied_cov_BPP
+
+model = 'BPP'
+c_vector, omega, T = create_moment_vector(Path("./InputFiles/CohA.csv"))
+ma=1
+taste=1
+varying_ins=0
+if model=='BPP':
+    implied_cov = lambda params, ma, taste, varying_ins, T, perm_shk_params, \
+                        tran_shk_params, perm_ins_params,tran_ins_params,\
+                        meas_error_params : implied_cov_BPP(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+
+# get number of parameters of each type
+perm_shk_params = T-4  # time varying permanent shock variance
+tran_shk_params = T-2
+perm_ins_params = 1+varying_ins
+tran_ins_params = 1+varying_ins
+meas_error_params = 9   #time-varying measurement error variance
+
+num_params = ma+taste+perm_shk_params+tran_shk_params+perm_ins_params+tran_ins_params+meas_error_params
+
+init_params = np.zeros(num_params)
+
+if ma==1:
+    init_params[0] = 0.1   #teta, ma component of income process
+if taste:
+    init_params[ma] = 0.01  #variance of taste shocks
+init_params[ma+taste:ma+taste+perm_shk_params] = 0.03*np.ones(perm_shk_params)
+init_params[ma+taste+perm_shk_params:ma+taste+perm_shk_params+tran_shk_params] = 0.03*np.ones(tran_shk_params)
+init_params[ma+taste+perm_shk_params+tran_shk_params:ma+taste+perm_shk_params+tran_shk_params+perm_ins_params] = 1.0*np.ones(perm_ins_params)
+init_params[ma+taste+perm_shk_params+tran_shk_params+perm_ins_params:ma+taste+perm_shk_params+tran_shk_params+perm_ins_params+tran_ins_params] = 0.3*np.ones(tran_ins_params)
+init_params[ma+taste+perm_shk_params+tran_shk_params+perm_ins_params+tran_ins_params:ma+taste+perm_shk_params+tran_shk_params+perm_ins_params+tran_ins_params+meas_error_params] = 0.06*np.ones(meas_error_params)
+
+def objectiveFun(params, ma, taste, varying_ins, T, empirical_cov, weight_matrix, ins_perm):
+    params_with_ins_perm = np.concatenate((params[0:ma+taste+perm_shk_params+tran_shk_params],[ins_perm], params[ma+taste+perm_shk_params+tran_shk_params:]))
+    model_cov = implied_cov(params_with_ins_perm, ma, taste, varying_ins,T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+    distance = np.dot(np.dot((model_cov-empirical_cov), weight_matrix),(model_cov-empirical_cov))
+    distance = distance #+ 10000*np.std(params[ma+taste:ma+taste+perm_shk_params]) #add in this to keep same variance for permanent shocks over the whole time period
+    return distance
+
+# Define the weight matrix as Equal Weight Minimum Distance
+weight_matrix = np.diag(np.diag(omega)**(-1))
+
+
+n_values = 8
+obj_value = np.zeros(n_values)
+ins_perm_array = np.linspace(0.1,0.8,n_values)
+for j in range(n_values):
+    ins_perm = ins_perm_array[j]
+    solved_objective1 = minimize(objectiveFun, np.concatenate((init_params[0:ma+taste+perm_shk_params+tran_shk_params],init_params[ma+taste+perm_shk_params+tran_shk_params+1:])), args=(ma, taste, varying_ins, T, c_vector, weight_matrix, ins_perm))  
+    obj_value[j] = solved_objective1.fun
+    
+
+
+#######################################################
+# Have we found a global minimum - code for ConsIncExpDecay    
+def objectiveFun(params, taste, T, ins_perm, empirical_cov, weight_matrix):
+    params_with_ins_perm = np.concatenate((params[0:3],[ins_perm], params[3:]))
+    model_cov = implied_cov(params_with_ins_perm, taste,T)
+    distance = np.dot(np.dot((model_cov-empirical_cov), weight_matrix),(model_cov-empirical_cov))
+    distance = distance #+ 10000*np.std(params[ma+taste:ma+taste+perm_shk_params]) #add in this to keep same variance for permanent shocks over the whole time period
+    return distance
+
+# Define the weight matrix as Equal Weight Minimum Distance
+weight_matrix = np.diag(np.diag(omega)**(-1))
+
+ret = objectiveFun(init_params, taste, T, theta, c_vector, weight_matrix)
+
+#Solve with one method, reset init_params, then solve again. Seems to converge OK.
+solved_objective1 = minimize(objectiveFun, np.concatenate((init_params[0:3],init_params[4:])), args=(taste, T, 0.18, c_vector, weight_matrix))  
+init_params2 = solved_objective1.x
+solved_objective = minimize(objectiveFun, init_params2, args=(taste, T, 0.18, c_vector, weight_matrix),method='Nelder-Mead')
+ 
+solved_params = solved_objective.x
+
+n_values = 8
+obj_value = np.zeros(n_values)
+ins_perm_array = np.linspace(0.1,0.8,n_values)
+for j in range(n_values):
+    ins_perm = ins_perm_array[j]
+    solved_objective1 = minimize(objectiveFun, np.concatenate((init_params[0:3],init_params[4:])), args=(taste, T, ins_perm, c_vector, weight_matrix))  
+    obj_value[j] = solved_objective1.fun
+    
+    solved_objective_a = minimize(objectiveFun, np.concatenate((init_params[0:3],init_params[4:])), args=(taste, T, 3.97175874e-01, c_vector, weight_matrix))  
+    solved_objective_b = minimize(objectiveFun, np.concatenate((init_params[0:3],init_params[4:])), args=(taste, T, 0.2, c_vector, weight_matrix))  
