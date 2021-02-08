@@ -18,6 +18,7 @@ time_agg_ma = 0
 #First create the empirical moments for whole sample
 print('Create Moment Vector from Inputs for All')
 c_vector, omega, T = create_moment_vector(Path("./InputFiles/CohA.csv"))
+#c_vector, omega, T = create_moment_vector(Path("./InputFiles/SimulatedData.csv"))
 
 #Next replicate BPP
 print('Replicate BPP')
