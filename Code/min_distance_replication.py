@@ -8,7 +8,7 @@ from numpy.linalg import inv
 from scipy.optimize import minimize
 import numdifftools as nd
 
-def implied_cov_BPP(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params):
+def implied_cov_BPP(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params, BPP_bug=False):
     if ma==1:
         teta = params[0] 
     else:
@@ -129,10 +129,11 @@ def implied_cov_BPP(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk
         difyc[j-2,j]=-teta*ins_tran[varying_ins]*var_tran[j-2]
 
     #/* Final matrix */
-    
+    if (BPP_bug):
+        difyc = np.transpose(difyc)
     dif[0:T,0:T]            =difc
-    dif[T:2*(T),0:T]        =difyc
-    dif[0:T,T:2*(T)]        =np.transpose(difyc)
+    dif[T:2*(T),0:T]        =np.transpose(difyc)
+    dif[0:T,T:2*(T)]        =difyc
     dif[T:2*(T),T:2*(T)]    =dify
     
     difa1 = np.concatenate((dif[0:8,:],dif[11:2*T,:]),0)
@@ -143,7 +144,7 @@ def implied_cov_BPP(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk
 
     return fm
 
-def implied_cov_TimeAgg(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params):
+def implied_cov_TimeAgg(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params, BPP_bug=False):
     if ma==1:
         teta = params[0] 
     else:
@@ -270,9 +271,11 @@ def implied_cov_TimeAgg(params, ma, taste, varying_ins, T, perm_shk_params, tran
     ##########################################
             
     #/* Final matrix */
+    if (BPP_bug):
+        difyc = np.transpose(difyc)
     dif[0:T,0:T]            =difc
-    dif[T:2*(T),0:T]        =difyc
-    dif[0:T,T:2*(T)]        =np.transpose(difyc)
+    dif[T:2*(T),0:T]        =np.transpose(difyc)
+    dif[0:T,T:2*(T)]        =difyc
     dif[T:2*(T),T:2*(T)]    =dify
     
     difa1 = np.concatenate((dif[0:8,:],dif[11:2*T,:]),0)
@@ -285,7 +288,7 @@ def implied_cov_TimeAgg(params, ma, taste, varying_ins, T, perm_shk_params, tran
 
 
 # This assumes transitory shocks last for period tau and decay linearly in this time
-def implied_cov_TimeAgg3(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params):
+def implied_cov_TimeAgg3(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params, BPP_bug=False):
     if ma==1:
         tau = params[0] 
     else:
@@ -412,9 +415,11 @@ def implied_cov_TimeAgg3(params, ma, taste, varying_ins, T, perm_shk_params, tra
     ##########################################
             
     #/* Final matrix */
+    if (BPP_bug):
+        difyc = np.transpose(difyc)
     dif[0:T,0:T]            =difc
-    dif[T:2*(T),0:T]        =difyc
-    dif[0:T,T:2*(T)]        =np.transpose(difyc)
+    dif[T:2*(T),0:T]        =np.transpose(difyc)
+    dif[0:T,T:2*(T)]        =difyc
     dif[T:2*(T),T:2*(T)]    =dify
     
     difa1 = np.concatenate((dif[0:8,:],dif[11:2*T,:]),0)
@@ -427,7 +432,7 @@ def implied_cov_TimeAgg3(params, ma, taste, varying_ins, T, perm_shk_params, tra
 
 
 # This assumes transitory shocks last for period tau and are uniformly distributed in this time
-def implied_cov_TimeAgg2(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params):
+def implied_cov_TimeAgg2(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params, BPP_bug=False):
     if ma==1:
         tau = params[0] 
     else:
@@ -554,9 +559,11 @@ def implied_cov_TimeAgg2(params, ma, taste, varying_ins, T, perm_shk_params, tra
     ##########################################
             
     #/* Final matrix */
+    if (BPP_bug):
+        difyc = np.transpose(difyc)
     dif[0:T,0:T]            =difc
-    dif[T:2*(T),0:T]        =difyc
-    dif[0:T,T:2*(T)]        =np.transpose(difyc)
+    dif[T:2*(T),0:T]        =np.transpose(difyc)
+    dif[0:T,T:2*(T)]        =difyc
     dif[T:2*(T),T:2*(T)]    =dify
     
     difa1 = np.concatenate((dif[0:8,:],dif[11:2*T,:]),0)
@@ -568,7 +575,7 @@ def implied_cov_TimeAgg2(params, ma, taste, varying_ins, T, perm_shk_params, tra
     return fm
 
 
-def Parameter_estimation(model, c_vector, omega, T, ma=1, taste=1, varying_ins=0):
+def Parameter_estimation(model, c_vector, omega, T, ma=1, taste=1, varying_ins=0,BPP_bug=False):
     '''
     Replicates table 6 from BPP
     
@@ -615,26 +622,26 @@ def Parameter_estimation(model, c_vector, omega, T, ma=1, taste=1, varying_ins=0
     if model=='BPP':
         implied_cov = lambda params, ma, taste, varying_ins, T, perm_shk_params, \
                             tran_shk_params, perm_ins_params,tran_ins_params,\
-                            meas_error_params : implied_cov_BPP(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+                            meas_error_params : implied_cov_BPP(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params, BPP_bug)
     if model=='TimeAgg':
         implied_cov = lambda params, ma, taste, varying_ins, T, perm_shk_params, \
                             tran_shk_params, perm_ins_params,tran_ins_params,\
-                            meas_error_params : implied_cov_TimeAgg3(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+                            meas_error_params : implied_cov_TimeAgg3(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params, BPP_bug)
         
     if model=='TimeAgg_twoshot':
         implied_cov = lambda params, ma, taste, varying_ins, T, perm_shk_params, \
                             tran_shk_params, perm_ins_params,tran_ins_params,\
-                            meas_error_params : implied_cov_TimeAgg(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+                            meas_error_params : implied_cov_TimeAgg(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params, BPP_bug)
 
     if model=='TimeAgg_uniform':
         implied_cov = lambda params, ma, taste, varying_ins, T, perm_shk_params, \
                             tran_shk_params, perm_ins_params,tran_ins_params,\
-                            meas_error_params : implied_cov_TimeAgg2(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+                            meas_error_params : implied_cov_TimeAgg2(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params, BPP_bug)
 
     if model=='TimeAgg_lineardecay':
         implied_cov = lambda params, ma, taste, varying_ins, T, perm_shk_params, \
                             tran_shk_params, perm_ins_params,tran_ins_params,\
-                            meas_error_params : implied_cov_TimeAgg3(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params)
+                            meas_error_params : implied_cov_TimeAgg3(params, ma, taste, varying_ins, T, perm_shk_params, tran_shk_params, perm_ins_params,tran_ins_params, meas_error_params, BPP_bug)
 
     
     # get number of parameters of each type

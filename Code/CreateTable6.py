@@ -13,6 +13,7 @@ from pathlib import Path
 
 time_agg_taste = 1
 time_agg_ma = 0
+BPP_bug = True
 
 ###############################################################################
 #First create the empirical moments for whole sample
@@ -25,41 +26,41 @@ print('Replicate BPP')
 var_perm_BPP, var_perm_se_BPP, var_tran_BPP, var_tran_se_BPP, ins_perm_BPP, \
  ins_perm_se_BPP, ins_tran_BPP, ins_tran_se_BPP, var_c_error_BPP, \
  var_c_error_se_BPP, teta_BPP, teta_se_BPP, varcsi_BPP, varcsi_se_BPP \
-  = Parameter_estimation('BPP', c_vector, omega, T, ma=1, taste=1, varying_ins=0) 
+  = Parameter_estimation('BPP', c_vector, omega, T, ma=1, taste=1, varying_ins=0, BPP_bug=BPP_bug) 
  
 #Then do time aggregated version
 print('Do Time Aggregated Version')
 var_perm_TimeAgg, var_perm_se_TimeAgg, var_tran_TimeAgg, var_tran_se_TimeAgg, ins_perm_TimeAgg, \
  ins_perm_se_TimeAgg, ins_tran_TimeAgg, ins_tran_se_TimeAgg, var_c_error_TimeAgg, \
  var_c_error_se_TimeAgg, teta_TimeAgg, teta_se_TimeAgg, varcsi_TimeAgg, varcsi_se_TimeAgg \
-  = Parameter_estimation('TimeAgg', c_vector, omega, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0) 
+  = Parameter_estimation('TimeAgg', c_vector, omega, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0, BPP_bug=BPP_bug) 
   
 #Replicate BPP with no transitory persistence
 print('Replicate BPP with no transitory persistence')
 var_perm_BPP_nopers, var_perm_se_BPP_nopers, var_tran_BPP_nopers, var_tran_se_BPP_nopers, ins_perm_BPP_nopers, \
  ins_perm_se_BPP_nopers, ins_tran_BPP_nopers, ins_tran_se_BPP_nopers, var_c_error_BPP_nopers, \
  var_c_error_se_BPP_nopers, teta_BPP_nopers, teta_se_BPP_nopers, varcsi_BPP_nopers, varcsi_se_BPP_nopers \
-  = Parameter_estimation('BPP', c_vector, omega, T, ma=0, taste=1, varying_ins=0) 
+  = Parameter_estimation('BPP', c_vector, omega, T, ma=0, taste=1, varying_ins=0, BPP_bug=BPP_bug) 
  
 #Then do time aggregated version with uniformly distributed transitory persistence
 print('Do Time Aggregated Version with Uniform Transitory Persistence')
 var_perm_TimeAgg_unif, var_perm_se_TimeAgg_unif, var_tran_TimeAgg_unif, var_tran_se_TimeAgg_unif, ins_perm_TimeAgg_unif, \
  ins_perm_se_TimeAgg_unif, ins_tran_TimeAgg_unif, ins_tran_se_TimeAgg_unif, var_c_error_TimeAgg_unif, \
  var_c_error_se_TimeAgg_unif, teta_TimeAgg_unif, teta_se_TimeAgg_unif, varcsi_TimeAgg_unif, varcsi_se_TimeAgg_unif \
-  = Parameter_estimation('TimeAgg_uniform', c_vector, omega, T, ma=1, taste=time_agg_taste, varying_ins=0) 
+  = Parameter_estimation('TimeAgg_uniform', c_vector, omega, T, ma=1, taste=time_agg_taste, varying_ins=0, BPP_bug=BPP_bug) 
   
 #Then do time aggregated version with linearly decaying  transitory persistence
 print('Do Time Aggregated Version with Linear Decay Transitory Persistence')
 var_perm_TimeAgg_lineardecay, var_perm_se_TimeAgg_lineardecay, var_tran_TimeAgg_lineardecay, var_tran_se_TimeAgg_lineardecay, ins_perm_TimeAgg_lineardecay, \
  ins_perm_se_TimeAgg_lineardecay, ins_tran_TimeAgg_lineardecay, ins_tran_se_TimeAgg_lineardecay, var_c_error_TimeAgg_lineardecay, \
  var_c_error_se_TimeAgg_lineardecay, teta_TimeAgg_lineardecay, teta_se_TimeAgg_lineardecay, varcsi_TimeAgg_lineardecay, varcsi_se_TimeAgg_lineardecay \
-  = Parameter_estimation('TimeAgg_lineardecay', c_vector, omega, T, ma=1, taste=time_agg_taste, varying_ins=0) 
+  = Parameter_estimation('TimeAgg_lineardecay', c_vector, omega, T, ma=1, taste=time_agg_taste, varying_ins=0, BPP_bug=BPP_bug) 
   
 print('Do Time Aggregated Version with discrete two-shot persistence')
 var_perm_TimeAgg_twoshot, var_perm_se_TimeAgg_twoshot, var_tran_TimeAgg_twoshot, var_tran_se_TimeAgg_twoshot, ins_perm_TimeAgg_twoshot, \
  ins_perm_se_TimeAgg_twoshot, ins_tran_TimeAgg_twoshot, ins_tran_se_TimeAgg_twoshot, var_c_error_TimeAgg_twoshot, \
  var_c_error_se_TimeAgg_twoshot, teta_TimeAgg_twoshot, teta_se_TimeAgg_twoshot, varcsi_TimeAgg_twoshot, varcsi_se_TimeAgg_twoshot \
-  = Parameter_estimation('TimeAgg_twoshot', c_vector, omega, T, ma=1, taste=time_agg_taste, varying_ins=0) 
+  = Parameter_estimation('TimeAgg_twoshot', c_vector, omega, T, ma=1, taste=time_agg_taste, varying_ins=0, BPP_bug=BPP_bug) 
 ###############################################################################   
 ###############################################################################
 #Empirical moments for non-college
@@ -70,14 +71,14 @@ c_vector_NC, omega_NC, T = create_moment_vector(Path("./InputFiles/CohA_nocolleg
 var_perm_BPP_NC, var_perm_se_BPP_NC, var_tran_BPP_NC, var_tran_se_BPP_NC, ins_perm_BPP_NC, \
  ins_perm_se_BPP_NC, ins_tran_BPP_NC, ins_tran_se_BPP_NC, var_c_error_BPP_NC, \
  var_c_error_se_BPP_NC, teta_BPP_NC, teta_se_BPP_NC, varcsi_BPP_NC, varcsi_se_BPP_NC \
-  = Parameter_estimation('BPP', c_vector_NC, omega_NC, T, ma=1, taste=1, varying_ins=0) 
+  = Parameter_estimation('BPP', c_vector_NC, omega_NC, T, ma=1, taste=1, varying_ins=0, BPP_bug=BPP_bug) 
  
 #Then do time aggregated version
 print('Do Time Aggregated for Non-College')
 var_perm_TimeAgg_NC, var_perm_se_TimeAgg_NC, var_tran_TimeAgg_NC, var_tran_se_TimeAgg_NC, ins_perm_TimeAgg_NC, \
  ins_perm_se_TimeAgg_NC, ins_tran_TimeAgg_NC, ins_tran_se_TimeAgg_NC, var_c_error_TimeAgg_NC, \
  var_c_error_se_TimeAgg_NC, teta_TimeAgg_NC, teta_se_TimeAgg_NC, varcsi_TimeAgg_NC, varcsi_se_TimeAgg_NC \
-  = Parameter_estimation('TimeAgg', c_vector_NC, omega_NC, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0) 
+  = Parameter_estimation('TimeAgg', c_vector_NC, omega_NC, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0, BPP_bug=BPP_bug) 
 ###############################################################################
 #Empirical moments for college graduates
 print('Replicate BPP for College Graduates')
@@ -87,14 +88,14 @@ c_vector_C, omega_C, T = create_moment_vector(Path("./InputFiles/CohA_college.cs
 var_perm_BPP_C, var_perm_se_BPP_C, var_tran_BPP_C, var_tran_se_BPP_C, ins_perm_BPP_C, \
  ins_perm_se_BPP_C, ins_tran_BPP_C, ins_tran_se_BPP_C, var_c_error_BPP_C, \
  var_c_error_se_BPP_C, teta_BPP_C, teta_se_BPP_C, varcsi_BPP_C, varcsi_se_BPP_C \
-  = Parameter_estimation('BPP', c_vector_C, omega_C, T, ma=1, taste=1, varying_ins=0) 
+  = Parameter_estimation('BPP', c_vector_C, omega_C, T, ma=1, taste=1, varying_ins=0, BPP_bug=BPP_bug) 
  
 #Then do time aggregated version
 print('Do Time Aggregated for College Graduates')
 var_perm_TimeAgg_C, var_perm_se_TimeAgg_C, var_tran_TimeAgg_C, var_tran_se_TimeAgg_C, ins_perm_TimeAgg_C, \
  ins_perm_se_TimeAgg_C, ins_tran_TimeAgg_C, ins_tran_se_TimeAgg_C, var_c_error_TimeAgg_C, \
  var_c_error_se_TimeAgg_C, teta_TimeAgg_C, teta_se_TimeAgg_C, varcsi_TimeAgg_C, varcsi_se_TimeAgg_C \
-  = Parameter_estimation('TimeAgg', c_vector_C, omega_C, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0) 
+  = Parameter_estimation('TimeAgg', c_vector_C, omega_C, T, ma=time_agg_ma, taste=time_agg_taste, varying_ins=0, BPP_bug=BPP_bug) 
 ###############################################################################
  
 ###############################################################################
